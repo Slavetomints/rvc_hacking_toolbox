@@ -22,10 +22,6 @@ def select_main_mode # rubocop:disable Metrics/MethodLength
 
   # validation of mode
   acceptable_inputs.each do |input|
-    puts mode
-    puts mode.class
-    puts input
-    puts input.class
     return mode if input == mode
   end
 
