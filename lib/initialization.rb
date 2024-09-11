@@ -15,13 +15,12 @@ require_relative 'wireless_acess_exploitation'
 require_relative 'special_functions'
 
 def show_title
+  clear_terminal
   puts "\n\n      Welcome to the RVC Hacking Toolbox!".colorize(:green)
   show_ascii_title_image
 end
 
-def select_main_mode # rubocop:disable Metrics/MethodLength
-  acceptable_inputs = %w[1 2 3 4 5 6 7 8 9 10 quit]
-
+def select_main_mode
   puts '1 - Open Source Intelligence        6 - Network Traffic Analysis'
   puts '2 - Cryptography                    7 - Scanning & Reconnaissance'
   puts '3 - Password Cracking               8 - Web Application Exploitation'
@@ -29,16 +28,7 @@ def select_main_mode # rubocop:disable Metrics/MethodLength
   puts '5 - Log Analysis                    10 - Enumeration & Exploitation'
   puts "'quit' to quit"
 
-  puts("\n\nPlease select your mode: ")
-  mode = gets.chomp
-
-  # validation of mode
-  acceptable_inputs.each do |input|
-    return mode if input == mode
-  end
-
-  puts 'Invalid mode selected, please select a new mode'
-  select_main_mode
+  validate_mode('main')
 end
 
 def show_title_page # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength
@@ -48,10 +38,10 @@ def show_title_page # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexi
   case mode
   when '1'
     clear_terminal
-    OpenSourceIntelligence.select_mode
+    OpenSourceIntelligence.load_menu
   when '2'
     clear_terminal
-    Cryptography.select_mode
+    Cryptography.load_menu
   when '3'
     clear_terminal
     PasswordCracking.select_mode
@@ -78,6 +68,9 @@ def show_title_page # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexi
     EnumerationAndExploitation.select_mode
   when 'quit'
     clear_terminal
+    exit
+  when 'boykisser'
+    show_boykisser
     exit
   else
     puts 'Invalid mode selected, exiting now'
