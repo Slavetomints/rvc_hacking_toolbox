@@ -15,8 +15,29 @@ module Cryptography
     puts '4 - Decimal       10 - Vigenère'
     puts '5 - Hexadecimal   11 - RSA'
     puts '6 - Ceaser        12 - A1Z26'
-    puts "'quit' to quit"
+    puts "'quit' to quit    'main' to go to main menu"
 
-    validate_mode('cryptography_main')
+    select_mode
+  end
+
+  def select_mode # rubocop:disable Metrics/CyclomaticComplexity,Metrics/MethodLength
+    mode = validate_mode('cryptography_main')
+
+    case mode
+    whesn '1'
+    when '2'
+    when '3'
+    when '4'
+    when '5'
+    when '6'
+    when '7'
+    when '8'
+    when '9'
+    when '10'
+    when '11'
+    when '12'
+    when 'quit'
+    when 'main'
+    end
   end
 end
