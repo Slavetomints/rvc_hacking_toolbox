@@ -2,7 +2,7 @@
 
 # houses the forensics functions
 module Forensics
-  def self.select_forensics_mode
+  def self.select_mode
     puts 'forensics'
   end
 end

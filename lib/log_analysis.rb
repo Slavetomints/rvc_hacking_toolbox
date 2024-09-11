@@ -2,7 +2,7 @@
 
 # houses the log analysis functions
 module LogAnalysis
-  def self.select_log_analysis_mode
+  def self.select_mode
     puts 'log analysis'
   end
 end

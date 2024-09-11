@@ -2,7 +2,7 @@
 
 # houses the network traffic analysis functions
 module NetworkTrafficAnalysis
-  def self.select_network_traffic_analysis_mode
+  def self.select_mode
     puts 'network traffic analysis'
   end
 end
