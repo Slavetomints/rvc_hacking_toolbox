@@ -2,7 +2,7 @@
 
 # houses the cryptography functions
 module Cryptography
-  def select_cryptography_mode
+  def self.select_cryptography_mode
     puts 'cryptography'
   end
 end
