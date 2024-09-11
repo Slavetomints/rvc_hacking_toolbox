@@ -2,17 +2,17 @@
 
 require 'colorize'
 require_relative 'ascii_art'
-require_relative 'lib/cryptography'
-require_relative 'lib/enumeration_and_exploitation'
-require_relative 'lib/forensics'
-require_relative 'lib/log_analysis'
-require_relative 'lib/network_traffic_analysis'
-require_relative 'lib/open_source_intelligence'
-require_relative 'lib/password_cracking'
-require_relative 'lib/scanning_and_reconnaissance'
-require_relative 'lib/web_application_exploitation'
-require_relative 'lib/wireless_acess_exploitation'
-require_relative 'lib/special_functions'
+require_relative 'cryptography'
+require_relative 'enumeration_and_exploitation'
+require_relative 'forensics'
+require_relative 'log_analysis'
+require_relative 'network_traffic_analysis'
+require_relative 'open_source_intelligence'
+require_relative 'password_cracking'
+require_relative 'scanning_and_reconnaissance'
+require_relative 'web_application_exploitation'
+require_relative 'wireless_acess_exploitation'
+require_relative 'special_functions'
 
 def show_title
   puts "\n\n      Welcome to the RVC Hacking Toolbox!".colorize(:green)
