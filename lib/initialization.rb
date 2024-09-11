@@ -21,6 +21,7 @@ end
 
 def select_main_mode # rubocop:disable Metrics/MethodLength
   acceptable_inputs = %w[1 2 3 4 5 6 7 8 9 10 quit]
+
   puts '1 - Open Source Intelligence        6 - Network Traffic Analysis'
   puts '2 - Cryptography                    7 - Scanning & Reconnaissance'
   puts '3 - Password Cracking               8 - Web Application Exploitation'
@@ -76,6 +77,7 @@ def show_title_page # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexi
     clear_terminal
     EnumerationAndExploitation.select_mode
   when 'quit'
+    clear_terminal
     exit
   else
     puts 'Invalid mode selected, exiting now'
