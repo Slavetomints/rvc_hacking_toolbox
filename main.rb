@@ -2,4 +2,4 @@
 
 require_relative 'lib/main_menu'
 
-load_title_page
+load_main_menu

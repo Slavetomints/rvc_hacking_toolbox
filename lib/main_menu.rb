@@ -21,17 +21,17 @@ def show_title
 end
 
 def select_main_mode
-  puts '1 - Open Source Intelligence        6 - Network Traffic Analysis'
-  puts '2 - Cryptography                    7 - Scanning & Reconnaissance'
-  puts '3 - Password Cracking               8 - Web Application Exploitation'
-  puts '4 - Forensics                       9 - Wireless Access Exploitation'
-  puts '5 - Log Analysis                    10 - Enumeration & Exploitation'
-  puts "'quit' to quit"
+  puts '  1 - Open Source Intelligence        6 - Network Traffic Analysis'
+  puts '  2 - Cryptography                    7 - Scanning & Reconnaissance'
+  puts '  3 - Password Cracking               8 - Web Application Exploitation'
+  puts '  4 - Forensics                       9 - Wireless Access Exploitation'
+  puts '  5 - Log Analysis                    10 - Enumeration & Exploitation'
+  puts "  'quit' to quit"
 
   validate_mode('main')
 end
 
-def load_title_page # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength
+def load_main_menu # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength
   show_title
   mode = select_main_mode
 
@@ -40,7 +40,6 @@ def load_title_page # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexi
     clear_terminal
     OpenSourceIntelligence.load_menu
   when '2'
-    clear_terminal
     Cryptography.load_menu
   when '3'
     clear_terminal
