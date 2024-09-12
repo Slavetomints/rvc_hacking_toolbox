@@ -68,7 +68,6 @@ module Cryptography
       clear_terminal
       load_vigenere_menu
     when '11'
-      clear_terminal
       load_rsa_menu
     when '12'
       load_a1z26_menu
@@ -81,7 +80,7 @@ module Cryptography
   end
 
   def self.quit_or_continue # rubocop:disable Metrics/MethodLength
-    puts "'q'uit program or 'c'ontinue hacking"
+    puts "\n'q'uit program or 'c'ontinue hacking"
     response = gets.chomp
     if response == 'q'
       clear_terminal

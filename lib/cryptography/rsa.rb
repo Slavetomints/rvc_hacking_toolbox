@@ -2,6 +2,7 @@
 
 require 'prime'
 require 'openssl'
+require 'colorize'
 require_relative '../ascii_art'
 require_relative 'cryptography'
 
@@ -36,28 +37,30 @@ def select_rsa_mode # rubocop:disable Metrics/MethodLength
   end
 end
 
-def rsa
-  puts "  \nWhat is the first factor?"
+def rsa # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+  puts "\n  What is the first factor?"
   p = gets.chomp.to_i
 
-  puts "  \nWhat is the second factor?"
+  puts "\n  What is the second factor?"
   q = gets.chomp.to_i
 
-  puts "  \nWhat is e?"
+  puts "\n  What is e?"
   e = gets.chomp.to_i
 
-  puts "  \nWhat is c (please seperate by comma ex: 1,2,3)"
+  puts "\n  What is c (please seperate by comma ex: 1,2,3)"
   c = gets.chomp.split(',')
 
+  print "  \nThe decrypted string is: "
   phi = (p - 1) * (q - 1)
 
   d = OpenSSL::BN.new(e.to_s).mod_inverse(OpenSSL::BN.new(phi.to_s))
 
   c.each do |i|
     m = OpenSSL::BN.new(i.to_s).mod_exp(d, OpenSSL::BN.new((p * q).to_s))
-    print m.to_i.chr
+    print m.to_i.chr.colorize(:green)
   end
-  puts ''
+  puts "\n"
+  Cryptography.quit_or_continue
 end
 
 def find_factors
