@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'prime'
+require 'openssl'
 require_relative '../ascii_art'
 require_relative 'cryptography'
 
@@ -37,16 +38,26 @@ end
 
 def rsa
   puts "  \nWhat is the first factor?"
-  p = gets.chomp
+  p = gets.chomp.to_i
 
   puts "  \nWhat is the second factor?"
-  q = gets.chomp
+  q = gets.chomp.to_i
 
   puts "  \nWhat is e?"
-  e = gets.chomp
+  e = gets.chomp.to_i
 
   puts "  \nWhat is c (please seperate by comma ex: 1,2,3)"
   c = gets.chomp.split(',')
+
+  phi = (p - 1) * (q - 1)
+
+  d = OpenSSL::BN.new(e.to_s).mod_inverse(OpenSSL::BN.new(phi.to_s))
+
+  c.each do |i|
+    m = OpenSSL::BN.new(i.to_s).mod_exp(d, OpenSSL::BN.new((p * q).to_s))
+    print m.to_i.chr
+  end
+  puts ''
 end
 
 def find_factors
