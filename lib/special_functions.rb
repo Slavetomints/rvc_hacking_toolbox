@@ -22,6 +22,8 @@ def validate_mode(menu) # rubocop:disable Metrics/MethodLength
     acceptable_inputs = %w[1 2 3 4 5 6 7 8 9 10 11 12 quit main]
   when 'one_two'
     acceptable_inputs = %w[1 2 quit main previous]
+  when 'one'
+    acceptable_inputs = %w[1 quit main previous]
   end
 
   acceptable_inputs.each do |input|

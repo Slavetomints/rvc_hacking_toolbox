@@ -72,7 +72,6 @@ module Cryptography
       clear_terminal
       load_rsa_menu
     when '12'
-      clear_terminal
       load_a1z26_menu
     when 'quit'
       clear_terminal

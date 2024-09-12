@@ -6,9 +6,10 @@ require_relative '../main_menu'
 require_relative 'cryptography'
 
 def load_a1z26_menu
+  clear_terminal
   show_cryptography
   puts "\n\n  A1Z26 is a cipher where every letter is replaces by its corresponding number"
-  puts "\n    1 - Encode string\n    2 - Decode string\n    'quit' to quit\n    'main' to go to main menu\n    'previous' to go to previous menu"
+  puts "\n    1 - Encode string\n    2 - Decode string\n    'quit' to quit\n    'main' to go to main menu\n    'previous' to go to previous menu" # rubocop:disable Layout/LineLength
 
   select_a1z26_mode
 end
