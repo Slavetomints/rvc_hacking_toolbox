@@ -8,8 +8,8 @@ require_relative 'cryptography'
 def load_caesar_menu
   clear_terminal
   show_cryptography
-  puts '  caesar Description'
-  puts "\n    1 - Caeser shift\n    'quit' to quit\n    'main' to go to main menu\n    'previous' to go to previous menu" # rubocop:disable Layout/LineLength
+  puts '  Caesar Description'
+  puts "\n    1 - Caesar shift\n    'quit' to quit\n    'main' to go to main menu\n    'previous' to go to previous menu" # rubocop:disable Layout/LineLength
 
   select_caesar_mode
 end
@@ -21,7 +21,7 @@ def select_caesar_mode # rubocop:disable Metrics/MethodLength
   when '1'
     clear_terminal
     show_cryptography
-    caeser_shift
+    caesar_shift
   when 'quit'
     clear_terminal
     exit
@@ -32,7 +32,7 @@ def select_caesar_mode # rubocop:disable Metrics/MethodLength
   end
 end
 
-def caeser_shift # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
+def caesar_shift # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
   # Gather the input and prepare it
   puts 'What would you like to be encoded?'
   string = gets
