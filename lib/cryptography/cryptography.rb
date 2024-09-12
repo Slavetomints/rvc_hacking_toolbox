@@ -9,7 +9,7 @@ require_relative 'atbash'
 require_relative 'base_32'
 require_relative 'base_64'
 require_relative 'binary'
-require_relative 'ceaser'
+require_relative 'caesar'
 require_relative 'decimal'
 require_relative 'hexadecimal'
 require_relative 'morse'
@@ -28,7 +28,7 @@ module Cryptography
     puts '  3 - Binary        9 - Morse'
     puts '  4 - Decimal       10 - Vigenère'
     puts '  5 - Hexadecimal   11 - RSA'
-    puts '  6 - Ceaser        12 - A1Z26'
+    puts '  6 - Caesar        12 - A1Z26'
     puts "  'quit' to quit    'main' to go to main menu"
 
     select_mode
@@ -54,8 +54,7 @@ module Cryptography
       clear_terminal
       load_hexadecimal_menu
     when '6'
-      clear_terminal
-      load_ceaser_menu
+      load_caesar_menu
     when '7'
       clear_terminal
       load_rail_fence_menu
