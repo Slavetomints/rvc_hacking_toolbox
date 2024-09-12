@@ -19,7 +19,7 @@ def validate_mode(menu) # rubocop:disable Metrics/MethodLength
   when 'main'
     acceptable_inputs = %w[1 2 3 4 5 6 7 8 9 10 quit boykisser]
   when 'cryptography_main'
-    acceptable_inputs = %w[1 2 3 4 5 6 7 8 9 10 11 12 quit]
+    acceptable_inputs = %w[1 2 3 4 5 6 7 8 9 10 11 12 quit main]
   end
 
   acceptable_inputs.each do |input|

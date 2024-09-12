@@ -2,7 +2,7 @@
 
 require 'colorize'
 require_relative 'ascii_art'
-require_relative 'cryptography'
+require_relative 'cryptography/cryptography'
 require_relative 'enumeration_and_exploitation'
 require_relative 'forensics'
 require_relative 'log_analysis'
@@ -31,7 +31,7 @@ def select_main_mode
   validate_mode('main')
 end
 
-def show_title_page # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength
+def load_title_page # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength
   show_title
   mode = select_main_mode
 

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'lib/initialization'
+require_relative 'lib/main_menu'
 
-show_title_page
+load_title_page
