@@ -9,8 +9,12 @@ require_relative 'cryptography'
 def load_rsa_menu
   clear_terminal
   show_cryptography
-  puts '  RSA Description'
-  puts "\n    1 - Decrypt\n    2 - Find factors\n    'quit' to quit\n    'main' to go to main menu\n    'previous' to go to previous menu" # rubocop:disable Layout/LineLength
+  puts "\n\nRSA Description"
+  puts "\n1 - Decrypt\n
+  2 - Find factors\n
+  'quit' to quit\n
+  'main' to go to main menu\n
+  'previous' to go to previous menu"
 
   select_rsa_mode
 end
@@ -38,19 +42,19 @@ def select_rsa_mode # rubocop:disable Metrics/MethodLength
 end
 
 def rsa # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
-  puts "\n  What is the first factor?"
+  puts "\nWhat is the first factor?"
   p = gets.chomp.to_i
 
-  puts "\n  What is the second factor?"
+  puts "\nWhat is the second factor?"
   q = gets.chomp.to_i
 
-  puts "\n  What is e?"
+  puts "\nWhat is e?"
   e = gets.chomp.to_i
 
-  puts "\n  What is c (please seperate by comma ex: 1,2,3)"
+  puts "\nWhat is c (please seperate by comma ex: 1,2,3)"
   c = gets.chomp.split(',')
 
-  print "  \nThe decrypted string is: "
+  print "\nThe decrypted string is: "
   phi = (p - 1) * (q - 1)
 
   d = OpenSSL::BN.new(e.to_s).mod_inverse(OpenSSL::BN.new(phi.to_s))
@@ -64,7 +68,7 @@ def rsa # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
 end
 
 def find_factors
-  puts '  What is the number you want to find the factors of?'
+  puts 'What is the number you want to find the factors of?'
   number = gets.chomp.to_i
   divisor = number
   factors = []

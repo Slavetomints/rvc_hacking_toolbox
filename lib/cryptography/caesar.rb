@@ -8,7 +8,7 @@ require_relative 'cryptography'
 def load_caesar_menu
   clear_terminal
   show_cryptography
-  puts '  Caesar Description'
+  puts "\n\n  Caesar Description"
   puts "\n    1 - Caesar shift\n    'quit' to quit\n    'main' to go to main menu\n    'previous' to go to previous menu" # rubocop:disable Layout/LineLength
 
   select_caesar_mode

@@ -16,17 +16,17 @@ require_relative 'special_functions'
 
 def show_title
   clear_terminal
-  puts "\n\n      Welcome to the RVC Hacking Toolbox!".colorize(:green)
+  puts "\n\n                Welcome to the RVC Hacking Toolbox!".colorize(:green)
   show_ascii_title_image
 end
 
 def select_main_mode
-  puts '  1 - Open Source Intelligence        6 - Network Traffic Analysis'
-  puts '  2 - Cryptography                    7 - Scanning & Reconnaissance'
-  puts '  3 - Password Cracking               8 - Web Application Exploitation'
-  puts '  4 - Forensics                       9 - Wireless Access Exploitation'
-  puts '  5 - Log Analysis                    10 - Enumeration & Exploitation'
-  puts "  'quit' to quit"
+  puts '1 - Open Source Intelligence        6 - Network Traffic Analysis'
+  puts '2 - Cryptography                    7 - Scanning & Reconnaissance'
+  puts '3 - Password Cracking               8 - Web Application Exploitation'
+  puts '4 - Forensics                       9 - Wireless Access Exploitation'
+  puts '5 - Log Analysis                    10 - Enumeration & Exploitation'
+  puts "'quit' to quit"
 
   validate_mode('main')
 end

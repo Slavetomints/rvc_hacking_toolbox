@@ -12,7 +12,7 @@ end
 
 # validation of mode
 def validate_mode(menu) # rubocop:disable Metrics/MethodLength
-  print("\n\n  Please select your mode: ")
+  print("\n\nPlease select your mode: ")
   mode = gets.chomp
 
   case menu

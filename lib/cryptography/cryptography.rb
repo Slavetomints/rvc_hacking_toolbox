@@ -23,13 +23,13 @@ module Cryptography
     clear_terminal
     show_cryptography
 
-    puts '  1 - Base 64       7 - Rail Fence'
-    puts '  2 - Base32        8 - Atbash'
-    puts '  3 - Binary        9 - Morse'
-    puts '  4 - Decimal       10 - Vigenère'
-    puts '  5 - Hexadecimal   11 - RSA'
-    puts '  6 - Caesar        12 - A1Z26'
-    puts "  'quit' to quit    'main' to go to main menu"
+    puts "\n1 - Base 64       7 - Rail Fence"
+    puts '2 - Base32        8 - Atbash'
+    puts '3 - Binary        9 - Morse'
+    puts '4 - Decimal       10 - Vigenère'
+    puts '5 - Hexadecimal   11 - RSA'
+    puts '6 - Caesar        12 - A1Z26'
+    puts "'quit' to quit    'main' to go to main menu"
 
     select_mode
   end
