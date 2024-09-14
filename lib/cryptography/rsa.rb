@@ -10,11 +10,7 @@ def load_rsa_menu
   clear_terminal
   show_cryptography
   puts "\n\nRSA Description"
-  puts "\n1 - Decrypt\n
-  2 - Find factors\n
-  'quit' to quit\n
-  'main' to go to main menu\n
-  'previous' to go to previous menu"
+  puts "\n1 - Decrypt\n2 - Find factors\n'quit' to quit\n'main' to go to main menu\n'previous' to go to previous menu"
 
   select_rsa_mode
 end

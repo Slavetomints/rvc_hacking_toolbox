@@ -9,10 +9,7 @@ def load_atbash_menu
   clear_terminal
   show_cryptography
   puts "\n\nAtbash description"
-  puts "\n1 - Reverse string\n
-  'quit' to quit\n
-  'main' to go to main menu\n
-  'previous' to go to previous menu"
+  puts "\n1 - Reverse string\n'quit' to quit\n'main' to go to main menu\n'previous' to go to previous menu"
 
   select_atbash_mode
 end

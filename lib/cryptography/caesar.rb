@@ -8,8 +8,8 @@ require_relative 'cryptography'
 def load_caesar_menu
   clear_terminal
   show_cryptography
-  puts "\n\n  Caesar Description"
-  puts "\n    1 - Caesar shift\n    'quit' to quit\n    'main' to go to main menu\n    'previous' to go to previous menu" # rubocop:disable Layout/LineLength
+  puts "\n\nCaesar Description"
+  puts "\n1 - Caesar shift\n'quit' to quit\n'main' to go to main menu\n'previous' to go to previous menu"
 
   select_caesar_mode
 end
@@ -28,7 +28,7 @@ def select_caesar_mode # rubocop:disable Metrics/MethodLength
   when 'main'
     load_main_menu
   when 'previous'
-    load_cryptography
+    Cryptography.load_menu
   end
 end
 
@@ -69,7 +69,8 @@ def caesar_shift # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/
       cipher_text << char
     end
   end
-  puts cipher_text.join
+  print 'The your string is: '
+  puts cipher_text.join.colorize(:green)
 
   Cryptography.quit_or_continue
 end
