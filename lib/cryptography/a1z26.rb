@@ -5,20 +5,11 @@ require_relative '../special_functions'
 require_relative '../main_menu'
 require_relative 'cryptography'
 
-# Thic class runs the A1Z26 cipher
-class A1Z26
+# This class runs the A1Z26 cipher
+class A1Z26 < Cryptography
   def initialize
     clear_terminal
     show_cryptography
-    select_a1z26_mode
-  end
-
-  def load_a1z26_menu
-    clear_terminal
-    show_cryptography
-    puts "\n\nA1Z26 is a cipher where every letter is replaces by its corresponding number"
-    puts "\n1 - Encode string\n2 - Decode string\n'quit' to quit\n'main' to go to main menu\n'previous' to go to previous menu" # rubocop:disable Layout/LineLength
-
     select_a1z26_mode
   end
 
@@ -36,11 +27,11 @@ class A1Z26
     mode = prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
 
     case mode
-    when '1'
+    when 1
       clear_terminal
       show_cryptography
       encode_a1z26
-    when '2'
+    when 2
       clear_terminal
       show_cryptography
       decode_a1z26
@@ -61,7 +52,7 @@ class A1Z26
     decoded_chars = num_arr.map(&:chr)
     puts "\n#{decoded_chars.join.colorize(:green)}"
 
-    Cryptography.quit_or_continue
+    quit_or_continue
   end
 
   def encode_a1z26
@@ -70,6 +61,6 @@ class A1Z26
     char_arr = gets.chomp.downcase.chars.map { |character| character.ord - 96 }
     puts "\n#{char_arr.join(',').colorize(:green)}"
 
-    Cryptography.quit_or_continue
+    quit_or_continue
   end
 end

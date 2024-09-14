@@ -4,17 +4,13 @@ require 'colorize'
 require_relative '../special_functions'
 require_relative '../ascii_art'
 require_relative '../main_menu'
-require_relative 'a1z26'
-require_relative 'atbash'
 require_relative 'base_32'
 require_relative 'base_64'
 require_relative 'binary'
-require_relative 'caesar'
 require_relative 'decimal'
 require_relative 'hexadecimal'
 require_relative 'morse'
 require_relative 'rail_fence'
-require_relative 'rsa'
 require_relative 'vigenere'
 
 # houses the main cryptography functions
@@ -49,10 +45,11 @@ class Cryptography
 
     case mode
     when 1
+      require_relative 'a1z26'
       A1Z26.new
     when 2
-      clear_terminal
-      load_atbash_menu
+      require_relative 'atbash'
+      Atbash.new
     when 3
       clear_terminal
       load_base_32_menu
@@ -63,7 +60,8 @@ class Cryptography
       clear_terminal
       load_binary_menu
     when 6
-      load_caesar_menu
+      require_relative 'caesar'
+      Caesar.new
     when 7
       clear_terminal
       load_decimal_menu
@@ -77,7 +75,8 @@ class Cryptography
       clear_terminal
       load_rail_fence_menu
     when 11
-      load_rsa_menu
+      require_relative 'rsa'
+      RSA.new
     when 12
       load_vigenere_menu
     when 'quit'
@@ -95,7 +94,7 @@ class Cryptography
       clear_terminal
       exit
     elsif response == 'c'
-      load_menu
+      Cryptography.new
     else
       puts 'Invalid input detected, pick again'.colorize(:red)
       quit_or_continue

@@ -2,4 +2,4 @@
 
 require_relative 'lib/main_menu'
 
-toolbox = Toolbox.new
+Toolbox.new
