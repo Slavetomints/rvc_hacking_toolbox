@@ -4,8 +4,6 @@ require 'colorize'
 require_relative '../special_functions'
 require_relative '../ascii_art'
 require_relative '../main_menu'
-require_relative 'base_32'
-require_relative 'base_64'
 require_relative 'binary'
 require_relative 'hexadecimal'
 require_relative 'morse'
@@ -13,7 +11,7 @@ require_relative 'rail_fence'
 require_relative 'vigenere'
 
 # houses the main cryptography functions
-class Cryptography
+class Cryptography < Toolbox
   def initialize
     clear_terminal
     show_cryptography
@@ -26,8 +24,8 @@ class Cryptography
     choices = [
       { name: 'A1Z26', value: 1 },
       { name: 'Atbash', value: 2 },
-      { name: 'Base 64', value: 3, disabled: '(In development)' },
-      { name: 'Base 32', value: 4, disabled: '(In development)' },
+      { name: 'Base 32', value: 3 },
+      { name: 'Base 64', value: 4 },
       { name: 'Binary', value: 5, disabled: '(In development)' },
       { name: 'Caesar', value: 6 },
       { name: 'Decimal', value: 7 },
@@ -35,7 +33,7 @@ class Cryptography
       { name: 'Morse Code', value: 9, disabled: '(In development)' },
       { name: 'Rail Fence', value: 10, disabled: '(In development)' },
       { name: 'RSA', value: 11 },
-      { name: 'SHA1', value: 12, disabled: '(In development)' },
+      { name: 'SHA1', value: 12 },
       { name: 'Vigenere', value: 13, disabled: '(In development)' },
       { name: 'Go to Main Menu', value: 'main' },
       { name: 'Quit Program', value: 'quit' }
@@ -51,11 +49,11 @@ class Cryptography
       require_relative 'atbash'
       Atbash.new
     when 3
-      clear_terminal
-      load_base_32_menu
+      require_relative 'base_32'
+      BASE32.new
     when 4
-      clear_terminal
-      load_base_64_menu
+      require_relative 'base_64'
+      BASE64.new
     when 5
       clear_terminal
       load_binary_menu
@@ -78,7 +76,8 @@ class Cryptography
       require_relative 'rsa'
       RSA.new
     when 12
-      # sha1
+      require_relative 'sha1'
+      SHA1.new
     when 13
       load_vigenere_menu
     when 'quit'

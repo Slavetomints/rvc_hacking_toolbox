@@ -3,7 +3,6 @@
 require 'colorize'
 require 'tty-prompt'
 require_relative 'ascii_art'
-require_relative 'cryptography/cryptography'
 require_relative 'enumeration_and_exploitation'
 require_relative 'forensics'
 require_relative 'log_analysis'
@@ -51,6 +50,7 @@ class Toolbox
       clear_terminal
       OpenSourceIntelligence.load_menu
     when 2
+      require_relative 'cryptography/cryptography'
       Cryptography.new
     when 3
       clear_terminal
@@ -81,6 +81,14 @@ class Toolbox
       exit
     else
       puts 'Invalid mode selected, exiting now'
+    end
+  end
+
+  def clear_terminal
+    if RUBY_PLATFORM =~ /win32|win64|\.NET|windows|cygwin|mingw32/i
+      system('cls')
+    else
+      system('clear')
     end
   end
 end

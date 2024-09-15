@@ -4,7 +4,6 @@ require 'colorize'
 require 'tty-prompt'
 require_relative '../ascii_art'
 require_relative 'cryptography'
-require_relative '../special_functions'
 
 # This class runs the Atbash cipher
 class Atbash < Cryptography
