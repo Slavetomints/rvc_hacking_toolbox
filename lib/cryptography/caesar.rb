@@ -77,7 +77,7 @@ class Caesar < Cryptography
         cipher_text << char
       end
     end
-    print 'The your string is: '
+    print "\nYour result is: "
     puts cipher_text.join.colorize(:green)
 
     quit_or_continue

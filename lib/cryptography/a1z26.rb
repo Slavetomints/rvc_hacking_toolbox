@@ -50,6 +50,8 @@ class A1Z26 < Cryptography
 
     num_arr = gets.chomp.split(',').map { |number| number.to_i + 96 }
     decoded_chars = num_arr.map(&:chr)
+
+    print "\n Your result is: "
     puts "\n#{decoded_chars.join.colorize(:green)}"
 
     quit_or_continue
@@ -59,6 +61,8 @@ class A1Z26 < Cryptography
     puts 'Please enter only letters with no spaces'
 
     char_arr = gets.chomp.downcase.chars.map { |character| character.ord - 96 }
+
+    print "\n Your result is: "
     puts "\n#{char_arr.join(',').colorize(:green)}"
 
     quit_or_continue

@@ -7,7 +7,6 @@ require_relative '../main_menu'
 require_relative 'base_32'
 require_relative 'base_64'
 require_relative 'binary'
-require_relative 'decimal'
 require_relative 'hexadecimal'
 require_relative 'morse'
 require_relative 'rail_fence'
@@ -31,17 +30,18 @@ class Cryptography
       { name: 'Base 32', value: 4, disabled: '(In development)' },
       { name: 'Binary', value: 5, disabled: '(In development)' },
       { name: 'Caesar', value: 6 },
-      { name: 'Decimal', value: 7, disabled: '(In development)' },
+      { name: 'Decimal', value: 7 },
       { name: 'Hexadecimal', value: 8, disabled: '(In development)' },
       { name: 'Morse Code', value: 9, disabled: '(In development)' },
       { name: 'Rail Fence', value: 10, disabled: '(In development)' },
       { name: 'RSA', value: 11 },
-      { name: 'Vigenere', value: 12, disabled: '(In development)' },
+      { name: 'SHA1', value: 12, disabled: '(In development)' },
+      { name: 'Vigenere', value: 13, disabled: '(In development)' },
       { name: 'Go to Main Menu', value: 'main' },
       { name: 'Quit Program', value: 'quit' }
     ]
 
-    mode = prompt.select('Please select your mode', choices, per_page: 14, cycle: true)
+    mode = prompt.select('Please select your mode', choices, per_page: 15, cycle: true)
 
     case mode
     when 1
@@ -63,8 +63,8 @@ class Cryptography
       require_relative 'caesar'
       Caesar.new
     when 7
-      clear_terminal
-      load_decimal_menu
+      require_relative 'decimal'
+      Decimal.new
     when 8
       clear_terminal
       load_hexadecimal_menu
@@ -78,6 +78,8 @@ class Cryptography
       require_relative 'rsa'
       RSA.new
     when 12
+      # sha1
+    when 13
       load_vigenere_menu
     when 'quit'
       clear_terminal

@@ -58,7 +58,7 @@ class Atbash < Cryptography
         atbash_string << char
       end
     end
-    print "\nYour string is: "
+    print "\nYour result is: "
     puts atbash_string.join.colorize(:green)
 
     quit_or_continue

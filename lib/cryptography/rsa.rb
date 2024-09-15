@@ -7,7 +7,7 @@ require_relative '../ascii_art'
 require_relative 'cryptography'
 
 # This class houses the functions that make RSA decryption possible
-class RSA
+class RSA < Cryptography
   def initialize
     clear_terminal
     show_cryptography
@@ -59,7 +59,7 @@ class RSA
     puts "\nWhat is the message? (please seperate by comma ex: 1,2,3)"
     c = gets.chomp.split(',')
 
-    print "\nThe decrypted string is: "
+    print "\nYour result is: "
     phi = (p - 1) * (q - 1)
 
     d = OpenSSL::BN.new(e.to_s).mod_inverse(OpenSSL::BN.new(phi.to_s))
