@@ -4,10 +4,8 @@ require 'colorize'
 require_relative '../special_functions'
 require_relative '../ascii_art'
 require_relative '../main_menu'
-require_relative 'binary'
 require_relative 'hexadecimal'
 require_relative 'morse'
-require_relative 'rail_fence'
 require_relative 'vigenere'
 
 # houses the main cryptography functions
@@ -26,12 +24,12 @@ class Cryptography < Toolbox
       { name: 'Atbash', value: 2 },
       { name: 'Base 32', value: 3 },
       { name: 'Base 64', value: 4 },
-      { name: 'Binary', value: 5, disabled: '(In development)' },
+      { name: 'Binary', value: 5 },
       { name: 'Caesar', value: 6 },
       { name: 'Decimal', value: 7 },
       { name: 'Hexadecimal', value: 8, disabled: '(In development)' },
       { name: 'Morse Code', value: 9, disabled: '(In development)' },
-      { name: 'Rail Fence', value: 10, disabled: '(In development)' },
+      { name: 'Rail Fence', value: 10 },
       { name: 'RSA', value: 11 },
       { name: 'SHA1', value: 12 },
       { name: 'Vigenere', value: 13, disabled: '(In development)' },
@@ -55,8 +53,8 @@ class Cryptography < Toolbox
       require_relative 'base_64'
       BASE64.new
     when 5
-      clear_terminal
-      load_binary_menu
+      require_relative 'binary'
+      Binary.new
     when 6
       require_relative 'caesar'
       Caesar.new
@@ -70,8 +68,8 @@ class Cryptography < Toolbox
       clear_terminal
       load_morse_menu
     when 10
-      clear_terminal
-      load_rail_fence_menu
+      require_relative 'rail_fence'
+      RailFence.new
     when 11
       require_relative 'rsa'
       RSA.new
