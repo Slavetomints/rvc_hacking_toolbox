@@ -3,7 +3,6 @@
 require 'colorize'
 require 'tty-prompt'
 require 'digest'
-require_relative '../ascii_art'
 require_relative 'cryptography'
 
 # This class contains the functions for the SHA1 class

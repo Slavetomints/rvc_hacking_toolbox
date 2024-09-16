@@ -3,7 +3,6 @@
 require 'colorize'
 require 'telegraph'
 require 'tty-prompt'
-require_relative '../ascii_art'
 require_relative 'cryptography'
 
 # This class runs the 3456543646346536 cipher
@@ -55,7 +54,7 @@ class MorseCode < Cryptography
     print "\nYour result is: "
     puts ciphertext.colorize(:green)
 
-    quit_or_continue
+    quit_or_continue(MorseCode)
   end
 
   def decode_morse_code
@@ -67,6 +66,6 @@ class MorseCode < Cryptography
     print "\nYour result is: "
     puts plaintext.colorize(:green)
 
-    quit_or_continue
+    quit_or_continue(MorseCode)
   end
 end

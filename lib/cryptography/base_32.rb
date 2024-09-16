@@ -3,7 +3,6 @@
 require 'colorize'
 require 'tty-prompt'
 require 'base32'
-require_relative '../ascii_art'
 require_relative 'cryptography'
 
 # This class contains the functions for the Base32 class

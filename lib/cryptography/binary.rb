@@ -2,7 +2,6 @@
 
 require 'colorize'
 require 'tty-prompt'
-require_relative '../ascii_art'
 require_relative 'cryptography'
 
 # This class runs the binary functions and menu

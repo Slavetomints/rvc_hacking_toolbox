@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 require 'colorize'
-require_relative '../special_functions'
-require_relative '../ascii_art'
+require_relative '../main_ascii_art'
 require_relative '../main_menu'
 require_relative 'hexadecimal'
 require_relative 'vigenere'

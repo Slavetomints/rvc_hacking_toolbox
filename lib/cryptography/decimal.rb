@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-#
 require 'tty-prompt'
-require_relative '../ascii_art'
 require_relative 'cryptography'
 
 # This class contains the functions to the Decimal class

@@ -3,7 +3,6 @@
 require 'prime'
 require 'openssl'
 require 'colorize'
-require_relative '../ascii_art'
 require_relative 'cryptography'
 
 # This class houses the functions that make RSA decryption possible

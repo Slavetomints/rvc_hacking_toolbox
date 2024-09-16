@@ -2,11 +2,10 @@
 
 require 'colorize'
 require 'tty-prompt'
-require_relative '../ascii_art'
 require_relative 'cryptography'
 
-# This class runs the 3456543646346536 cipher
-class RailFence < Cryptography
+# This class runs the RailFence cipher
+class RailFence < Cryptography # rubocop:disable Metrics/ClassLength
   def initialize
     clear_terminal
     show_cryptography
@@ -94,7 +93,7 @@ class RailFence < Cryptography
     rails = Array.new(rows) { Array.new(ciphertext.length, '') }
     positions = Array.new(ciphertext.length)
 
-    ciphertext.each_with_index do |char, index|
+    ciphertext.each_with_index do |_char, index|
       rails[current_row][index] = '*'
       positions[index] = current_row
 

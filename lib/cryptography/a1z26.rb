@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../ascii_art'
-require_relative '../special_functions'
 require_relative '../main_menu'
 require_relative 'cryptography'
 

@@ -2,7 +2,7 @@
 
 require 'colorize'
 require 'tty-prompt'
-require_relative 'ascii_art'
+require_relative 'main_ascii_art'
 require_relative 'enumeration_and_exploitation'
 require_relative 'forensics'
 require_relative 'log_analysis'
