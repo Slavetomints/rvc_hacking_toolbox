@@ -53,7 +53,7 @@ class Binary < Cryptography
     print "\nYour result is: "
     puts string.each_byte.map { |byte| format '%08b', byte }.join(' ').colorize(:green)
 
-    quit_or_continue
+    quit_or_continue(Binary)
   end
 
   def binary_to_text
@@ -63,6 +63,6 @@ class Binary < Cryptography
 
     print "\nYour result is: "
     puts binary_input.colorize(:green)
-    quit_or_continue
+    quit_or_continue(Binary)
   end
 end

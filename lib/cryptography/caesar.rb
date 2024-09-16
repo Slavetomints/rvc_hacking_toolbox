@@ -80,6 +80,6 @@ class Caesar < Cryptography
     print "\nYour result is: "
     puts cipher_text.join.colorize(:green)
 
-    quit_or_continue
+    quit_or_continue(Caesar)
   end
 end

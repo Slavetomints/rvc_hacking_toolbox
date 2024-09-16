@@ -56,7 +56,7 @@ class BASE64 < Cryptography
     print "\nYour result is: "
     puts encoded.colorize(:green)
 
-    quit_or_continue
+    quit_or_continue(BASE64)
   end
 
   def decode_base64
@@ -69,6 +69,6 @@ class BASE64 < Cryptography
     print "\nYour result is: "
     puts decoded.colorize(:green)
 
-    quit_or_continue
+    quit_or_continue(BASE64)
   end
 end

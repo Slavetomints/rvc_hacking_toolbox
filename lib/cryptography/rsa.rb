@@ -69,7 +69,7 @@ class RSA < Cryptography
       print m.to_i.chr.colorize(:green)
     end
     puts "\n"
-    quit_or_continue
+    quit_or_continue(RSA)
   end
 
   def find_factors
@@ -83,6 +83,6 @@ class RSA < Cryptography
       divisor -= 1
     end
     print "#{factors[0..((factors.length / 2) - 1)]}\n"
-    quit_or_continue
+    quit_or_continue(RSA)
   end
 end

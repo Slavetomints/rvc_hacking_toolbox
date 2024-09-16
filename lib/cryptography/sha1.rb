@@ -52,6 +52,6 @@ class SHA1 < Cryptography
     print "\nYour result is: "
     puts sha1.hexdigest.colorize(:green)
 
-    quit_or_continue
+    quit_or_continue(SHA1)
   end
 end

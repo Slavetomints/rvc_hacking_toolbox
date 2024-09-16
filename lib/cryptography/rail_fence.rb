@@ -79,7 +79,7 @@ class RailFence < Cryptography
     print "\nYour result is: "
     puts result.colorize(:green)
 
-    quit_or_continue
+    quit_or_continue(RailFence)
   end
 
   def decrypt_rail_fence # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
@@ -133,6 +133,6 @@ class RailFence < Cryptography
     print "\nYour result is: "
     puts result.colorize(:green)
 
-    quit_or_continue
+    quit_or_continue(RailFence)
   end
 end

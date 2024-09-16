@@ -52,7 +52,7 @@ class Decimal < Cryptography
     print "\nYour result is: "
     puts str_arr.join(' ').colorize(:green)
 
-    quit_or_continue
+    quit_or_continue(Decimal)
   end
 
   def decode_decimal
@@ -62,6 +62,6 @@ class Decimal < Cryptography
     print "\nYour result is: "
     puts num_arr.join.colorize(:green)
 
-    quit_or_continue
+    quit_or_continue(Decimal)
   end
 end

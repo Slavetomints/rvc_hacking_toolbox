@@ -1,25 +1,23 @@
 # frozen_string_literal: true
 
 require 'colorize'
-require 'telegraph'
 require 'tty-prompt'
 require_relative '../ascii_art'
 require_relative 'cryptography'
 
 # This class runs the 3456543646346536 cipher
-class MorseCode < Cryptography
+class Class < Cryptography
   def initialize
     clear_terminal
     show_cryptography
-    select_morse_mode
+    select_cipher_mode
   end
 
-  def select_morse_mode # rubocop:disable Metrics/MethodLength
+  def select_cipher_mode 
     prompt = TTY::Prompt.new
 
     choices = [
-      { name: 'Encode', value: 1 },
-      { name: 'Decode', value: 2 },
+      { name: 'Reverse string', value: 1 },
       { name: 'Go to previous menu', value: 'previous' },
       { name: 'Go to Main Menu', value: 'main' },
       { name: 'Quit Program', value: 'quit' }
@@ -31,11 +29,7 @@ class MorseCode < Cryptography
     when 1
       clear_terminal
       show_cryptography
-      encode_morse_code
-    when 2
-      clear_terminal
-      show_cryptography
-      decode_morse_code
+      cipher
     when 'quit'
       clear_terminal
       exit
@@ -46,26 +40,10 @@ class MorseCode < Cryptography
     end
   end
 
-  def encode_morse_code
-    puts 'Please enter your message to be encoded'
-
-    plaintext = gets.chomp
-
-    ciphertext = Telegraph.text_to_morse(plaintext)
+  def cipher
+    
     print "\nYour result is: "
-    puts ciphertext.colorize(:green)
-
-    quit_or_continue
-  end
-
-  def decode_morse_code
-    puts 'Please enter your message to be decoded, seperate letters by spaces and words by 7 spaces'
-
-    ciphertext = gets.chomp
-
-    plaintext = Telegraph.morse_to_text(ciphertext)
-    print "\nYour result is: "
-    puts plaintext.colorize(:green)
+    puts result.colorize(:green)
 
     quit_or_continue
   end

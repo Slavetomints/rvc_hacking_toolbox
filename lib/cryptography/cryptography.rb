@@ -5,7 +5,6 @@ require_relative '../special_functions'
 require_relative '../ascii_art'
 require_relative '../main_menu'
 require_relative 'hexadecimal'
-require_relative 'morse'
 require_relative 'vigenere'
 
 # houses the main cryptography functions
@@ -28,7 +27,7 @@ class Cryptography < Toolbox
       { name: 'Caesar', value: 6 },
       { name: 'Decimal', value: 7 },
       { name: 'Hexadecimal', value: 8, disabled: '(In development)' },
-      { name: 'Morse Code', value: 9, disabled: '(In development)' },
+      { name: 'Morse Code', value: 9 },
       { name: 'Rail Fence', value: 10 },
       { name: 'RSA', value: 11 },
       { name: 'SHA1', value: 12 },
@@ -65,8 +64,8 @@ class Cryptography < Toolbox
       clear_terminal
       load_hexadecimal_menu
     when 9
-      clear_terminal
-      load_morse_menu
+      require_relative 'morse'
+      MorseCode.new
     when 10
       require_relative 'rail_fence'
       RailFence.new
@@ -86,14 +85,14 @@ class Cryptography < Toolbox
     end
   end
 
-  def quit_or_continue # rubocop:disable Metrics/MethodLength
+  def quit_or_continue(child_class) # rubocop:disable Metrics/MethodLength
     puts "\n'q'uit program or 'c'ontinue hacking"
     response = gets.chomp
     if response == 'q'
       clear_terminal
       exit
     elsif response == 'c'
-      Cryptography.new
+      child_class.new
     else
       puts 'Invalid input detected, pick again'.colorize(:red)
       quit_or_continue

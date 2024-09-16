@@ -54,7 +54,7 @@ class A1Z26 < Cryptography
     print "\n Your result is: "
     puts "\n#{decoded_chars.join.colorize(:green)}"
 
-    quit_or_continue
+    quit_or_continue(A1Z26)
   end
 
   def encode_a1z26
@@ -65,6 +65,6 @@ class A1Z26 < Cryptography
     print "\n Your result is: "
     puts "\n#{char_arr.join(',').colorize(:green)}"
 
-    quit_or_continue
+    quit_or_continue(A1Z26)
   end
 end

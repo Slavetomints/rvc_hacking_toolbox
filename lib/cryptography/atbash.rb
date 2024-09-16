@@ -60,6 +60,6 @@ class Atbash < Cryptography
     print "\nYour result is: "
     puts atbash_string.join.colorize(:green)
 
-    quit_or_continue
+    quit_or_continue(Atbash)
   end
 end
