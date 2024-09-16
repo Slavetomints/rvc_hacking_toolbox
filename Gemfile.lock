@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
+    base32 (0.3.4)
     colorize (1.1.0)
     json (2.7.2)
     language_server-protocol (3.17.0.3)
@@ -25,6 +26,7 @@ GEM
     rubocop-ast (1.32.3)
       parser (>= 3.3.1.0)
     ruby-progressbar (1.13.0)
+    telegraph (1.0.3)
     unicode-display_width (2.5.0)
 
 PLATFORMS
@@ -32,8 +34,10 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  base32 (~> 0.3.4)
   colorize (~> 1.1)
   rubocop (~> 1.66)
+  telegraph (~> 1.0)
 
 BUNDLED WITH
-   2.5.3
+   2.5.18
