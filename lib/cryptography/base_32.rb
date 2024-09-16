@@ -4,12 +4,12 @@ require 'colorize'
 require 'tty-prompt'
 require 'base32'
 require_relative 'cryptography'
+require_relative 'cryptography_ascii_art'
 
 # This class contains the functions for the Base32 class
 class BASE32 < Cryptography
   def initialize
-    clear_terminal
-    show_cryptography
+    CryptographyAsciiArt.new('base32')
     select_base_32_mode
   end
 
@@ -24,16 +24,14 @@ class BASE32 < Cryptography
       { name: 'Quit Program', value: 'quit' }
     ]
 
-    mode = prompt.select('Please select your mode', choices, per_page: 4, cycle: true)
+    mode = prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
 
     case mode
     when 1
-      clear_terminal
-      show_cryptography
+      CryptographyAsciiArt.new('base32')
       encode_base32
     when 2
-      clear_terminal
-      show_cryptography
+      CryptographyAsciiArt.new('base32')
       decode_base32
     when 'quit'
       clear_terminal

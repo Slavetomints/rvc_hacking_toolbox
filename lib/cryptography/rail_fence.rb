@@ -3,12 +3,12 @@
 require 'colorize'
 require 'tty-prompt'
 require_relative 'cryptography'
+require_relative 'cryptography_ascii_art'
 
 # This class runs the RailFence cipher
 class RailFence < Cryptography # rubocop:disable Metrics/ClassLength
   def initialize
-    clear_terminal
-    show_cryptography
+    CryptographyAsciiArt.new('rail_fence')
     select_rail_fence_mode
   end
 
@@ -27,12 +27,10 @@ class RailFence < Cryptography # rubocop:disable Metrics/ClassLength
 
     case mode
     when 1
-      clear_terminal
-      show_cryptography
+      CryptographyAsciiArt.new('rail_fence')
       encrypt_rail_fence
     when 2
-      clear_terminal
-      show_cryptography
+      CryptographyAsciiArt.new('rail_fence')
       decrypt_rail_fence
     when 'quit'
       clear_terminal

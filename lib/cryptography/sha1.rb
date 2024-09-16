@@ -4,12 +4,12 @@ require 'colorize'
 require 'tty-prompt'
 require 'digest'
 require_relative 'cryptography'
+require_relative 'cryptography_ascii_art'
 
 # This class contains the functions for the SHA1 class
 class SHA1 < Cryptography
   def initialize
-    clear_terminal
-    show_cryptography
+    CryptographyAsciiArt.new('sha1')
     select_sha1_mode
   end
 
@@ -27,8 +27,7 @@ class SHA1 < Cryptography
 
     case mode
     when 1
-      clear_terminal
-      show_cryptography
+      CryptographyAsciiArt.new('sha1')
       encode_sha1
     when 'quit'
       clear_terminal

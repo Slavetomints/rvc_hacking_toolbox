@@ -2,12 +2,12 @@
 
 require_relative '../main_menu'
 require_relative 'cryptography'
+require_relative 'cryptography_ascii_art'
 
 # This class housees the caesar shift
 class Caesar < Cryptography
   def initialize
-    clear_terminal
-    show_cryptography
+    CryptographyAsciiArt.new('caesar')
     select_caesar_mode
   end
 
@@ -21,12 +21,11 @@ class Caesar < Cryptography
       { name: 'Quit Program', value: 'quit' }
     ]
 
-    mode = prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
+    mode = prompt.select('Please select your mode', choices, per_page: 4, cycle: true)
 
     case mode
     when 1
-      clear_terminal
-      show_cryptography
+      CryptographyAsciiArt.new('caesar')
       caesar_shift
     when 'quit'
       clear_terminal

@@ -3,12 +3,12 @@
 require 'colorize'
 require 'tty-prompt'
 require_relative 'cryptography'
+require_relative 'cryptography_ascii_art'
 
 # This class runs the binary functions and menu
 class Binary < Cryptography
   def initialize
-    clear_terminal
-    show_cryptography
+    CryptographyAsciiArt.new('binary')
     select_binary_mode
   end
 
@@ -23,16 +23,14 @@ class Binary < Cryptography
       { name: 'Quit Program', value: 'quit' }
     ]
 
-    mode = prompt.select('Please select your mode', choices, per_page: 4, cycle: true)
+    mode = prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
 
     case mode
     when 1
-      clear_terminal
-      show_cryptography
+      CryptographyAsciiArt.new('binary')
       text_to_binary
     when 2
-      clear_terminal
-      show_cryptography
+      CryptographyAsciiArt.new('binary')
       binary_to_text
     when 'quit'
       clear_terminal

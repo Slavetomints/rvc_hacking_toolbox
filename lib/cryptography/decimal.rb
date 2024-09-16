@@ -2,12 +2,12 @@
 
 require 'tty-prompt'
 require_relative 'cryptography'
+require_relative 'cryptography_ascii_art'
 
 # This class contains the functions to the Decimal class
 class Decimal < Cryptography
   def initialize
-    clear_terminal
-    show_cryptography
+    CryptographyAsciiArt.new('decimal')
     select_decimal_mode
   end
 
@@ -26,12 +26,10 @@ class Decimal < Cryptography
 
     case mode
     when 1
-      clear_terminal
-      show_cryptography
+      CryptographyAsciiArt.new('decimal')
       encode_decimal
     when 2
-      clear_terminal
-      show_cryptography
+      CryptographyAsciiArt.new('decimal')
       decode_decimal
     when 'quit'
       clear_terminal

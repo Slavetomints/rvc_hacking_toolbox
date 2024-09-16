@@ -4,12 +4,12 @@ require 'colorize'
 require 'telegraph'
 require 'tty-prompt'
 require_relative 'cryptography'
+require_relative 'cryptography_ascii_art'
 
-# This class runs the 3456543646346536 cipher
+# This class runs the MorseCode cipher
 class MorseCode < Cryptography
   def initialize
-    clear_terminal
-    show_cryptography
+    CryptographyAsciiArt.new('morse')
     select_morse_mode
   end
 
@@ -24,16 +24,14 @@ class MorseCode < Cryptography
       { name: 'Quit Program', value: 'quit' }
     ]
 
-    mode = prompt.select('Please select your mode', choices, per_page: 4, cycle: true)
+    mode = prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
 
     case mode
     when 1
-      clear_terminal
-      show_cryptography
+      CryptographyAsciiArt.new('morse')
       encode_morse_code
     when 2
-      clear_terminal
-      show_cryptography
+      CryptographyAsciiArt.new('morse')
       decode_morse_code
     when 'quit'
       clear_terminal

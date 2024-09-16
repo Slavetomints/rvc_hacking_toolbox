@@ -3,12 +3,12 @@
 require 'colorize'
 require 'tty-prompt'
 require_relative 'cryptography'
+require_relative 'cryptography_ascii_art'
 
 # This class runs the Atbash cipher
 class Atbash < Cryptography
   def initialize
-    clear_terminal
-    show_cryptography
+    CryptographyAsciiArt.new('atbash')
     select_atbash_mode
   end
 
@@ -26,8 +26,7 @@ class Atbash < Cryptography
 
     case mode
     when 1
-      clear_terminal
-      show_cryptography
+      CryptographyAsciiArt.new('atbash')
       atbash
     when 'quit'
       clear_terminal

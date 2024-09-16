@@ -4,12 +4,12 @@ require 'prime'
 require 'openssl'
 require 'colorize'
 require_relative 'cryptography'
+require_relative 'cryptography_ascii_art'
 
 # This class houses the functions that make RSA decryption possible
 class RSA < Cryptography
   def initialize
-    clear_terminal
-    show_cryptography
+    CryptographyAsciiArt.new('rsa')
     select_rsa_mode
   end
 
@@ -28,12 +28,10 @@ class RSA < Cryptography
 
     case mode
     when 1
-      clear_terminal
-      show_cryptography
+      CryptographyAsciiArt.new('rsa')
       rsa
     when 2
-      clear_terminal
-      show_cryptography
+      CryptographyAsciiArt.new('rsa')
       find_factors
     when 'quit'
       clear_terminal

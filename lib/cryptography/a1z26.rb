@@ -2,12 +2,12 @@
 
 require_relative '../main_menu'
 require_relative 'cryptography'
+require_relative 'cryptography_ascii_art'
 
 # This class runs the A1Z26 cipher
 class A1Z26 < Cryptography
   def initialize
-    clear_terminal
-    show_cryptography
+    CryptographyAsciiArt.new('a1z26')
     select_a1z26_mode
   end
 
@@ -26,12 +26,10 @@ class A1Z26 < Cryptography
 
     case mode
     when 1
-      clear_terminal
-      show_cryptography
+      CryptographyAsciiArt.new('a1z26')
       encode_a1z26
     when 2
-      clear_terminal
-      show_cryptography
+      CryptographyAsciiArt.new('a1z26')
       decode_a1z26
     when 'quit'
       clear_terminal

@@ -94,7 +94,7 @@ class Cryptography < Toolbox
       child_class.new
     else
       puts 'Invalid input detected, pick again'.colorize(:red)
-      quit_or_continue
+      quit_or_continue(child_class)
     end
   end
 end

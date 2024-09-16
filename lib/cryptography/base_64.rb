@@ -3,14 +3,13 @@
 require 'base64'
 require 'colorize'
 require 'tty-prompt'
-require_relative '../ascii_art'
 require_relative 'cryptography'
+require_relative 'cryptography_ascii_art'
 
 # This class houses the Base64 functions
 class BASE64 < Cryptography
   def initialize
-    clear_terminal
-    show_cryptography
+    CryptographyAsciiArt.new('base64')
     select_base64_mode
   end
 
@@ -25,16 +24,14 @@ class BASE64 < Cryptography
       { name: 'Quit Program', value: 'quit' }
     ]
 
-    mode = prompt.select('Please select your mode', choices, per_page: 4, cycle: true)
+    mode = prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
 
     case mode
     when 1
-      clear_terminal
-      show_cryptography
+      CryptographyAsciiArt.new('base64')
       encode_base64
     when 2
-      clear_terminal
-      show_cryptography
+      CryptographyAsciiArt.new('base64')
       decode_base64
     when 'quit'
       clear_terminal
