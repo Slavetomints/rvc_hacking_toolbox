@@ -3,7 +3,6 @@
 require 'colorize'
 require_relative '../main_ascii_art'
 require_relative '../main_menu'
-require_relative 'hexadecimal'
 require_relative 'vigenere'
 
 # houses the main cryptography functions
@@ -25,7 +24,7 @@ class Cryptography < Toolbox
       { name: 'Binary', value: 5 },
       { name: 'Caesar', value: 6 },
       { name: 'Decimal', value: 7 },
-      { name: 'Hexadecimal', value: 8, disabled: '(In development)' },
+      { name: 'Hexadecimal', value: 8 },
       { name: 'Morse Code', value: 9 },
       { name: 'Rail Fence', value: 10 },
       { name: 'RSA', value: 11 },
@@ -60,8 +59,8 @@ class Cryptography < Toolbox
       require_relative 'decimal'
       Decimal.new
     when 8
-      clear_terminal
-      load_hexadecimal_menu
+      require_relative 'hexadecimal'
+      Hexadecimal.new
     when 9
       require_relative 'morse'
       MorseCode.new

@@ -3,7 +3,7 @@
 require_relative 'cryptography'
 
 # This class houses the asciii art and displays it for the cryptography methods
-class CryptographyAsciiArt < Cryptography
+class CryptographyAsciiArt < Cryptography # rubocop:disable Metrics/ClassLength
   def initialize(subtitle) # rubocop:disable Metrics/MethodLength
     @subtitle_hash = {
       'a1z26' => "/==================================\\
