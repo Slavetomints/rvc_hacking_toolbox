@@ -10,8 +10,6 @@ require_relative 'network_traffic_analysis'
 require_relative 'open_source_intelligence'
 require_relative 'password_cracking'
 require_relative 'scanning_and_reconnaissance'
-require_relative 'web_application_exploitation'
-require_relative 'wireless_acess_exploitation'
 require_relative 'special_functions'
 
 # This is the main Toolbox class that contains the functinality for the rest of the program
@@ -38,7 +36,7 @@ class Toolbox
       { name: 'Log Analysis', value: 5, disabled: '(In development)' },
       { name: 'Network Traffic Analysis', value: 6, disabled: '(In development)' },
       { name: 'Scanning & Reconnaissance', value: 7, disabled: '(In development)' },
-      { name: 'Web Application Exploitation', value: 8, disabled: '(In development)' },
+      { name: 'Web Application Exploitation', value: 8 },
       { name: 'Wireless Access Exploitation', value: 9, disabled: '(In development)' },
       { name: 'Enumeration & Exploitation', value: 10, disabled: '(In development)' },
       { name: 'Quit Program', value: 'quit' }
@@ -68,8 +66,8 @@ class Toolbox
       clear_terminal
       ScanningAndReconnaissance.select_mode
     when 8
-      clear_terminal
-      WebApplicationExploitation.select_mode
+      require_relative 'web_application_exploitation/web_application_exploitation'
+      WebApplicationExploitation.new
     when 9
       clear_terminal
       WirelessAccessExploitation.select_mode
