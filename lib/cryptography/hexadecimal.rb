@@ -58,5 +58,7 @@ class Hexadecimal < Cryptography
 
     string = hex_string.split.map { |hex| hex.to_i(16).chr }.join
     puts "\nYour result is: #{string.colorize(:green)}"
+
+    quit_or_continue(Hexadecimal)
   end
 end

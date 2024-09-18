@@ -3,7 +3,6 @@
 require 'colorize'
 require_relative '../main_ascii_art'
 require_relative '../main_menu'
-require_relative 'vigenere'
 
 # houses the main cryptography functions
 class Cryptography < Toolbox
@@ -29,7 +28,7 @@ class Cryptography < Toolbox
       { name: 'Rail Fence', value: 10 },
       { name: 'RSA', value: 11 },
       { name: 'SHA1', value: 12 },
-      { name: 'Vigenere', value: 13, disabled: '(In development)' },
+      { name: 'Vigenère', value: 13 },
       { name: 'Go to Main Menu', value: 'main' },
       { name: 'Quit Program', value: 'quit' }
     ]
@@ -74,7 +73,8 @@ class Cryptography < Toolbox
       require_relative 'sha1'
       SHA1.new
     when 13
-      load_vigenere_menu
+      require_relative 'vigenere'
+      Vigenere.new
     when 'quit'
       clear_terminal
       exit
