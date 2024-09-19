@@ -4,8 +4,20 @@ GEM
     ast (2.4.2)
     base32 (0.3.4)
     colorize (1.1.0)
+    date (3.3.4)
     json (2.7.2)
     language_server-protocol (3.17.0.3)
+    mini_portile2 (2.8.7)
+    nokogiri (1.16.7)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
+    nokogiri (1.16.7-x86_64-linux)
+      racc (~> 1.4)
+    open-uri (0.4.1)
+      stringio
+      time
+      uri
+    open3 (0.2.1)
     parallel (1.26.3)
     parser (3.3.5.0)
       ast (~> 2.4.1)
@@ -26,8 +38,12 @@ GEM
     rubocop-ast (1.32.3)
       parser (>= 3.3.1.0)
     ruby-progressbar (1.13.0)
+    stringio (3.1.1)
     telegraph (1.0.3)
+    time (0.4.0)
+      date
     unicode-display_width (2.5.0)
+    uri (0.13.1)
 
 PLATFORMS
   ruby
@@ -36,6 +52,9 @@ PLATFORMS
 DEPENDENCIES
   base32 (~> 0.3.4)
   colorize (~> 1.1)
+  nokogiri (~> 1.16)
+  open-uri (~> 0.4.1)
+  open3 (~> 0.2.1)
   rubocop (~> 1.66)
   telegraph (~> 1.0)
 
