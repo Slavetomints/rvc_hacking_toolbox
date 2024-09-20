@@ -12,7 +12,9 @@ class PasswordCracking < Toolbox
     prompt = TTY::Prompt.new
 
     options = [
-      { name: 'John', value: 1 }
+      { name: 'John', value: 1 },
+      { name: 'Go to Main Menu', value: 'main' },
+      { name: 'Quit application', value: 'quit' }
     ]
 
     mode = prompt.select('Please select a mode', options)
@@ -21,6 +23,11 @@ class PasswordCracking < Toolbox
     when 1
       require_relative 'john'
       John.new
+    when 'main'
+      Toolbox.new
+    when 'quit'
+      clear_terminal
+      exit
     end
   end
 end

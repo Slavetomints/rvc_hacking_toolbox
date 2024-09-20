@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 require 'tty-prompt'
+require_relative 'password_cracking_ascii_art'
 
 # This class houses the functiona and menu for john
 class John < PasswordCracking
   def initialize
-    # PasswordCrackingAsciiArt.new('john')
+    PasswordCrackingAsciiArt.new('john')
     select_john_mode
   end
 

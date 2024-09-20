@@ -2,14 +2,13 @@
 
 require 'colorize'
 require 'tty-prompt'
-require_relative 'main_ascii_art'
+require_relative 'toolbox_ascii_art'
 require_relative 'enumeration_and_exploitation'
 require_relative 'forensics'
 require_relative 'log_analysis'
 require_relative 'network_traffic_analysis'
 require_relative 'open_source_intelligence'
 require_relative 'scanning_and_reconnaissance'
-require_relative 'special_functions'
 
 # This is the main Toolbox class that contains the functinality for the rest of the program
 class Toolbox
@@ -47,32 +46,26 @@ class Toolbox
       clear_terminal
       OpenSourceIntelligence.load_menu
     when 2
-      require_relative 'cryptography/cryptography'
+      require_relative '../cryptography/cryptography'
       Cryptography.new
     when 3
-      require_relative 'password_cracking/password_cracking'
+      require_relative '../password_cracking/password_cracking'
       PasswordCracking.new
     when 4
-      clear_terminal
-      Forensics.select_mode
+      require_relative '../forensics/forensics'
     when 5
-      clear_terminal
-      LogAnalysis.select_mode
+      require_relative '../log_analysis/log_analysis'
     when 6
-      clear_terminal
-      NetworkTrafficAnalysis.select_mode
+      require_relative '../network_traffic_analysis/network_traffic_analysis'
     when 7
-      clear_terminal
-      ScanningAndReconnaissance.select_mode
+      require_relative '../scanning_and_reconnaissance/scanning_and_reconnaissance'
     when 8
-      require_relative 'web_application_exploitation/web_application_exploitation'
+      require_relative '../web_application_exploitation/web_application_exploitation'
       WebApplicationExploitation.new
     when 9
-      clear_terminal
-      WirelessAccessExploitation.select_mode
+      require_relative '../wireless_acess_exploitation/wireless_acess_exploitation'
     when 10
-      clear_terminal
-      EnumerationAndExploitation.select_mode
+      require_relative '../enumeration_and_exploitation'
     when 'quit'
       clear_terminal
       exit
