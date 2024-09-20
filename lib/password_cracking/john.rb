@@ -6,6 +6,14 @@ require 'tty-prompt'
 class John < PasswordCracking
   def initialize
     # PasswordCrackingAsciiArt.new('john')
+    @subs = {
+      'a' => '@',
+      'A' => '@',
+      'o' => '0',
+      'O' => '0'
+      # 's' => '$',
+      # 'S' => '$'
+    }
     select_john_mode
   end
 
@@ -34,28 +42,21 @@ class John < PasswordCracking
     end
   end
 
-  def create_john_rules # rubocop:disable Metrics/MethodLength
-    subs = {
-      'a' => '@',
-      'A' => '@',
-      'o' => '0',
-      'O' => '0'
-    }
+  def create_john_rules
+    rules = @subs.map { |key, value| ["s#{key}#{value}"] }
+    all_combinations = []
 
-    single_rules = []
-    double_rules = []
-
-    subs.each { |key, value| single_rules << "s#{key}#{value}" }
-
-    print single_rules
-    single_rules.each do |rule|
-      subs.each do |key, value|
-        new_rule = "#{rule} s#{key}#{value}"
-        double_rules << new_rule
-      end
+    # Generate combinations regardless of size of subs
+    (1..@subs.length).each do |size|
+      all_combinations += rules.combination(size).to_a
     end
 
-    double_rules.uniq!
-    quit_or_continue(John)
+    # Ensures that all combinations are unique
+    unique_combinations = all_combinations.uniq
+
+    # Prints all rules for copying
+    unique_combinations.each do |rule|
+      puts rule.join(' ')
+    end
   end
 end
