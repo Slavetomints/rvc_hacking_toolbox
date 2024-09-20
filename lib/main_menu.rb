@@ -8,7 +8,6 @@ require_relative 'forensics'
 require_relative 'log_analysis'
 require_relative 'network_traffic_analysis'
 require_relative 'open_source_intelligence'
-require_relative 'password_cracking'
 require_relative 'scanning_and_reconnaissance'
 require_relative 'special_functions'
 
@@ -31,7 +30,7 @@ class Toolbox
     choices = [
       { name: 'Open Source Intelligence', value: 1, disabled: '(In development)' },
       { name: 'Cryptography', value: 2 },
-      { name: 'Password Cracking', value: 3, disabled: '(In development)' },
+      { name: 'Password Cracking', value: 3 },
       { name: 'Forensics', value: 4, disabled: '(In development)' },
       { name: 'Log Analysis', value: 5, disabled: '(In development)' },
       { name: 'Network Traffic Analysis', value: 6, disabled: '(In development)' },
@@ -51,8 +50,8 @@ class Toolbox
       require_relative 'cryptography/cryptography'
       Cryptography.new
     when 3
-      clear_terminal
-      PasswordCracking.select_mode
+      require_relative 'password_cracking/password_cracking'
+      PasswordCracking.new
     when 4
       clear_terminal
       Forensics.select_mode
