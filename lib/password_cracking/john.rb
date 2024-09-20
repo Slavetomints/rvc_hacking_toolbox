@@ -6,14 +6,6 @@ require 'tty-prompt'
 class John < PasswordCracking
   def initialize
     # PasswordCrackingAsciiArt.new('john')
-    @subs = {
-      'a' => '@',
-      'A' => '@',
-      'o' => '0',
-      'O' => '0'
-      # 's' => '$',
-      # 'S' => '$'
-    }
     select_john_mode
   end
 
@@ -21,13 +13,13 @@ class John < PasswordCracking
     prompt = TTY::Prompt.new
 
     options = [
-      { name: 'Creat John Rules', value: 1 },
+      { name: 'Create John Rules', value: 1 },
       { name: 'Go to previous menu', value: 'previous' },
       { name: 'Go to Main Menu', value: 'main' },
       { name: 'Quit application', value: 'quit' }
     ]
 
-    mode = prompt.select('Please select a mode', options)
+    mode = prompt.select('Please select a mode', options, per_page: 4, cycle: true)
 
     case mode
     when 1
@@ -42,12 +34,26 @@ class John < PasswordCracking
     end
   end
 
+  def set_substitutions
+    subs = {}
+    loop do
+      puts "\nEnter what you want to replace, then the value you want to replace it with seperated by a space. Ex 's $'"
+      puts "Enter 'qq' to stop entering values".colorize(:red)
+      sub_arr = gets.chomp
+      return subs if sub_arr == 'qq'
+
+      sub_arr = sub_arr.split(' ')
+      subs[sub_arr[0]] = sub_arr[1]
+    end
+  end
+
   def create_john_rules
-    rules = @subs.map { |key, value| ["s#{key}#{value}"] }
+    subs = set_substitutions
+    rules = subs.map { |key, value| ["s#{key}#{value}"] }
     all_combinations = []
 
     # Generate combinations regardless of size of subs
-    (1..@subs.length).each do |size|
+    (1..subs.length).each do |size|
       all_combinations += rules.combination(size).to_a
     end
 
@@ -55,6 +61,7 @@ class John < PasswordCracking
     unique_combinations = all_combinations.uniq
 
     # Prints all rules for copying
+    puts "\n\nRULES".colorize(:light_blue)
     unique_combinations.each do |rule|
       puts rule.join(' ')
     end

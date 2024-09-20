@@ -12,7 +12,7 @@ class PasswordCracking < Toolbox
     prompt = TTY::Prompt.new
 
     options = [
-      { name: 'john', value: 1 }
+      { name: 'John', value: 1 }
     ]
 
     mode = prompt.select('Please select a mode', options)
