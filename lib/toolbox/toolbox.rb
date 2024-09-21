@@ -61,7 +61,7 @@ class Toolbox
       require_relative '../web_application_exploitation/web_application_exploitation'
       WebApplicationExploitation.new
     when 9
-      require_relative '../wireless_acess_exploitation/wireless_acess_exploitation'
+      require_relative '../wireless_access_exploitation/wireless_access_exploitation'
       WirelessAccessExploitation.new
     when 10
       require_relative '../enumeration_and_exploitation/enumeration_and_exploitation'
