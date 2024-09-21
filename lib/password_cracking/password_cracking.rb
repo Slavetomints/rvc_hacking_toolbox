@@ -17,7 +17,7 @@ class PasswordCracking < Toolbox
       { name: 'Quit application', value: 'quit' }
     ]
 
-    mode = prompt.select('Please select a mode', options)
+    mode = prompt.select('Please select a mode', options, per_page: 3, cycle: true)
 
     case mode
     when 1

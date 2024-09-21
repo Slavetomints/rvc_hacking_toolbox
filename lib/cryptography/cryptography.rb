@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
 require 'colorize'
-require_relative '../main_ascii_art'
-require_relative '../main_menu'
+require_relative '../toolbox/toolbox_ascii_art'
+require_relative '../toolbox/toolbox'
 
 # houses the main cryptography functions
 class Cryptography < Toolbox
   def initialize
     clear_terminal
     show_cryptography
-    select_mode
+    select_cryptography_mode
   end
 
-  def select_mode # rubocop:disable Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/AbcSize
+  def select_cryptography_mode # rubocop:disable Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/AbcSize
     prompt = TTY::Prompt.new
 
     choices = [
