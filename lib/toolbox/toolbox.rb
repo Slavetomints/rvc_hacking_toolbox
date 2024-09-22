@@ -24,7 +24,7 @@ class Toolbox
       { name: 'Open Source Intelligence', value: 1, disabled: '(In development)' },
       { name: 'Cryptography', value: 2 },
       { name: 'Password Cracking', value: 3 },
-      { name: 'Forensics', value: 4, disabled: '(In development)' },
+      { name: 'Forensics', value: 4 },
       { name: 'Log Analysis', value: 5, disabled: '(In development)' },
       { name: 'Network Traffic Analysis', value: 6, disabled: '(In development)' },
       { name: 'Scanning & Reconnaissance', value: 7, disabled: '(In development)' },
