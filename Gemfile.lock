@@ -1,13 +1,22 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    Ascii85 (1.1.1)
+    afm (0.2.2)
     ast (2.4.2)
     base32 (0.3.4)
+    bigdecimal (3.1.8)
+    chunky_png (1.4.0)
     colorize (1.1.0)
     date (3.3.4)
+    exifr (1.4.0)
+    hashery (2.1.2)
     json (2.7.2)
     language_server-protocol (3.17.0.3)
+    mini_exiftool (2.11.0)
     mini_portile2 (2.8.7)
+    mp3info (0.8.5)
+      ruby-mp3info (>= 0.8.5)
     nokogiri (1.16.7)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
@@ -22,6 +31,12 @@ GEM
     parser (3.3.5.0)
       ast (~> 2.4.1)
       racc
+    pdf-reader (2.12.0)
+      Ascii85 (~> 1.0)
+      afm (~> 0.2.1)
+      hashery (~> 2.0)
+      ruby-rc4
+      ttfunk
     racc (1.8.1)
     rainbow (3.1.1)
     regexp_parser (2.9.2)
@@ -37,11 +52,15 @@ GEM
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.32.3)
       parser (>= 3.3.1.0)
+    ruby-mp3info (0.8.10)
     ruby-progressbar (1.13.0)
+    ruby-rc4 (0.1.5)
     stringio (3.1.1)
     telegraph (1.0.3)
     time (0.4.0)
       date
+    ttfunk (1.8.0)
+      bigdecimal (~> 3.1)
     unicode-display_width (2.5.0)
     uri (0.13.1)
 
@@ -51,10 +70,15 @@ PLATFORMS
 
 DEPENDENCIES
   base32 (~> 0.3.4)
+  chunky_png (~> 1.4)
   colorize (~> 1.1)
+  exifr (~> 1.4)
+  mini_exiftool (~> 2.11)
+  mp3info (~> 0.8.5)
   nokogiri (~> 1.16)
   open-uri (~> 0.4.1)
   open3 (~> 0.2.1)
+  pdf-reader (~> 2.12)
   rubocop (~> 1.66)
   telegraph (~> 1.0)
 
