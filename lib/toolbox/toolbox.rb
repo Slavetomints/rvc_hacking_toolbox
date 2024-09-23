@@ -30,7 +30,7 @@ class Toolbox
       { name: 'Scanning & Reconnaissance', value: 7, disabled: '(In development)' },
       { name: 'Web Application Exploitation', value: 8 },
       { name: 'Wireless Access Exploitation', value: 9, disabled: '(In development)' },
-      { name: 'Enumeration & Exploitation', value: 10 },
+      { name: 'Enumeration & Exploitation', value: 10, disabled: '(In development)' },
       { name: 'Quit Program', value: 'quit' }
     ]
 

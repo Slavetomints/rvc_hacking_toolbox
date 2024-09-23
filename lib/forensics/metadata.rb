@@ -7,7 +7,6 @@ require 'exifr/tiff'
 require 'mini_exiftool'
 require 'mp3info'
 require 'pdf-reader'
-require 'chunky_png'
 require 'mini_magick'
 require_relative 'forensics_ascii_art'
 

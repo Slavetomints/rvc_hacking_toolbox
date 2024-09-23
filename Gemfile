@@ -26,6 +26,5 @@ gem 'mp3info', '~> 0.8.5'
 
 gem 'pdf-reader', '~> 2.12'
 
-gem 'chunky_png', '~> 1.4'
 
 gem "mini_magick", "~> 5.0"
