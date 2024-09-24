@@ -10,21 +10,27 @@ class John < PasswordCracking
     select_john_mode
   end
 
-  def select_john_mode
+  def select_john_mode # rubocop:disable Metrics/MethodLength
     prompt = TTY::Prompt.new
 
     options = [
-      { name: 'Create John Rules', value: 1 },
+      { name: 'Create John Substitutions', value: 1 },
+      { name: 'Add numbers to end of rules', value: 2 },
       { name: 'Go to previous menu', value: 'previous' },
       { name: 'Go to Main Menu', value: 'main' },
       { name: 'Quit application', value: 'quit' }
     ]
 
-    mode = prompt.select('Please select a mode', options, per_page: 4, cycle: true)
+    mode = prompt.multi_select('Please select a mode', options, per_page: 4, cycle: true)
 
     case mode
     when 1
-      create_john_rules
+      create_john_substitutions
+    when 2
+      append_john_numbers
+    when [1, 2]
+      create_john_substitutions
+      append_john_numbers
     when 'previous'
       PasswordCracking.new
     when 'main'
@@ -32,6 +38,9 @@ class John < PasswordCracking
     when 'quit'
       clear_terminal
       exit
+    else
+      puts 'Invalid combination, select again'.colorize(:red)
+      select_john_mode
     end
   end
 
@@ -48,7 +57,7 @@ class John < PasswordCracking
     end
   end
 
-  def create_john_rules
+  def create_john_substitutions # rubocop:disable Metrics/MethodLength
     subs = set_substitutions
     rules = subs.map { |key, value| ["s#{key}#{value}"] }
     all_combinations = []
@@ -61,10 +70,15 @@ class John < PasswordCracking
     # Ensures that all combinations are unique
     unique_combinations = all_combinations.uniq
 
-    # Prints all rules for copying
-    puts "\n\nRULES".colorize(:light_blue)
+    # Prints all subs for copying
+    puts "\n\nSUBSTITUTIONS".colorize(:light_blue)
     unique_combinations.each do |rule|
       puts rule.join(' ')
     end
+  end
+
+  def append_john_numbers
+    puts 'Please select the amount of numbers to be appended'
+    amount_of_numbers = gets.chomp
   end
 end
