@@ -28,3 +28,4 @@ gem 'pdf-reader', '~> 2.12'
 
 
 gem "mini_magick", "~> 5.0"
+
