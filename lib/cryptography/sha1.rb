@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'colorize'
-require 'tty-prompt'
 require 'digest'
 require_relative 'cryptography'
 require_relative 'cryptography_ascii_art'

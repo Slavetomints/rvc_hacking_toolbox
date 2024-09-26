@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'base64'
-require 'colorize'
-require 'tty-prompt'
 require_relative 'cryptography'
 require_relative 'cryptography_ascii_art'
 

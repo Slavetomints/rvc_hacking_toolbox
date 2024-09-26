@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'tty-prompt'
 require_relative 'cryptography'
 require_relative 'cryptography_ascii_art'
 

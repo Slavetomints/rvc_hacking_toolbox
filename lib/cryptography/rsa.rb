@@ -2,7 +2,6 @@
 
 require 'prime'
 require 'openssl'
-require 'colorize'
 require_relative 'cryptography'
 require_relative 'cryptography_ascii_art'
 
