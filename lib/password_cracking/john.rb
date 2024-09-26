@@ -24,9 +24,9 @@ class John < PasswordCracking
     mode = prompt.multi_select('Please select a mode', options, per_page: 4, cycle: true)
 
     case mode
-    when 1
+    when [1]
       create_john_substitutions(true)
-    when 2
+    when [2]
       append_john_numbers(true)
     when [1, 2]
       create_john_substitutions(false)
