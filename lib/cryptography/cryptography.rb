@@ -12,74 +12,27 @@ class Cryptography < Toolbox
     select_cryptography_mode
   end
 
-  def select_cryptography_mode # rubocop:disable Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/AbcSize
+  def select_cryptography_mode # rubocop:disable Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/AbcSize,Metrics/PerceivedComplexity
     prompt = TTY::Prompt.new
 
     choices = [
-      { name: 'A1Z26', value: 1 },
-      { name: 'Atbash', value: 2 },
-      { name: 'Base 32', value: 3 },
-      { name: 'Base 64', value: 4 },
-      { name: 'Binary', value: 5 },
-      { name: 'Caesar', value: 6 },
-      { name: 'Decimal', value: 7 },
-      { name: 'Hexadecimal', value: 8 },
-      { name: 'Morse Code', value: 9 },
-      { name: 'Rail Fence', value: 10 },
-      { name: 'RSA', value: 11 },
-      { name: 'SHA1', value: 12 },
-      { name: 'Vigenère', value: 13 },
-      { name: 'Go to Main Menu', value: 'main' },
-      { name: 'Quit Program', value: 'quit' }
+      { name: 'A1Z26', value: -> { require_relative 'a1z26' && A1Z26.new } },
+      { name: 'Atbash', value: -> { require_relative 'atbash' && Atbash.new } },
+      { name: 'Base 32', value: -> { require_relative 'base_32' && BASE32.new } },
+      { name: 'Base 64', value: -> { require_relative 'base_64' && BASE64.new } },
+      { name: 'Binary', value: -> { require_relative 'binary' && Binary.new } },
+      { name: 'Caesar', value: -> { require_relative 'caesar' && Caesar.new } },
+      { name: 'Decimal', value: -> { require_relative 'decimal' && Decimal.new } },
+      { name: 'Hexadecimal', value: -> { require_relative 'hexadecimal' && Hexadecimal.new } },
+      { name: 'Morse Code', value: -> { require_relative 'morse' && MorseCode.new } },
+      { name: 'Rail Fence', value: -> { require_relative 'rail_fence' && RailFence.new } },
+      { name: 'RSA', value: -> { require_relative 'rsa' && RSA.new } },
+      { name: 'SHA1', value: -> { require_relative 'sha1' && SHA1.new } },
+      { name: 'Vigenère', value: -> { require_relative 'vigenere' && Vigenere.new } },
+      { name: 'Go to Main Menu', value: -> { Toolbox.new } },
+      { name: 'Quit Program', value: -> { clear_terminal && exit } }
     ]
 
-    mode = prompt.select('Please select your mode', choices, per_page: 15, cycle: true)
-
-    case mode
-    when 1
-      require_relative 'a1z26'
-      A1Z26.new
-    when 2
-      require_relative 'atbash'
-      Atbash.new
-    when 3
-      require_relative 'base_32'
-      BASE32.new
-    when 4
-      require_relative 'base_64'
-      BASE64.new
-    when 5
-      require_relative 'binary'
-      Binary.new
-    when 6
-      require_relative 'caesar'
-      Caesar.new
-    when 7
-      require_relative 'decimal'
-      Decimal.new
-    when 8
-      require_relative 'hexadecimal'
-      Hexadecimal.new
-    when 9
-      require_relative 'morse'
-      MorseCode.new
-    when 10
-      require_relative 'rail_fence'
-      RailFence.new
-    when 11
-      require_relative 'rsa'
-      RSA.new
-    when 12
-      require_relative 'sha1'
-      SHA1.new
-    when 13
-      require_relative 'vigenere'
-      Vigenere.new
-    when 'quit'
-      clear_terminal
-      exit
-    when 'main'
-      Toolbox.new
-    end
+    prompt.select('Please select your mode', choices, per_page: 15, cycle: true)
   end
 end

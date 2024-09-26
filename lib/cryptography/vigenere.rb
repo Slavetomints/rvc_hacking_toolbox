@@ -12,34 +12,18 @@ class Vigenere < Cryptography
     select_vigenere_mode
   end
 
-  def select_vigenere_mode # rubocop:disable Metrics/MethodLength
+  def select_vigenere_mode
     prompt = TTY::Prompt.new
 
     choices = [
-      { name: 'Encrypt string', value: 1 },
-      { name: 'Decrypt string', value: 2 },
-      { name: 'Go to previous menu', value: 'previous' },
-      { name: 'Go to Main Menu', value: 'main' },
-      { name: 'Quit Program', value: 'quit' }
+      { name: 'Encrypt string', value: -> { CryptographyAsciiArt.new('vigenere') && encrypt_vigenere } },
+      { name: 'Decrypt string', value: -> { CryptographyAsciiArt.new('vigenere') && decrypt_vigenere } },
+      { name: 'Go to previous menu', value: -> { Cryptography.new } },
+      { name: 'Go to Main Menu', value: -> { Toolbox.new } },
+      { name: 'Quit Program', value: -> { clear_terminal && exit } }
     ]
 
-    mode = prompt.select('Please select your mode', choices, per_page: 5)
-
-    case mode
-    when 1
-      CryptographyAsciiArt.new('vigenere')
-      encrypt_vigenere
-    when 2
-      CryptographyAsciiArt.new('vigenere')
-      decrypt_vigenere
-    when 'quit'
-      clear_terminal
-      exit
-    when 'main'
-      Toolbox.new
-    when 'previous'
-      Cryptography.new
-    end
+    prompt.select('Please select your mode', choices, per_page: 5)
   end
 
   def encrypt_vigenere
@@ -51,9 +35,7 @@ class Vigenere < Cryptography
 
     ciphertext = process_text(plaintext, :+, key)
 
-    print "\nYour result is: "
-    puts ciphertext.colorize(:green)
-
+    print "\nYour result is: #{ciphertext.colorize(:green)}"
     quit_or_continue(Vigenere)
   end
 
@@ -66,9 +48,7 @@ class Vigenere < Cryptography
 
     plaintext = process_text(ciphertext, :-, key)
 
-    print "\nYour result is: "
-    puts plaintext.colorize(:green)
-
+    print "\nYour result is: #{plaintext.colorize(:green)}"
     quit_or_continue(Vigenere)
   end
 

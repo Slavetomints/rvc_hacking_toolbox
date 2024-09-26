@@ -10,34 +10,18 @@ class Decimal < Cryptography
     select_decimal_mode
   end
 
-  def select_decimal_mode # rubocop:disable Metrics/MethodLength
+  def select_decimal_mode
     prompt = TTY::Prompt.new
 
     choices = [
-      { name: 'Encode string', value: 1 },
-      { name: 'Decode string', value: 2 },
-      { name: 'Go to previous menu', value: 'previous' },
-      { name: 'Go to Main Menu', value: 'main' },
-      { name: 'Quit Program', value: 'quit' }
+      { name: 'Encode string', value: -> { CryptographyAsciiArt.new('decimal') && encode_decimal } },
+      { name: 'Decode string', value: -> { CryptographyAsciiArt.new('decimal') && decode_decimal } },
+      { name: 'Go to previous menu', value: -> { Cryptography.new } },
+      { name: 'Go to Main Menu', value: -> { Toolbox.new } },
+      { name: 'Quit Program', value: -> { clear_terminal && exit } }
     ]
 
-    mode = prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
-
-    case mode
-    when 1
-      CryptographyAsciiArt.new('decimal')
-      encode_decimal
-    when 2
-      CryptographyAsciiArt.new('decimal')
-      decode_decimal
-    when 'quit'
-      clear_terminal
-      exit
-    when 'main'
-      Toolbox.new
-    when 'previous'
-      Cryptography.new
-    end
+    prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
   end
 
   def encode_decimal
@@ -54,8 +38,7 @@ class Decimal < Cryptography
     puts 'Please enter what you wish to decode seperated by commas'
 
     num_arr = gets.chomp.split(',').map { |num| Integer(num).chr }
-    print "\nYour result is: "
-    puts num_arr.join.colorize(:green)
+    print "\nYour result is: #{num_arr.join.colorize(:green)}"
 
     quit_or_continue(Decimal)
   end

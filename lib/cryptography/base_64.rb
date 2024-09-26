@@ -11,34 +11,18 @@ class BASE64 < Cryptography
     select_base64_mode
   end
 
-  def select_base64_mode # rubocop:disable Metrics/MethodLength
+  def select_base64_mode
     prompt = TTY::Prompt.new
 
     choices = [
-      { name: 'Encode', value: 1 },
-      { name: 'Decode', value: 2 },
-      { name: 'Go to previous menu', value: 'previous' },
-      { name: 'Go to Main Menu', value: 'main' },
-      { name: 'Quit Program', value: 'quit' }
+      { name: 'Encode', value: -> { CryptographyAsciiArt.new('base64') && encode_base64 } },
+      { name: 'Decode', value: -> { CryptographyAsciiArt.new('base64') && decode_base64 } },
+      { name: 'Go to previous menu', value: -> { Cryptography.new } },
+      { name: 'Go to Main Menu', value: -> { Toolbox.new } },
+      { name: 'Quit Program', value: -> { clear_terminal && exit } }
     ]
 
-    mode = prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
-
-    case mode
-    when 1
-      CryptographyAsciiArt.new('base64')
-      encode_base64
-    when 2
-      CryptographyAsciiArt.new('base64')
-      decode_base64
-    when 'quit'
-      clear_terminal
-      exit
-    when 'main'
-      Toolbox.new
-    when 'previous'
-      Cryptography.new
-    end
+    prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
   end
 
   def encode_base64
@@ -48,9 +32,7 @@ class BASE64 < Cryptography
 
     encoded = Base64.encode64(data)
 
-    print "\nYour result is: "
-    puts encoded.colorize(:green)
-
+    print "\nYour result is: #{encoded.colorize(:green)}"
     quit_or_continue(BASE64)
   end
 
@@ -61,9 +43,7 @@ class BASE64 < Cryptography
 
     decoded = Base64.decode64(data)
 
-    print "\nYour result is: "
-    puts decoded.colorize(:green)
-
+    print "\nYour result is: #{decoded.colorize(:green)}"
     quit_or_continue(BASE64)
   end
 end

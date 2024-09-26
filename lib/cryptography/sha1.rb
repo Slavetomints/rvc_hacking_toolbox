@@ -11,30 +11,17 @@ class SHA1 < Cryptography
     select_sha1_mode
   end
 
-  def select_sha1_mode # rubocop:disable Metrics/MethodLength
+  def select_sha1_mode
     prompt = TTY::Prompt.new
 
     choices = [
-      { name: 'Encrypt string', value: 1 },
-      { name: 'Go to previous menu', value: 'previous' },
-      { name: 'Go to Main Menu', value: 'main' },
-      { name: 'Quit Program', value: 'quit' }
+      { name: 'Encrypt string', value: -> { CryptographyAsciiArt.new('sha1') && encode_sha1 } },
+      { name: 'Go to previous menu', value: -> { Cryptography.new } },
+      { name: 'Go to Main Menu', value: -> { Toolbox.new } },
+      { name: 'Quit Program', value: -> { clear_terminal && exit } }
     ]
 
-    mode = prompt.select('Please select your mode', choices, per_page: 4, cycle: true)
-
-    case mode
-    when 1
-      CryptographyAsciiArt.new('sha1')
-      encode_sha1
-    when 'quit'
-      clear_terminal
-      exit
-    when 'main'
-      Toolbox.new
-    when 'previous'
-      Cryptography.new
-    end
+    prompt.select('Please select your mode', choices, per_page: 4, cycle: true)
   end
 
   def encode_sha1
@@ -45,9 +32,7 @@ class SHA1 < Cryptography
 
     sha1.update data
 
-    print "\nYour result is: "
-    puts sha1.hexdigest.colorize(:green)
-
+    print "\nYour result is: #{sha1.hexdigest.colorize(:green)}"
     quit_or_continue(SHA1)
   end
 end

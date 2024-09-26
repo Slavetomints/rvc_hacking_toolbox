@@ -4,40 +4,24 @@ require_relative 'cryptography'
 require_relative 'cryptography_ascii_art'
 
 # This class runs the RailFence cipher
-class RailFence < Cryptography # rubocop:disable Metrics/ClassLength
+class RailFence < Cryptography
   def initialize
     CryptographyAsciiArt.new('rail_fence')
     select_rail_fence_mode
   end
 
-  def select_rail_fence_mode # rubocop:disable Metrics/MethodLength
+  def select_rail_fence_mode
     prompt = TTY::Prompt.new
 
     choices = [
-      { name: 'Encrypt string', value: 1 },
-      { name: 'Decrypt string', value: 2 },
-      { name: 'Go to previous menu', value: 'previous' },
-      { name: 'Go to Main Menu', value: 'main' },
-      { name: 'Quit Program', value: 'quit' }
+      { name: 'Encrypt string', value: -> { CryptographyAsciiArt.new('rail_fence') && encrypt_rail_fence } },
+      { name: 'Decrypt string', value: -> { CryptographyAsciiArt.new('rail_fence') && decrypt_rail_fence } },
+      { name: 'Go to previous menu', value: -> { Cryptography.new } },
+      { name: 'Go to Main Menu', value: -> { Toolbox.new } },
+      { name: 'Quit Program', value: -> { clear_terminal && exit } }
     ]
 
-    mode = prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
-
-    case mode
-    when 1
-      CryptographyAsciiArt.new('rail_fence')
-      encrypt_rail_fence
-    when 2
-      CryptographyAsciiArt.new('rail_fence')
-      decrypt_rail_fence
-    when 'quit'
-      clear_terminal
-      exit
-    when 'main'
-      Toolbox.new
-    when 'previous'
-      Cryptography.new
-    end
+    prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
   end
 
   def encrypt_rail_fence # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
@@ -69,11 +53,7 @@ class RailFence < Cryptography # rubocop:disable Metrics/ClassLength
       end
     end
 
-    result = rails.flatten.join
-
-    print "\nYour result is: "
-    puts result.colorize(:green)
-
+    print "\nYour result is: #{rails.flatten.join.colorize(:green)}"
     quit_or_continue(RailFence)
   end
 
@@ -125,9 +105,7 @@ class RailFence < Cryptography # rubocop:disable Metrics/ClassLength
       result += rails[row][index]
     end
 
-    print "\nYour result is: "
-    puts result.colorize(:green)
-
+    puts "\nYour result is: #{result.colorize(:green)}"
     quit_or_continue(RailFence)
   end
 end

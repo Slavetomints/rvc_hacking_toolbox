@@ -10,34 +10,18 @@ class Binary < Cryptography
     select_binary_mode
   end
 
-  def select_binary_mode # rubocop:disable Metrics/MethodLength
+  def select_binary_mode
     prompt = TTY::Prompt.new
 
     choices = [
-      { name: 'Text to binary', value: 1 },
-      { name: 'Binary to text', value: 2 },
-      { name: 'Go to previous menu', value: 'previous' },
-      { name: 'Go to Main Menu', value: 'main' },
-      { name: 'Quit Program', value: 'quit' }
+      { name: 'Text to binary', value: -> { CryptographyAsciiArt.new('binary') && text_to_binary } },
+      { name: 'Binary to text', value: -> { CryptographyAsciiArt.new('binary') && binary_to_text } },
+      { name: 'Go to previous menu', value: -> { Cryptography.new } },
+      { name: 'Go to Main Menu', value: -> { Toolbox.new } },
+      { name: 'Quit Program', value: -> { clear_terminal && exit } }
     ]
 
-    mode = prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
-
-    case mode
-    when 1
-      CryptographyAsciiArt.new('binary')
-      text_to_binary
-    when 2
-      CryptographyAsciiArt.new('binary')
-      binary_to_text
-    when 'quit'
-      clear_terminal
-      exit
-    when 'main'
-      Toolbox.new
-    when 'previous'
-      Cryptography.new
-    end
+    prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
   end
 
   def text_to_binary

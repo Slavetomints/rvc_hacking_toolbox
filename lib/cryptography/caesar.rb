@@ -10,30 +10,17 @@ class Caesar < Cryptography
     select_caesar_mode
   end
 
-  def select_caesar_mode # rubocop:disable Metrics/MethodLength
+  def select_caesar_mode
     prompt = TTY::Prompt.new
 
     choices = [
-      { name: 'Shift string', value: 1 },
-      { name: 'Go to previous menu', value: 'previous' },
-      { name: 'Go to Main Menu', value: 'main' },
-      { name: 'Quit Program', value: 'quit' }
+      { name: 'Shift string', value: -> { CryptographyAsciiArt.new('ceaser') && caesar_shift } },
+      { name: 'Go to previous menu', value: -> { Cryptography.new } },
+      { name: 'Go to Main Menu', value: -> { Toolbox.new } },
+      { name: 'Quit Program', value: -> { clear_terminal && exit } }
     ]
 
-    mode = prompt.select('Please select your mode', choices, per_page: 4, cycle: true)
-
-    case mode
-    when 1
-      CryptographyAsciiArt.new('caesar')
-      caesar_shift
-    when 'quit'
-      clear_terminal
-      exit
-    when 'main'
-      Toolbox.new
-    when 'previous'
-      Cryptography.new
-    end
+    prompt.select('Please select your mode', choices, per_page: 4, cycle: true)
   end
 
   def caesar_shift # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
@@ -73,9 +60,7 @@ class Caesar < Cryptography
         cipher_text << char
       end
     end
-    print "\nYour result is: "
-    puts cipher_text.join.colorize(:green)
-
+    print "\nYour result is: #{cipher_text.join.colorize(:green)}"
     quit_or_continue(Caesar)
   end
 end

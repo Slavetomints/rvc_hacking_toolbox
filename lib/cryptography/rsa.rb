@@ -12,34 +12,18 @@ class RSA < Cryptography
     select_rsa_mode
   end
 
-  def select_rsa_mode # rubocop:disable Metrics/MethodLength
+  def select_rsa_mode
     prompt = TTY::Prompt.new
 
     choices = [
-      { name: 'Decrypt', value: 1 },
-      { name: 'Find factors', value: 2 },
-      { name: 'Go to previous menu', value: 'previous' },
-      { name: 'Go to Main Menu', value: 'main' },
-      { name: 'Quit Program', value: 'quit' }
+      { name: 'Decrypt', value: -> { CryptographyAsciiArt.new('rsa') && rsa } },
+      { name: 'Find factors', value: -> { CryptographyAsciiArt.new('rsa') && find_factors } },
+      { name: 'Go to previous menu', value: -> { Cryptography.new } },
+      { name: 'Go to Main Menu', value: -> { Toolbox.new } },
+      { name: 'Quit Program', value: -> { clear_terminal && exit } }
     ]
 
-    mode = prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
-
-    case mode
-    when 1
-      CryptographyAsciiArt.new('rsa')
-      rsa
-    when 2
-      CryptographyAsciiArt.new('rsa')
-      find_factors
-    when 'quit'
-      clear_terminal
-      exit
-    when 'main'
-      Toolbox.new
-    when 'previous'
-      Cryptography.new
-    end
+    prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
   end
 
   def rsa # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
@@ -78,7 +62,7 @@ class RSA < Cryptography
       factors << [(number / divisor), divisor] if (number % divisor).zero?
       divisor -= 1
     end
-    print "#{factors[0..((factors.length / 2) - 1)]}\n"
+    print "The factors are \n #{factors[0..((factors.length / 2) - 1)]}\n"
     quit_or_continue(RSA)
   end
 end

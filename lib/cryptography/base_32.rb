@@ -11,34 +11,18 @@ class BASE32 < Cryptography
     select_base_32_mode
   end
 
-  def select_base_32_mode # rubocop:disable Metrics/MethodLength
+  def select_base_32_mode
     prompt = TTY::Prompt.new
 
     choices = [
-      { name: 'Encrypt', value: 1 },
-      { name: 'Decrypt', value: 2 },
-      { name: 'Go to previous menu', value: 'previous' },
-      { name: 'Go to Main Menu', value: 'main' },
-      { name: 'Quit Program', value: 'quit' }
+      { name: 'Encrypt', value: -> { CryptographyAsciiArt.new('base32') && encode_base32 } },
+      { name: 'Decrypt', value: -> { CryptographyAsciiArt.new('base32') && decode_base32 } },
+      { name: 'Go to previous menu', value: -> { Cryptography.new } },
+      { name: 'Go to Main Menu', value: -> { Toolbox.new } },
+      { name: 'Quit Program', value: -> { clear_terminal && exit } }
     ]
 
-    mode = prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
-
-    case mode
-    when 1
-      CryptographyAsciiArt.new('base32')
-      encode_base32
-    when 2
-      CryptographyAsciiArt.new('base32')
-      decode_base32
-    when 'quit'
-      clear_terminal
-      exit
-    when 'main'
-      Toolbox.new
-    when 'previous'
-      Cryptography.new
-    end
+    prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
   end
 
   def encode_base32
@@ -48,9 +32,7 @@ class BASE32 < Cryptography
 
     encoded = Base32.encode(data)
 
-    print "\nYour result is: "
-    puts encoded.colorize(:green)
-
+    print "\nYour result is: #{encoded.colorize(:green)}"
     quit_or_continue(BASE32)
   end
 
@@ -61,9 +43,7 @@ class BASE32 < Cryptography
 
     decoded = Base32.decode(data)
 
-    print "\nYour result is: "
-    puts decoded.colorize(:green)
-
+    print "\nYour result is: #{decoded.colorize(:green)}"
     quit_or_continue(BASE32)
   end
 end

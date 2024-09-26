@@ -10,34 +10,18 @@ class A1Z26 < Cryptography
     select_a1z26_mode
   end
 
-  def select_a1z26_mode # rubocop:disable Metrics/MethodLength
+  def select_a1z26_mode
     prompt = TTY::Prompt.new
 
     choices = [
-      { name: 'Encode string', value: 1 },
-      { name: 'Decode string', value: 2 },
-      { name: 'Go to previous menu', value: 'previous' },
-      { name: 'Go to Main Menu', value: 'main' },
-      { name: 'Quit Program', value: 'quit' }
+      { name: 'Encode string', value: -> { CryptographyAsciiArt.new('a1z26') && encode_a1z26 } },
+      { name: 'Decode string', value: -> { CryptographyAsciiArt.new('a1z26') && decode_a1z26 } },
+      { name: 'Go to previous menu', value: -> { Cryptography.new } },
+      { name: 'Go to Main Menu', value: -> { Toolbox.new } },
+      { name: 'Quit Program', value: -> { clear_terminal && exit } }
     ]
 
-    mode = prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
-
-    case mode
-    when 1
-      CryptographyAsciiArt.new('a1z26')
-      encode_a1z26
-    when 2
-      CryptographyAsciiArt.new('a1z26')
-      decode_a1z26
-    when 'quit'
-      clear_terminal
-      exit
-    when 'main'
-      Toolbox.new
-    when 'previous'
-      Cryptography.new
-    end
+    prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
   end
 
   def decode_a1z26
@@ -57,9 +41,7 @@ class A1Z26 < Cryptography
 
     char_arr = gets.chomp.downcase.chars.map { |character| character.ord - 96 }
 
-    print "\n Your result is: "
-    puts "\n#{char_arr.join(',').colorize(:green)}"
-
+    print "\n Your result is: #{char_arr.join(',').colorize(:green)}"
     quit_or_continue(A1Z26)
   end
 end

@@ -82,17 +82,13 @@ class Toolbox
     end
   end
 
-  def quit_or_continue(child_class) # rubocop:disable Metrics/MethodLength
-    puts "\n'q'uit program or 'c'ontinue hacking"
-    response = gets.chomp
-    if response == 'q'
-      clear_terminal
-      exit
-    elsif response == 'c'
-      child_class.new
-    else
-      puts 'Invalid input detected, pick again'.colorize(:red)
-      quit_or_continue(child_class)
-    end
+  def quit_or_continue(child_class)
+    prompt = TTY::Prompt.new
+    options = [
+      { name: 'Continue', value: -> { child_class.new } },
+      { name: 'Quit', value: -> { clear_terminal && exit } }
+
+    ]
+    prompt.select("\nQuit the program or continue hacking", options, per_page: 2, cycle: true)
   end
 end

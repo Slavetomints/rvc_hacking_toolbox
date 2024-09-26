@@ -11,34 +11,18 @@ class MorseCode < Cryptography
     select_morse_mode
   end
 
-  def select_morse_mode # rubocop:disable Metrics/MethodLength
+  def select_morse_mode
     prompt = TTY::Prompt.new
 
     choices = [
-      { name: 'Encode', value: 1 },
-      { name: 'Decode', value: 2 },
-      { name: 'Go to previous menu', value: 'previous' },
-      { name: 'Go to Main Menu', value: 'main' },
-      { name: 'Quit Program', value: 'quit' }
+      { name: 'Encode', value: -> { CryptographyAsciiArt.new('morse') && encode_morse_code } },
+      { name: 'Decode', value: -> { CryptographyAsciiArt.new('morse') && decode_morse_code } },
+      { name: 'Go to previous menu', value: -> { Cryptography.new } },
+      { name: 'Go to Main Menu', value: -> { Toolbox.new } },
+      { name: 'Quit Program', value: -> { clear_terminal && exit } }
     ]
 
-    mode = prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
-
-    case mode
-    when 1
-      CryptographyAsciiArt.new('morse')
-      encode_morse_code
-    when 2
-      CryptographyAsciiArt.new('morse')
-      decode_morse_code
-    when 'quit'
-      clear_terminal
-      exit
-    when 'main'
-      Toolbox.new
-    when 'previous'
-      Cryptography.new
-    end
+    prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
   end
 
   def encode_morse_code
@@ -47,9 +31,8 @@ class MorseCode < Cryptography
     plaintext = gets.chomp
 
     ciphertext = Telegraph.text_to_morse(plaintext)
-    print "\nYour result is: "
-    puts ciphertext.colorize(:green)
 
+    print "\nYour result is: #{ciphertext.colorize(:green)}"
     quit_or_continue(MorseCode)
   end
 
@@ -59,9 +42,8 @@ class MorseCode < Cryptography
     ciphertext = gets.chomp
 
     plaintext = Telegraph.morse_to_text(ciphertext)
-    print "\nYour result is: "
-    puts plaintext.colorize(:green)
 
+    print "\nYour result is: #{plaintext.colorize(:green)}"
     quit_or_continue(MorseCode)
   end
 end
