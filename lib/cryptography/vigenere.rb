@@ -6,8 +6,8 @@ require_relative 'cryptography_ascii_art'
 # This class houses the function and menus for the vigenere cipher
 class Vigenere < Cryptography
   def initialize
-    @ALPHABET = ('A'..'Z').to_a.freeze
-    @ALPHABET_LOWER = ('a'..'z').to_a.freeze
+    @alphabet = ('A'..'Z').to_a.freeze
+    @alphabet_lower = ('a'..'z').to_a.freeze
     CryptographyAsciiArt.new('vigenere')
     select_vigenere_mode
   end
@@ -55,16 +55,16 @@ class Vigenere < Cryptography
   def process_text(text, operation, key) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     key_index = 0
     text.chars.map do |char|
-      if @ALPHABET.include?(char)
+      if @alphabet.include?(char)
         shift = key[key_index % key.length].upcase.ord - 'A'.ord
-        new_index = @ALPHABET.index(char).send(operation, shift) % @ALPHABET.size
+        new_index = @alphabet.index(char).send(operation, shift) % @alphabet.size
         key_index += 1
-        @ALPHABET[new_index]
-      elsif @ALPHABET_LOWER.include?(char)
+        @alphabet[new_index]
+      elsif @alphabet_lower.include?(char)
         shift = key[key_index % key.length].downcase.ord - 'a'.ord
-        new_index = @ALPHABET_LOWER.index(char).send(operation, shift) % @ALPHABET_LOWER.size
+        new_index = @alphabet_lower.index(char).send(operation, shift) % @alphabet_lower.size
         key_index += 1
-        @ALPHABET_LOWER[new_index]
+        @alphabet_lower[new_index]
       else
         char
       end
