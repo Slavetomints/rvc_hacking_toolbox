@@ -7,6 +7,7 @@ require_relative 'toolbox_ascii_art'
 # This is the main Toolbox class that contains the functinality for the rest of the program
 class Toolbox
   def initialize
+    @version = '0.10'
     show_title
     load_main_menu
   end

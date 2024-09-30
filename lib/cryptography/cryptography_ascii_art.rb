@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'tty-box'
 require_relative 'cryptography'
 
 # This class houses the asciii art and displays it for the cryptography methods
@@ -57,13 +58,11 @@ class CryptographyAsciiArt < Cryptography # rubocop:disable Metrics/ClassLength
 || / /_/ /  __/ /__/ / / / / / / /_/ / /  ||
 ||/_____/\\___/\\___/_/_/ /_/ /_/\\__,_/_/   ||
 \\==========================================/",
-      'hexadecimal' => "/================================================================\\
-||    __  __                    __          _                 __||
-||   / / / /__  _  ______ _____/ /__  _____(_)___ ___  ____ _/ /||
-||  / /_/ / _ \\| |/_/ __ `/ __  / _ \\/ ___/ / __ `__ \\/ __ `/ / ||
-|| / __  /  __/>  </ /_/ / /_/ /  __/ /__/ / / / / / / /_/ / /  ||
-||/_/ /_/\\___/_/|_|\\__,_/\\__,_/\\___/\\___/_/_/ /_/ /_/\\__,_/_/   ||
-\\================================================================/",
+      'hexadecimal' => '    __  __                    __          _                 __
+   / / / /__  _  ______ _____/ /__  _____(_)___ ___  ____ _/ /
+  / /_/ / _ \| |/_/ __ `/ __  / _ \/ ___/ / __ `__ \/ __ `/ /
+ / __  /  __/>  </ /_/ / /_/ /  __/ /__/ / / / / / / /_/ / /
+/_/ /_/\___/_/|_|\__,_/\__,_/\___/\___/_/_/ /_/ /_/\__,_/_/   ',
       'morse' => "/================================\\
 ||    __  ___                   ||
 ||   /  |/  /___  _____________ ||
@@ -106,7 +105,8 @@ class CryptographyAsciiArt < Cryptography # rubocop:disable Metrics/ClassLength
 
   def show_subtitle(subtitle)
     clear_terminal
-    show_cryptography
-    puts @subtitle_hash[subtitle].colorize(:red)
+    box = TTY::Box.frame(@subtitle_hash[subtitle],
+                         title: { top_left: 'RVC Hacking Toolbox - Cryptography', bottom_right: Toolbox.version })
+    puts box.colorize(:red)
   end
 end
