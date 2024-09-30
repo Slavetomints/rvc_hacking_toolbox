@@ -2,7 +2,6 @@
 Author: Slavetomints
 
 
-
 ## Progress
 Open Source Inteligence: Boilerplate
 
@@ -29,3 +28,4 @@ Enumeration & Exploitation: Boilerplate
 ## Disclaimer
 This project is a work in progress that is constantly undergoing large-scale changes, use at your own discretion.
 Designed for the National Cyber League Competition
+If you want to contribute please contact the author, this project is 100% written in Ruby and 100% OOP
