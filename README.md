@@ -4,7 +4,7 @@ Author: Slavetomints
 
 
 ## Progress
-Open Source Inteligence: Boilerplate
+Open Source Intelligence: Boilerplate
 
 Cryptography: Completed
 
@@ -16,7 +16,7 @@ Log Analysis: Boilerplate
 
 Network Traffic Analysis: Boilerplate 
 
-Scanning & Reconnaisance: Boilerplate
+Scanning & Reconnaissance: Boilerplate
 
 Web Application Exploitation: In Development
 
