@@ -2,20 +2,17 @@
 
 require 'colorize'
 require 'tty-prompt'
-require_relative 'toolbox_ascii_art'
 
 # This is the main Toolbox class that contains the functinality for the rest of the program
 class Toolbox
   def initialize
-    @version = '0.10'
-    show_title
+    require_relative 'toolbox_ascii_art'
+    ToolboxAsciiArt.new('title')
     load_main_menu
   end
 
-  def show_title
-    clear_terminal
-    puts "\n\n                Welcome to the RVC Hacking Toolbox!".colorize(:green)
-    show_ascii_title_image
+  def self.version
+    ' v0.1.0 '
   end
 
   def load_main_menu # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength

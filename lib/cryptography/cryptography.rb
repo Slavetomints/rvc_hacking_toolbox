@@ -8,7 +8,8 @@ require_relative '../toolbox/toolbox'
 class Cryptography < Toolbox
   def initialize
     clear_terminal
-    show_cryptography
+    ToolboxAsciiArt.new('cryptography')
+
     select_cryptography_mode
   end
 
