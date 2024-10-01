@@ -8,40 +8,24 @@ class John < PasswordCracking
   def initialize
     PasswordCrackingAsciiArt.new('john')
     select_john_mode
+    display_john_rules
   end
 
-  def select_john_mode # rubocop:disable Metrics/MethodLength
+  def select_john_mode
     prompt = TTY::Prompt.new
 
     options = [
-      { name: 'Create John Substitutions', value: 1 },
-      { name: 'Add numbers to end of rules', value: 2 },
-      { name: 'Go to previous menu', value: 'previous' },
-      { name: 'Go to Main Menu', value: 'main' },
-      { name: 'Quit application', value: 'quit' }
+      { name: 'Create John Substitution Rules', value: -> { create_john_substitutions } },
+      { name: 'Creare John Substitution Rules with numbers after', value: lambda {
+        create_john_substitutions
+        append_john_numbers
+      } },
+      { name: 'Go to previous menu', value: -> { PasswordCracking.new } },
+      { name: 'Go to Main Menu', value: -> { Toolbox.new } },
+      { name: 'Quit application', value: -> { clear_terminal && exit } }
     ]
 
-    mode = prompt.multi_select('Please select a mode', options, per_page: 5, cycle: true)
-
-    case mode
-    when [1]
-      create_john_substitutions(true)
-    when [2]
-      append_john_numbers(true)
-    when [1, 2]
-      create_john_substitutions(false)
-      append_john_numbers(false)
-    when 'previous'
-      PasswordCracking.new
-    when 'main'
-      Toolbox.new
-    when 'quit'
-      clear_terminal
-      exit
-    else
-      puts 'Invalid combination, select again'.colorize(:red)
-      select_john_mode
-    end
+    prompt.select('Please select your mode', options, per_page: 5, cycle: true)
   end
 
   def set_substitutions
@@ -57,7 +41,7 @@ class John < PasswordCracking
     end
   end
 
-  def create_john_substitutions(alone)
+  def create_john_substitutions
     subs = set_substitutions
     rules = subs.map { |key, value| ["s#{key}#{value}"] }
     all_combinations = []
@@ -69,38 +53,28 @@ class John < PasswordCracking
 
     # Ensures that all combinations are unique
     @unique_combinations = all_combinations.uniq
-
-    display_john_rules('subs') if alone
   end
 
-  def append_john_numbers(alone)
+  def append_john_numbers
     puts 'Please select the amount of numbers to be appended'
     amount_of_numbers = gets.chomp.to_i
 
     puts 'Please select the lowest and highest number, separated by a space'
     low_high_num = gets.chomp.split(' ').map(&:to_i).join('..')
-    number_brackets = "[#{low_high_num}]" * amount_of_numbers
-
-    alone ? display_john_rules('nums', number_brackets) : display_john_rules('both', number_brackets)
+    @number_brackets = "[#{low_high_num}]" * amount_of_numbers
   end
 
-  def display_john_rules(mode, *number_brackets) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
+  def display_john_rules # rubocop:disable Metrics/MethodLength
     puts "\n\nSUBSTITUTIONS".colorize(:light_blue)
     output = []
-
-    case mode
-    when 'subs'
+    if @number_brackets.nil?
       @unique_combinations.each do |rule|
         output << rule.join(' ')
       end
-    when 'nums'
-      @unique_combinations.each do |rule|
-        output << "#{rule.join(' ')} cAz\"#{number_brackets.join}\""
-      end
-    when 'both'
+    else
       @unique_combinations.each do |rule|
         output << rule.join(' ')
-        output << "#{rule.join(' ')} cAz\"#{number_brackets.join}\""
+        output << "#{rule.join(' ')} cAz\"#{@number_brackets}\""
       end
     end
     puts output.join("\n")
