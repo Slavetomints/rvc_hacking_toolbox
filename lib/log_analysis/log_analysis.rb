@@ -7,8 +7,7 @@ require_relative '../toolbox/toolbox'
 # houses the main Log Analysis functions and the menu for it
 class LogAnalysis < Toolbox
   def initialize
-    clear_terminal
-    show_log_analysis
+    ToolboxAsciiArt.new('log_analysis')
     select_log_analysis_mode
   end
 

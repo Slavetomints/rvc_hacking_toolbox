@@ -7,8 +7,7 @@ require_relative '../toolbox/toolbox'
 # houses the main cryptography functions
 class ScanningAndReconnaissance < Toolbox
   def initialize
-    clear_terminal
-    show_scanning_and_reconnaissance
+    ToolboxAsciiArt.new('scanning_and_reconnaissance')
     select_scanning_and_reconnaissance_mode
   end
 

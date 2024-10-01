@@ -7,8 +7,7 @@ require_relative '../toolbox/toolbox'
 # houses the main Network Traffic Analysis functions amd their menus
 class NetworkTrafficAnalysis < Toolbox
   def initialize
-    clear_terminal
-    show_network_traffic_analysis
+    ToolboxAsciiArt.new('network_traffic_analysis')
     select_network_traffic_analysis_mode
   end
 

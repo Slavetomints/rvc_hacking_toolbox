@@ -7,8 +7,7 @@ require_relative '../toolbox/toolbox'
 # houses the main cryptography functions
 class OpenSourceIntelligence < Toolbox
   def initialize
-    clear_terminal
-    show_open_source_intelligence
+    ToolboxAsciiArt.new('open_source_intelligence')
     select_open_source_intelligence_mode
   end
 

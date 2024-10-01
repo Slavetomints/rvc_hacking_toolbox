@@ -7,8 +7,7 @@ require_relative '../toolbox/toolbox'
 # houses the main cryptography functions
 class Forensics < Toolbox
   def initialize
-    clear_terminal
-    show_forensics
+    ToolboxAsciiArt.new('forensics')
     select_forensics_mode
   end
 

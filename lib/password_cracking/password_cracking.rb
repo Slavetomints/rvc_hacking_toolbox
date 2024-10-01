@@ -5,6 +5,7 @@ require 'tty-prompt'
 # This class wil hold the menu and base functions for the password cracking section of the project
 class PasswordCracking < Toolbox
   def initialize
+    ToolboxAsciiArt.new('password_cracking')
     select_password_cracking_mode
   end
 
