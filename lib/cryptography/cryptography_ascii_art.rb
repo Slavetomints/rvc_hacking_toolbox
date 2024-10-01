@@ -85,7 +85,7 @@ class CryptographyAsciiArt < Cryptography
     clear_terminal
     colored_title = @title_hash[title].lines.map { |line| line.colorize(:red) }.join
     puts TTY::Box.frame(colored_title,
-                        title: { top_left: ' RVC Hacking Toolbox '.colorize(:green),
+                        title: { top_left: ' RVC Hacking Toolbox - Cryptography'.colorize(:green),
                                  bottom_right: Toolbox.version.colorize(:green) },
                         enable_color: true,
                         style: { border: {

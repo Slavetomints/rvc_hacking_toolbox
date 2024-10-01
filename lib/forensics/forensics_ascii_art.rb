@@ -3,7 +3,7 @@
 # This class when initialized will display the name of the subtitle from Forensics that is passed to it
 class ForensicsAsciiArt < Forensics
   def initialize(title)
-    @subtitle_hash = { 'metadata' => '    _______ __          __  ___     __            __      __
+    @title_hash = { 'metadata' => '    _______ __          __  ___     __            __      __
    / ____(_) /__       /  |/  /__  / /_____ _____/ /___ _/ /_____ _
   / /_  / / / _ \     / /|_/ / _ \/ __/ __ `/ __  / __ `/ __/ __ `/
  / __/ / / /  __/    / /  / /  __/ /_/ /_/ / /_/ / /_/ / /_/ /_/ /
@@ -15,7 +15,7 @@ class ForensicsAsciiArt < Forensics
     clear_terminal
     colored_title = @title_hash[title].lines.map { |line| line.colorize(:red) }.join
     puts TTY::Box.frame(colored_title,
-                        title: { top_left: ' RVC Hacking Toolbox '.colorize(:green),
+                        title: { top_left: ' RVC Hacking Toolbox - Forensics'.colorize(:green),
                                  bottom_right: Toolbox.version.colorize(:green) },
                         enable_color: true,
                         style: { border: {

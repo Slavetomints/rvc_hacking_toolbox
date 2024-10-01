@@ -3,7 +3,7 @@
 # This classwhen initialized will display the name of the subtitle that is passed to it
 class PasswordCrackingAsciiArt < PasswordCracking
   def initialize(title) # rubocop:disable Metrics/MethodLength
-    @subtitle_hash = { 'john' => '       __      __             ________
+    @title_hash = { 'john' => '       __      __             ________
       / /___  / /_  ____     /_  __/ /_  ___
  __  / / __ \/ __ \/ __ \     / / / __ \/ _ \
 / /_/ / /_/ / / / / / / /    / / / / / /  __/
@@ -22,7 +22,7 @@ class PasswordCrackingAsciiArt < PasswordCracking
     clear_terminal
     colored_title = @title_hash[title].lines.map { |line| line.colorize(:red) }.join
     puts TTY::Box.frame(colored_title,
-                        title: { top_left: ' RVC Hacking Toolbox '.colorize(:green),
+                        title: { top_left: ' RVC Hacking Toolbox - Password Cracking'.colorize(:green),
                                  bottom_right: Toolbox.version.colorize(:green) },
                         enable_color: true,
                         style: { border: {
