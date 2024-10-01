@@ -2,8 +2,7 @@
 Author: Slavetomints
 
 
-
-## Progress
+## Development Status
 Open Source Intelligence: Boilerplate
 
 Cryptography: Completed
@@ -29,3 +28,16 @@ Enumeration & Exploitation: Boilerplate
 ## Disclaimer
 This project is a work in progress that is constantly undergoing large-scale changes, use at your own discretion.
 Designed for the National Cyber League Competition
+
+
+## Version History
+### 1.1.0 Update
+**New Features:**
+- Introduced new titles and improved the logic for displaying them.
+
+**Improvements:**
+- Enhanced error handling to prevent unexpected program quits.
+- Refined menu handling with tty-prompt for a cleaner interface, eliminating most case switch statements.
+
+**Enhancements:**
+- Continued development on the comprehensive scan mode.

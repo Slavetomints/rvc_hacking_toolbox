@@ -6,7 +6,7 @@ require_relative 'lib/toolbox/toolbox'
 
 @exit_flag = false
 
-def exit?
+def exit? # rubocop:disable Metrics/MethodLength
   prompt = TTY::Prompt.new
   options = [
     { name: 'Exit Program', value: lambda {
@@ -28,7 +28,7 @@ def clear_terminal
   end
 end
 
-def main
+def main # rubocop:disable Metrics/MethodLength
   Signal.trap('INT') do
     exit?
   end
