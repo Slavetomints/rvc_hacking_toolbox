@@ -7,8 +7,7 @@ require_relative '../toolbox/toolbox'
 # houses the main Network Traffic Analysis functions amd their menus
 class NetworkTrafficAnalysis < Toolbox
   def initialize
-    clear_terminal
-    show_network_traffic_analysis
+    ToolboxAsciiArt.new('network_traffic_analysis')
     select_network_traffic_analysis_mode
   end
 
@@ -21,18 +20,13 @@ class NetworkTrafficAnalysis < Toolbox
       { name: '3', value: 3 },
       { name: '4', value: 4 },
       { name: '5', value: 5 },
-      { name: 'Go to Main Menu', value: 'main' },
-      { name: 'Quit Program', value: 'quit' }
+      { name: 'Go to Main Menu', value: -> { Toolbox.new } },
+      { name: 'Quit Program', value: lambda {
+        clear_terminal
+        exit
+      } }
     ]
 
-    mode = prompt.select('Please select your mode', choices, per_page: 7, cycle: true)
-
-    case mode
-    when 'quit'
-      clear_terminal
-      exit
-    when 'main'
-      Toolbox.new
-    end
+    prompt.select('Please select your mode', choices, per_page: 7, cycle: true)
   end
 end

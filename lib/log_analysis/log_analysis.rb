@@ -7,8 +7,7 @@ require_relative '../toolbox/toolbox'
 # houses the main Log Analysis functions and the menu for it
 class LogAnalysis < Toolbox
   def initialize
-    clear_terminal
-    show_log_analysis
+    ToolboxAsciiArt.new('log_analysis')
     select_log_analysis_mode
   end
 
@@ -21,18 +20,13 @@ class LogAnalysis < Toolbox
       { name: '3', value: 3 },
       { name: '4', value: 4 },
       { name: '5', value: 5 },
-      { name: 'Go to Main Menu', value: 'main' },
-      { name: 'Quit Program', value: 'quit' }
+      { name: 'Go to Main Menu', value: -> { Toolbox.new } },
+      { name: 'Quit Program', value: lambda {
+        clear_terminal
+        exit
+      } }
     ]
 
-    mode = prompt.select('Please select your mode', choices, per_page: 7, cycle: true)
-
-    case mode
-    when 'quit'
-      clear_terminal
-      exit
-    when 'main'
-      Toolbox.new
-    end
+    prompt.select('Please select your mode', choices, per_page: 7, cycle: true)
   end
 end

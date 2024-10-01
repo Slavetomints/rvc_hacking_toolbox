@@ -7,7 +7,7 @@ require_relative 'cryptography_ascii_art'
 class Atbash < Cryptography
   def initialize
     @alphabet = ('a'..'z').to_a.freeze
-    @reverse_alphabet = ALPHABET.reverse
+    @reverse_alphabet = @alphabet.reverse
     CryptographyAsciiArt.new('atbash')
     select_atbash_mode
   end

@@ -29,3 +29,5 @@ gem 'pdf-reader', '~> 2.12'
 
 gem "mini_magick", "~> 5.0"
 
+
+gem "tty-box", "~> 0.7.0"
