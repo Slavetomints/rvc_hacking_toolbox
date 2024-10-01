@@ -21,7 +21,7 @@ class John < PasswordCracking
       { name: 'Quit application', value: 'quit' }
     ]
 
-    mode = prompt.multi_select('Please select a mode', options, per_page: 4, cycle: true)
+    mode = prompt.multi_select('Please select a mode', options, per_page: 5, cycle: true)
 
     case mode
     when [1]
