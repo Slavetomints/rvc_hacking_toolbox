@@ -19,16 +19,16 @@ class Toolbox
     prompt = TTY::Prompt.new
 
     choices = [
-      { name: 'Open Source Intelligence', value: 1 },
+      { name: 'Open Source Intelligence', value: 1, disabled: '(In Development)' },
       { name: 'Cryptography', value: 2 },
       { name: 'Password Cracking', value: 3 },
       { name: 'Forensics', value: 4 },
-      { name: 'Log Analysis', value: 5 },
-      { name: 'Network Traffic Analysis', value: 6 },
-      { name: 'Scanning & Reconnaissance', value: 7 },
+      { name: 'Log Analysis', value: 5, disabled: '(In Development)' },
+      { name: 'Network Traffic Analysis', value: 6, disabled: '(In Development)' },
+      { name: 'Scanning & Reconnaissance', value: 7, disabled: '(In Development)' },
       { name: 'Web Application Exploitation', value: 8 },
-      { name: 'Wireless Access Exploitation', value: 9 },
-      { name: 'Enumeration & Exploitation', value: 10 },
+      { name: 'Wireless Access Exploitation', value: 9, disabled: '(In Development)' },
+      { name: 'Enumeration & Exploitation', value: 10, disabled: '(In Development)' },
       { name: 'Quit Program', value: 'quit' }
     ]
 
