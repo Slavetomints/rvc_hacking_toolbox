@@ -12,7 +12,7 @@ class Toolbox
   end
 
   def self.version
-    ' v0.1.0 '
+    ' v0.1.1 '
   end
 
   def load_main_menu # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
