@@ -2,14 +2,20 @@
 
 # This classwhen initialized will display the name of the subtitle from Log Analysis that is passed to it
 class LogAnalysisAsciiArt < LogAnalysis
-  def initialize(subtitle)
+  def initialize(title)
     @subtitle_hash = { 'option' => 'art' }
-    show_subtitle(subtitle)
+    show_title(title)
   end
 
-  def show_subtitle(subtitle)
+  def show_title(title)
     clear_terminal
-    show_log_analysis
-    puts @subtitle_hash[subtitle].colorize(:red)
+    colored_title = @title_hash[title].lines.map { |line| line.colorize(:red) }.join
+    puts TTY::Box.frame(colored_title,
+                        title: { top_left: ' RVC Hacking Toolbox '.colorize(:green),
+                                 bottom_right: Toolbox.version.colorize(:green) },
+                        enable_color: true,
+                        style: { border: {
+                          fg: :red
+                        } })
   end
 end

@@ -2,14 +2,20 @@
 
 # This class when initialized will display the name of the subtitle from Scanning And Reconnaissance that is passed to it
 class ScanningAndReconnaissanceAsciiArt < ScanningAndReconnaissance
-  def initialize(subtitle)
+  def initialize(title)
     @subtitle_hash = { 'option' => 'art' }
-    show_subtitle(subtitle)
+    show_title(title)
   end
 
-  def show_subtitle(subtitle)
+  def show_title(title)
     clear_terminal
-    show_scanning_and_reconnaissance
-    puts @subtitle_hash[subtitle].colorize(:red)
+    colored_title = @title_hash[title].lines.map { |line| line.colorize(:red) }.join
+    puts TTY::Box.frame(colored_title,
+                        title: { top_left: ' RVC Hacking Toolbox '.colorize(:green),
+                                 bottom_right: Toolbox.version.colorize(:green) },
+                        enable_color: true,
+                        style: { border: {
+                          fg: :red
+                        } })
   end
 end
