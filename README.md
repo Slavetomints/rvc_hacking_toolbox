@@ -1,31 +1,58 @@
 # RVC HACKING TOOLBOX
 Author: Slavetomints
 
-
-## Progress
-Open Source Intelligence: Boilerplate
-
-Cryptography: Completed
-
-Password Cracking: In Development
-
-Forensics: In Planning
-
-Log Analysis: Boilerplate
-
-Network Traffic Analysis: Boilerplate 
-
-Scanning & Reconnaissance: Boilerplate
-
-Web Application Exploitation: In Development
-
-Wireless Access Exploitation: Boilerplate
-
-Enumeration & Exploitation: Boilerplate
-
-
-
 ## Disclaimer
 This project is a work in progress that is constantly undergoing large-scale changes, use at your own discretion.
 Designed for the National Cyber League Competition
-If you want to contribute please contact the author, this project is 100% written in Ruby and 100% OOP
+
+
+## Development Status
+### Boilerplate Code
+- Open Source Intelligence
+- Network Traffic Analysis
+- Scanning & Reconnaissance
+- Wireless Access Exploitation
+- Enumeration & Exploitation
+### In Planning
+- Password Cracking
+- Forensics
+### In Development
+- Log Analysis
+### Completed
+- Cryptography
+- Web Application Exploitation
+
+
+## Version History
+
+### 0.2.0 Update
+**New Features:**
+- Easier File Selection in Metadata: Implemented a more user-friendly file selection process for metadata scanning.
+
+**Enhancements:**
+- Error Handling: Added more comprehensive error handling to improve stability and user experience.
+- Comprehensive Scan File: Enhanced the scan file functionality, including improvements to display and output.
+
+**Removals:**
+- SQL Injection Scan Capabilities: Removed SQL injection scan capabilities to streamline the tool.
+
+**Additions:**
+- PHP Includes Statements Support: Added support for scanning for PHP includes statements.
+- Requests Support: Introduced support for handling requests.
+- Comment Support: Enhanced the tool to better handle comments in code.
+
+**Other Improvements:**
+- Robots.txt Scanner: Continued work on the robots.txt scanner for better web application analysis.
+
+
+
+### 0.1.1. Update
+**New Features:**
+- Introduced new titles and improved the logic for displaying them.
+
+**Improvements:**
+- Enhanced error handling to prevent unexpected program quits.
+- Refined menu handling with tty-prompt for a cleaner interface, eliminating most case switch statements.
+
+**Enhancements:**
+- Continued development on the comprehensive scan mode.
