@@ -12,18 +12,31 @@ require_relative 'forensics_ascii_art'
 
 # This class displays the menu and houses the functions for a file metadata scan
 class Metadata < Forensics # rubocop:disable Metrics/ClassLength
-  def initialize # rubocop:disable Metrics/MethodLength
+  def initialize
     ForensicsAsciiArt.new('metadata')
+    @file = select_file
+    print_metadata(@file)
+    quit_or_continue(Metadata)
+  end
+
+  def select_file # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
     prompt = TTY::Prompt.new
-    file_path = prompt.ask('Enter a file path (absolute path from root):')
-    absolute_path = File.expand_path(file_path, '/')
-    if File.exist?(absolute_path)
-      puts "Selected file: #{absolute_path}"
-      print_metadata(absolute_path)
-      quit_or_continue(Metadata)
-    else
-      puts 'File not found. Please try again.'
-      Metadata.new
+    current_path = File.expand_path('~')
+
+    loop do
+      entries = Dir.entries(current_path).select { |entry| entry != '.' && !entry.start_with?('.') }
+      entries.unshift('..') unless current_path == File.expand_path('~')
+      file_path = prompt.select('Please select a file or directory:', entries, cycle: true, per_page: 20)
+
+      selected_path = File.join(current_path, file_path)
+      if file_path == '..'
+        current_path = File.expand_path('..', current_path)
+      elsif File.directory?(selected_path)
+        current_path = selected_path
+      else
+        puts "You selected: #{selected_path}"
+        return selected_path
+      end
     end
   end
 
