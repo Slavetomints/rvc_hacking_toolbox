@@ -17,7 +17,15 @@ def exit? # rubocop:disable Metrics/MethodLength
   ]
   clear_terminal
   puts TTY::Box.error('An error occured')
-  prompt.select('Please select', options)
+  begin
+    prompt.select('Please select', options)
+  rescue TTY::Reader::InputInterrupt
+    exit?
+  rescue Interrupt
+    exit?
+  rescue StandardError
+    exit?
+  end
 end
 
 def clear_terminal
@@ -29,14 +37,12 @@ def clear_terminal
 end
 
 def main # rubocop:disable Metrics/MethodLength
-  Signal.trap('INT') do
-    exit?
-  end
-
   loop do
     begin
       Toolbox.new
     rescue TTY::Reader::InputInterrupt
+      exit?
+    rescue Interrupt
       exit?
     rescue StandardError
       exit?
