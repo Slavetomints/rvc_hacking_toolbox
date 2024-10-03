@@ -42,8 +42,7 @@ class Toolbox
       { name: 'Log Analysis', value: lambda {
         require_relative '../log_analysis/log_analysis'
         LogAnalysis.new
-      }, disabled: '(In Development)' },
-
+      } },
       { name: 'Network Traffic Analysis', value: lambda {
         require_relative '../network_traffic_analysis/network_traffic_analysis'
         NetworkTrafficAnalysis.new
