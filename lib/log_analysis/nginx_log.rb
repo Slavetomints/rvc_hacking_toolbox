@@ -27,17 +27,16 @@ class NGINXLog < LogAnalysis
 " },
       [name: 'Unique user agents', value: "awk '{agents[$12]++} END {for (agent in agents) print agent}' #{@file}
 "],
-      { name: 'Find all POST requests', value: `awk '$6 == "POST" {print $0}' #{@file}
-` },
-      { name: 'Find all GET requests', value: `awk '$6 == "GET" {print $0}' #{@file}
-` },
+      { name: 'Find all POST requests', value: "awk '$6 ~ /POST/ {print $0}' #{@file}
+" },
+      { name: 'Find all GET requests', value: "awk '$6 ~ /GET/ {print $0}' #{@file}" },
       { name: 'Sort URIs by length',
         value: "awk '{print $7}' #{@file} | awk '{print length, $0}' | sort -n | cut -d' ' -f2-
 " },
       { name: 'Find requests with Query Parameters', value: "awk '$7 ~ /\\?/ {print $0}' #{@file}
 " },
       { name: 'Count requests by User Agent',
-        value: "awk '{count[$12]++} END {for (agent in count) print agent, count[agent]}' #{@file}
+        value: "awk '{count[$12]++} END {for (agent in count) print agent, count[agent]}' #{@file} | sort -nk2
 " },
       { name: 'Go to previous menu', value: -> { LogAnalysis.new } },
       { name: 'Go to main menu', value: -> { Toolbox.new } },
