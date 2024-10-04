@@ -18,26 +18,18 @@ class NGINXLog < LogAnalysis
 
     choices = [
       { name: 'Requests per IP address',
-        value: "awk '{count[$1]++} END {for (ip in count) print ip, count[ip]}' #{@file} | sort -nk2
-" },
-      { name: 'All requests that resulted in a 404 error', value: "awk '$9 == 404 {print $0}' #{@file}
-" },
+        value: "awk '{count[$1]++} END {for (ip in count) print ip, count[ip]}' #{@file} | sort -nk2" },
+      { name: 'All requests that resulted in a 404 error', value: "awk '$9 == 404 {print $0}' #{@file}" },
       { name: 'Different HTTP methods used',
-        value: "awk '{count[$6]++} END {for (method in count) print method, count[method]}' #{@file}
-" },
-      [name: 'Unique user agents', value: "awk '{agents[$12]++} END {for (agent in agents) print agent}' #{@file}
-"],
-      { name: 'Find all POST requests', value: "awk '$6 ~ /POST/ {print $0}' #{@file}
-" },
+        value: "awk '{count[$6]++} END {for (method in count) print method, count[method]}' #{@file}" },
+      { name: 'Unique user agents', value: "awk '{agents[$12]++} END {for (agent in agents) print agent}' #{@file}" },
+      { name: 'Find all POST requests', value: "awk '$6 ~ /POST/ {print $0}' #{@file}" },
       { name: 'Find all GET requests', value: "awk '$6 ~ /GET/ {print $0}' #{@file}" },
       { name: 'Sort URIs by length',
-        value: "awk '{print $7}' #{@file} | awk '{print length, $0}' | sort -n | cut -d' ' -f2-
-" },
-      { name: 'Find requests with Query Parameters', value: "awk '$7 ~ /\\?/ {print $0}' #{@file}
-" },
+        value: "awk '{print $7}' #{@file} | awk '{print length, $0}' | sort -n | cut -d' ' -f2-" },
+      { name: 'Find requests with Query Parameters', value: "awk '$7 ~ /\\?/ {print $0}' #{@file}" },
       { name: 'Count requests by User Agent',
-        value: "awk '{count[$12]++} END {for (agent in count) print agent, count[agent]}' #{@file} | sort -nk2
-" },
+        value: "awk '{count[$12]++} END {for (agent in count) print agent, count[agent]}' #{@file} | sort -nk2" },
       { name: 'Go to previous menu', value: -> { LogAnalysis.new } },
       { name: 'Go to main menu', value: -> { Toolbox.new } },
       { name: 'Quit Program', value: -> { clear_terminal && exit } }

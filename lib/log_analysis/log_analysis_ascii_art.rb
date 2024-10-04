@@ -2,7 +2,7 @@
 
 # This classwhen initialized will display the name of the subtitle from Log Analysis that is passed to it
 class LogAnalysisAsciiArt < LogAnalysis
-  def initialize(title)
+  def initialize(title) # rubocop:disable Metrics/MethodLength
     @title_hash = { 'aws' => '    ___ _       _______     __
    /   | |     / / ___/    / /   ____  ____ _
   / /| | | /| / /\__ \    / /   / __ \/ __ `/
