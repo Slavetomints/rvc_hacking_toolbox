@@ -14,16 +14,21 @@ Designed for the National Cyber League Competition
 - Wireless Access Exploitation
 - Enumeration & Exploitation
 ### In Planning
-- Password Cracking
 - Forensics
 ### In Development
-- Log Analysis
+- Password Cracking
 ### Completed
 - Cryptography
 - Web Application Exploitation
-
+- Log Analysis
 
 ## Version History
+
+### 0.3.0 Update
+**New Features:**
+- Added capabilities to scan over NGINX, AWS S3, and Squid Logs
+
+
 
 ### 0.2.0 Update
 **New Features:**
