@@ -11,7 +11,7 @@ class John < PasswordCracking
     display_john_rules
   end
 
-  def select_john_mode
+  def select_john_mode # rubocop:disable Metrics/MethodLength
     prompt = TTY::Prompt.new
 
     options = [
@@ -26,19 +26,6 @@ class John < PasswordCracking
     ]
 
     prompt.select('Please select your mode', options, per_page: 5, cycle: true)
-  end
-
-  def set_substitutions
-    subs = {}
-    loop do
-      puts "\nEnter what you want to replace, then the value you want to replace it with seperated by a space. Ex 's $'"
-      puts "Enter 'qq' to stop entering values".colorize(:red)
-      sub_arr = gets.chomp
-      return subs if sub_arr == 'qq'
-
-      sub_arr = sub_arr.split(' ')
-      subs[sub_arr[0]] = sub_arr[1]
-    end
   end
 
   def create_john_substitutions

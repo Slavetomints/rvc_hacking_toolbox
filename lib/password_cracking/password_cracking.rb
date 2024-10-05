@@ -26,4 +26,17 @@ class PasswordCracking < Toolbox
 
     prompt.select('Please select a mode', options, per_page: 3, cycle: true)
   end
+
+  def set_substitutions
+    subs = {}
+    loop do
+      puts "\nEnter what you want to replace, then the value you want to replace it with seperated by a space. Ex 's $'"
+      puts "Enter 'qq' to stop entering values".colorize(:red)
+      sub_arr = gets.chomp
+      return subs if sub_arr == 'qq'
+
+      sub_arr = sub_arr.split(' ')
+      subs[sub_arr[0]] = sub_arr[1]
+    end
+  end
 end
