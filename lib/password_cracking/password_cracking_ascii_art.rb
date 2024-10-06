@@ -15,7 +15,7 @@ class PasswordCrackingAsciiArt < PasswordCracking
  / _, _/ / /_/ / /_/ /  __/ /
 /_/ |_/_/ .___/ .___/\___/_/
        /_/   /_/                             ',
-                    'wordlist_enchancer' => ' _       __               _____      __
+                    'wordlist_enhancer' => ' _       __               _____      __
 | |     / /___  _________/ / (_)____/ /_
 | | /| / / __ \/ ___/ __  / / / ___/ __/
 | |/ |/ / /_/ / /  / /_/ / / (__  ) /_

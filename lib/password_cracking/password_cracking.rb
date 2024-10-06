@@ -17,6 +17,10 @@ class PasswordCracking < Toolbox
         require_relative 'john'
         John.new
       } },
+      { name: 'Wordlist enhancer', value: lambda {
+        require_relative 'wordlist_enhancer'
+        WordlistEnhancer.new
+      } },
       { name: 'Go to Main Menu', value: -> { Toolbox.new } },
       { name: 'Quit application', value: lambda {
         clear_terminal
