@@ -83,7 +83,7 @@ class WordlistEnhancer
     leetspeak_file = File.join(wordlist_path, "leetspeak_#{File.basename(wordlist_file)}")
 
     File.open(leetspeak_file, 'w') do |file|
-      File.readlines(wordlist_file).each do |word|
+      File.foreach(wordlist_file) do |word|
         word.strip!
         leetspeak_variations = make_leetspeak_replacements(word)
         file.puts word
