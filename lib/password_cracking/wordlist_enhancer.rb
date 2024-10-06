@@ -29,6 +29,7 @@ class WordlistEnhancer
     }
     PasswordCrackingAsciiArt.new('wordlist_enhancer')
     select_wordlist_mode
+    quit_or_continue(WordlistEnhancer)
   end
 
   def select_wordlist_mode
@@ -74,7 +75,29 @@ class WordlistEnhancer
   def replace_characters_and_phrases
   end
 
-  def add_numbers
+  def add_numbers(position)
+    wordlist_file = select_file
+    wordlist_path = File.dirname(wordlist_file)
+    number_file = File.join(wordlist_path, "numbers_#{File.basename(wordlist_file)}")
+    puts "What is the range of numbers you'd like to add? example: '1-999' "
+    range = gets.chomp.split('-')
+    low_num = range[0]
+    high_num = range[1]
+
+    File.open(number_file, 'w') do |file|
+      File.foreach(wordlist_file) do |word|
+        word.strip!
+        file.puts word
+        (low_num.to_i..high_num.to_i).each do |number|
+          if position == 'front'
+            file.puts "#{number}#{word}"
+          elsif position == 'end'
+            file.puts "#{word}#{number}"
+          end
+        end
+      end
+    end
+    puts "Number variations written to #{number_file}"
   end
 
   def make_leetspeak_wordlist
