@@ -3,7 +3,7 @@
 require_relative 'password_cracking_ascii_art'
 
 # This class enhanced wordlists by making substitutions and adds numbers before and after words
-class WordlistEnhancer
+class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
   def initialize # rubocop:disable Metrics/MethodLength
     @leet_characters = {
       'a' => ['4', '@'],
@@ -32,7 +32,7 @@ class WordlistEnhancer
     quit_or_continue(WordlistEnhancer)
   end
 
-  def select_wordlist_mode
+  def select_wordlist_mode # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     prompt = TTY::Prompt.new
 
     options = [
@@ -72,10 +72,7 @@ class WordlistEnhancer
     end
   end
 
-  def replace_characters_and_phrases
-  end
-
-  def add_numbers(position)
+  def add_numbers(position) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     wordlist_file = select_file
     wordlist_path = File.dirname(wordlist_file)
     number_file = File.join(wordlist_path, "numbers_#{File.basename(wordlist_file)}")
@@ -87,35 +84,86 @@ class WordlistEnhancer
     File.open(number_file, 'w') do |file|
       File.foreach(wordlist_file) do |word|
         word.strip!
-        file.puts word
-        (low_num.to_i..high_num.to_i).each do |number|
-          if position == 'front'
-            file.puts "#{number}#{word}"
-          elsif position == 'end'
-            file.puts "#{word}#{number}"
+        buffer = []
+        buffer << word
+        if buffer.size >= 1000
+          buffer.each do |word|
+            file.puts word
+            (low_num.to_i..high_num.to_i).each do |number|
+              if position == 'front'
+                file.puts "#{number}#{word}"
+              elsif position == 'end'
+                file.puts "#{word}#{number}"
+              end
+              buffer.clear
+            end
           end
         end
       end
+      puts "Number variations written to #{number_file}"
     end
-    puts "Number variations written to #{number_file}"
   end
 
-  def make_leetspeak_wordlist
+  def make_leetspeak_wordlist # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+    # gets the file to read the words from and creates the file to send words to
+    # also initializes the buffer count so it may be referenced at the end of
+    # the program
     wordlist_file = select_file
     wordlist_path = File.dirname(wordlist_file)
     leetspeak_file = File.join(wordlist_path, "leetspeak_#{File.basename(wordlist_file)}")
+    buffer_count = 0
+    write_count = 0
 
+    # Opens the file that the variations will be written into, also sets up the
+    # buffer to the program stays more memory efficiant, still has problems with
+    # very large files such as rockyou.txt
     File.open(leetspeak_file, 'w') do |file|
+      buffer = []
+      buffer_count = 0
+
+      # Opens the file that the words will be read from, strips the word of its
+      # newline character, and adds the word to the buffer
       File.foreach(wordlist_file) do |word|
         word.strip!
-        leetspeak_variations = make_leetspeak_replacements(word)
+        buffer << word
+
+        # Once the buffer is equal to or greater than 100, it enters the
+        # processing block.
+        if buffer.size >= 1
+          buffer_count += 1
+          puts "Processed #{buffer_count} words"
+
+          # For every word in the buffer, you make the variations of it and then
+          # adds the word to the file
+          buffer.each do |word|
+            variations = make_leetspeak_replacements(word)
+            file.puts word
+
+            # Adds every variation to the file
+            variations.each do |variation|
+              write_count += 1
+              puts "Have written #{write_count}"
+              file.puts variation
+            end
+          end
+          buffer.clear
+        end
+      end
+      # Processes the remaining words that were stuck in the buffer
+      buffer.each do |word|
+        variations = make_leetspeak_replacements(word)
         file.puts word
-        leetspeak_variations.each do |variation|
+
+        variations.each do |variation|
+          puts "Have written #{write_count}"
           file.puts variation
         end
       end
     end
-
+    clear_terminal
+    PasswordCrackingAsciiArt.new 'wordlist_enhancer'
+    puts "Processed #{buffer_count} words"
+    puts "Have written #{write_count}"
     puts "Leetspeak variations written to #{leetspeak_file}"
   end
 
