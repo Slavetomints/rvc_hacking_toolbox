@@ -136,7 +136,7 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
           # For every word in the buffer, you make the variations of it and then
           # adds the word to the file
           buffer.each do |word|
-            variations = make_leetspeak_replacements(word)
+            variations = make_leetspeak_replacements(word) unless check(word) == false
             file.puts word
 
             # Adds every variation to the file
@@ -175,5 +175,15 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
     replacements = @leet_characters[char] ? @leet_characters[char] + [char] : [char]
 
     replacements.flat_map { |rep| suffixes.map { |suffix| rep + suffix } }
+  end
+
+  def check(word)
+    count = 0
+    word_arr = word.split('')
+    word_arr.each do |character|
+      count += 1 if @leet_characters.include?(character)
+      return false if count >= 10
+    end
+    true
   end
 end
