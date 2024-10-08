@@ -113,17 +113,26 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
     leetspeak_file = File.join(wordlist_path, "leetspeak_#{File.basename(wordlist_file)}")
     buffer_count = 0
     write_count = 0
+    invalid_count = 0
+    complex_words = 0
 
     # Opens the file that the variations will be written into, also sets up the
     # buffer to the program stays more memory efficiant, still has problems with
     # very large files such as rockyou.txt
-    File.open(leetspeak_file, 'w') do |file|
+    File.open(leetspeak_file, 'w') do |file| # rubocop:disable Metrics/BlockLength
       buffer = []
       buffer_count = 0
+      invalid_count = 0
+      complex_words = 0
 
       # Opens the file that the words will be read from, strips the word of its
       # newline character, and adds the word to the buffer
       File.foreach(wordlist_file) do |word|
+        unless word.valid_encoding?
+          invalid_count += 1
+          next
+        end
+
         word.strip!
         buffer << word
 
@@ -136,7 +145,12 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
           # For every word in the buffer, you make the variations of it and then
           # adds the word to the file
           buffer.each do |word|
-            variations = make_leetspeak_replacements(word) unless check(word) == false
+            if check(word) == false
+              puts word.colorize(:red)
+              complex_words += 1
+              next
+            end
+            variations = make_leetspeak_replacements(word)
             file.puts word
 
             # Adds every variation to the file
@@ -164,6 +178,8 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
     PasswordCrackingAsciiArt.new 'wordlist_enhancer'
     puts "Processed #{buffer_count} words"
     puts "Have written #{write_count}"
+    puts "#{invalid_count} words have invalid encoding and were not written"
+    puts "#{complex_words} words were too complex and skipped for program integrity reasons"
     puts "Leetspeak variations written to #{leetspeak_file}"
   end
 
@@ -178,12 +194,11 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
   end
 
   def check(word)
-    count = 0
+    leet_count = 0
     word_arr = word.split('')
     word_arr.each do |character|
-      count += 1 if @leet_characters.include?(character)
-      return false if count >= 10
+      leet_count += 1 if @leet_characters.include?(character)
     end
-    true
+    leet_count < 10
   end
 end
