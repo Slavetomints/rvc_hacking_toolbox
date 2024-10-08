@@ -28,7 +28,7 @@ class PasswordCracking < Toolbox
       } }
     ]
 
-    prompt.select('Please select a mode', options, per_page: 3, cycle: true)
+    prompt.select('Please select a mode', options, per_page: 4, cycle: true)
   end
 
   def set_substitutions
