@@ -48,7 +48,7 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
       } }
     ]
 
-    prompt.multi_select('Please select your modes', options, cycle: true, per_page: 7)
+    prompt.select('Please select your mode', options, cycle: true, per_page: 7)
   end
 
   def select_file # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
@@ -80,26 +80,33 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
     range = gets.chomp.split('-')
     low_num = range[0]
     high_num = range[1]
+    word_count = 0
+    write_count = 0
+    invalid_count = 0
 
     File.open(number_file, 'w') do |file|
       File.foreach(wordlist_file) do |word|
+        unless word.valid_encoding?
+          invalid_count += 1
+          next
+        end
+        word_count += 1
         word.strip!
-        buffer = []
-        buffer << word
-        if buffer.size >= 1000
-          buffer.each do |word|
-            file.puts word
-            (low_num.to_i..high_num.to_i).each do |number|
-              if position == 'front'
-                file.puts "#{number}#{word}"
-              elsif position == 'end'
-                file.puts "#{word}#{number}"
-              end
-              buffer.clear
-            end
+        (low_num.to_i..high_num.to_i).each do |number|
+          write_count += 1
+          puts "On #{word}: number #{number}"
+          if position == 'front'
+            file.puts "#{number}#{word}"
+          elsif position == 'end'
+            file.puts "#{word}#{number}"
           end
         end
       end
+      clear_terminal
+      PasswordCrackingAsciiArt.new('wordlist_enhancer')
+      puts "Processed #{word_count} words"
+      puts "Have written #{write_count} words"
+      puts "#{invalid_count} words have invalid encoding and were not written"
       puts "Number variations written to #{number_file}"
     end
   end
@@ -111,17 +118,17 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
     wordlist_file = select_file
     wordlist_path = File.dirname(wordlist_file)
     leetspeak_file = File.join(wordlist_path, "leetspeak_#{File.basename(wordlist_file)}")
-    buffer_count = 0
+    word_count = 0
     write_count = 0
     invalid_count = 0
     complex_words = 0
+    complex_arr = []
 
     # Opens the file that the variations will be written into, also sets up the
     # buffer to the program stays more memory efficiant, still has problems with
     # very large files such as rockyou.txt
-    File.open(leetspeak_file, 'w') do |file| # rubocop:disable Metrics/BlockLength
-      buffer = []
-      buffer_count = 0
+    File.open(leetspeak_file, 'w') do |file|
+      word_count = 0
       invalid_count = 0
       complex_words = 0
 
@@ -134,52 +141,36 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
         end
 
         word.strip!
-        buffer << word
+        word_count += 1
+        puts "Processed #{word_count} words"
 
-        # Once the buffer is equal to or greater than 100, it enters the
-        # processing block.
-        if buffer.size >= 1
-          buffer_count += 1
-          puts "Processed #{buffer_count} words"
-
-          # For every word in the buffer, you make the variations of it and then
-          # adds the word to the file
-          buffer.each do |word|
-            if check(word) == false
-              puts word.colorize(:red)
-              complex_words += 1
-              next
-            end
-            variations = make_leetspeak_replacements(word)
-            file.puts word
-
-            # Adds every variation to the file
-            variations.each do |variation|
-              write_count += 1
-              puts "Have written #{write_count}"
-              file.puts variation
-            end
-          end
-          buffer.clear
+        # For every word, check it, then you make the variations of it and then
+        # adds the word to the file
+        if check(word) == false
+          complex_arr << word
+          puts word.colorize(:red)
+          complex_words += 1
+          next
         end
-      end
-      # Processes the remaining words that were stuck in the buffer
-      buffer.each do |word|
         variations = make_leetspeak_replacements(word)
         file.puts word
 
+        # Adds every variation to the file
         variations.each do |variation|
+          write_count += 1
           puts "Have written #{write_count}"
           file.puts variation
         end
       end
     end
+
     clear_terminal
     PasswordCrackingAsciiArt.new 'wordlist_enhancer'
-    puts "Processed #{buffer_count} words"
-    puts "Have written #{write_count}"
+    puts "Processed #{word_count} words"
+    puts "Have written #{write_count} words"
     puts "#{invalid_count} words have invalid encoding and were not written"
     puts "#{complex_words} words were too complex and skipped for program integrity reasons"
+    puts complex_arr unless complex_arr == []
     puts "Leetspeak variations written to #{leetspeak_file}"
   end
 
@@ -199,6 +190,6 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
     word_arr.each do |character|
       leet_count += 1 if @leet_characters.include?(character)
     end
-    leet_count < 10
+    leet_count < 20
   end
 end
