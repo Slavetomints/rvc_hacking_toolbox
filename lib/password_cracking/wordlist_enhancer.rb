@@ -192,4 +192,38 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
     end
     leet_count < 20
   end
+
+  def replace_characters_and_phrases # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+    wordlist_file = select_file
+    wordlist_path = File.dirname(wordlist_file)
+    new_file = File.join(wordlist_path, "numbers_#{File.basename(wordlist_file)}")
+    subs = set_substitutions
+    write_count = 0
+    word_count = 0
+    invalid_count = 0
+    File.open(new_file, 'w') do |file|
+      write_count = 0
+      word_count = 0
+      invalid_count = 0
+      File.foreach(wordlist_file) do |word|
+        word_count += 1
+        unless word.valid_encoding?
+          invalid_count += 1
+          next
+        end
+        subs.each do |sub_arr|
+          new_word = word.gsub(sub_arr[0], sub_arr[1])
+          file.puts new_word
+          puts "#{word} was changed to #{new_word}"
+          write_count += 1
+        end
+      end
+    end
+    clear_terminal
+    PasswordCrackingAsciiArt.new 'wordlist_enhancer'
+    puts "Processed #{word_count} words"
+    puts "Have written #{write_count} words"
+    puts "#{invalid_count} words have invalid encoding and were not written"
+    puts "Leetspeak variations written to #{new_file}"
+  end
 end
