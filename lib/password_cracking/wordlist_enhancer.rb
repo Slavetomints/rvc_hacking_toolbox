@@ -78,8 +78,8 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
     number_file = File.join(wordlist_path, "numbers_#{File.basename(wordlist_file)}")
     puts "What is the range of numbers you'd like to add? example: '1-999' "
     range = gets.chomp.split('-')
-    low_num = range[0]
-    high_num = range[1]
+    low_num = range[0].to_i
+    high_num = range[1].to_i
     word_count = 0
     write_count = 0
     invalid_count = 0
@@ -92,23 +92,28 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
         end
         word_count += 1
         word.strip!
-        (low_num.to_i..high_num.to_i).each do |number|
-          write_count += 1
-          puts "On #{word}: number #{number}"
-          if position == 'front'
-            file.puts "#{number}#{word}"
-          elsif position == 'end'
-            file.puts "#{word}#{number}"
+
+        (low_num..high_num).each do |number|
+          (number.to_s.length.to_i..high_num.to_s.length.to_i).each do |pad|
+            formatted_number = number.to_s.rjust(pad, '0')
+            write_count += 1
+
+            puts "On #{word}: number #{formatted_number}"
+            if position == 'front'
+              file.puts "#{formatted_number}#{word}"
+            elsif position == 'end'
+              file.puts "#{word}#{formatted_number}"
+            end
           end
         end
       end
-      clear_terminal
-      PasswordCrackingAsciiArt.new('wordlist_enhancer')
-      puts "Processed #{word_count} words"
-      puts "Have written #{write_count} words"
-      puts "#{invalid_count} words have invalid encoding and were not written"
-      puts "Number variations written to #{number_file}"
     end
+    clear_terminal
+    PasswordCrackingAsciiArt.new('wordlist_enhancer')
+    puts "Processed #{word_count} words"
+    puts "Have written #{write_count} words"
+    puts "#{invalid_count} words have invalid encoding and were not written"
+    puts "Number variations written to #{number_file}"
   end
 
   def make_leetspeak_wordlist # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
