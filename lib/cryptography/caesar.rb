@@ -14,7 +14,7 @@ class Caesar < Cryptography
     prompt = TTY::Prompt.new
 
     choices = [
-      { name: 'Shift string', value: -> { CryptographyAsciiArt.new('ceaser') && caesar_shift } },
+      { name: 'Shift string', value: -> { CryptographyAsciiArt.new('caesar') && caesar_shift } },
       { name: 'Go to previous menu', value: -> { Cryptography.new } },
       { name: 'Go to Main Menu', value: -> { Toolbox.new } },
       { name: 'Quit Program', value: -> { clear_terminal && exit } }
