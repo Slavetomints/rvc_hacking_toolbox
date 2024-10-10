@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'tty-prompt'
 require_relative 'password_cracking_ascii_art'
 
 # This class enhanced wordlists by making substitutions and adds numbers before and after words
@@ -72,19 +73,38 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
     end
   end
 
-  def add_numbers(position) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+  def update_progress(count, total_lines)
+    percentage = (count.to_f / total_lines * 100).round(2)
+    remaining = total_lines - count
+    print "\e[s" # Save cursor position
+    print "\e[14;0H" # Move cursor to the second line (assuming the title is on the first line)
+    print "\e[14K" # Clear the line
+    puts "#{percentage}% completed, #{remaining} left to go!"
+    print "\e[u" # Restore cursor position
+  end
+
+  def add_numbers(position) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
     wordlist_file = select_file
     wordlist_path = File.dirname(wordlist_file)
     number_file = File.join(wordlist_path, "numbers_#{File.basename(wordlist_file)}")
     puts "What is the range of numbers you'd like to add? example: '1-999' "
     range = gets.chomp.split('-')
+    puts 'Loading File . . .'
+    total_lines = `wc -l "#{wordlist_file}"`.strip.split(' ').first.to_i
+    puts 'File Loaded!'.colorize(:green)
+    prompt = TTY::Prompt.new
+    prompt.keypress("#{total_lines} passwords loaded, press any key to continue")
+    clear_terminal
+    PasswordCrackingAsciiArt.new('wordlist_enhancer')
     low_num = range[0].to_i
     high_num = range[1].to_i
     word_count = 0
     write_count = 0
     invalid_count = 0
+    clear_terminal
+    PasswordCrackingAsciiArt.new('wordlist_enhancer')
 
-    File.open(number_file, 'w') do |file|
+    File.open(number_file, 'w') do |file| # rubocop:disable Metrics/BlockLength
       File.foreach(wordlist_file) do |word|
         unless word.valid_encoding?
           invalid_count += 1
@@ -92,16 +112,22 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
         end
         word_count += 1
         word.strip!
+        update_progress(word_count, total_lines)
+        if position == 'front'
+          (low_num..high_num).each do |number|
+            (number.to_s.length.to_i..high_num.to_s.length.to_i).each do |pad|
+              formatted_number = number.to_s.rjust(pad, '0')
+              write_count += 1
 
-        (low_num..high_num).each do |number|
-          (number.to_s.length.to_i..high_num.to_s.length.to_i).each do |pad|
-            formatted_number = number.to_s.rjust(pad, '0')
-            write_count += 1
-
-            puts "On #{word}: number #{formatted_number}"
-            if position == 'front'
               file.puts "#{formatted_number}#{word}"
-            elsif position == 'end'
+            end
+          end
+        elsif position == 'end'
+          (low_num..high_num).each do |number|
+            (number.to_s.length.to_i..high_num.to_s.length.to_i).each do |pad|
+              formatted_number = number.to_s.rjust(pad, '0')
+              write_count += 1
+
               file.puts "#{word}#{formatted_number}"
             end
           end
@@ -123,6 +149,13 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
     wordlist_file = select_file
     wordlist_path = File.dirname(wordlist_file)
     leetspeak_file = File.join(wordlist_path, "leetspeak_#{File.basename(wordlist_file)}")
+    puts 'Loading File . . .'
+    total_lines = `wc -l "#{wordlist_file}"`.strip.split(' ').first.to_i
+    puts 'File Loaded!'.colorize(:green)
+    prompt = TTY::Prompt.new
+    prompt.keypress("#{total_lines} passwords loaded, press any key to continue")
+    clear_terminal
+    PasswordCrackingAsciiArt.new('wordlist_enhancer')
     word_count = 0
     write_count = 0
     invalid_count = 0
@@ -147,8 +180,7 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
 
         word.strip!
         word_count += 1
-        puts "Processed #{word_count} words"
-
+        update_progress(word_count, total_lines)
         # For every word, check it, then you make the variations of it and then
         # adds the word to the file
         if check(word) == false
@@ -163,7 +195,7 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
         # Adds every variation to the file
         variations.each do |variation|
           write_count += 1
-          puts "Have written #{write_count}"
+
           file.puts variation
         end
       end
@@ -203,6 +235,15 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
     wordlist_path = File.dirname(wordlist_file)
     new_file = File.join(wordlist_path, "numbers_#{File.basename(wordlist_file)}")
     subs = set_substitutions
+    clear_terminal
+    PasswordCrackingAsciiArt.new('wordlist_enhancer')
+    puts 'Loading File . . .'
+    total_lines = `wc -l "#{wordlist_file}"`.strip.split(' ').first.to_i
+    puts 'File Loaded!'.colorize(:green)
+    prompt = TTY::Prompt.new
+    prompt.keypress("#{total_lines} passwords loaded, press any key to continue")
+    clear_terminal
+    PasswordCrackingAsciiArt.new('wordlist_enhancer')
     write_count = 0
     word_count = 0
     invalid_count = 0
@@ -212,6 +253,7 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
       invalid_count = 0
       File.foreach(wordlist_file) do |word|
         word_count += 1
+        update_progress(word_count, total_lines)
         unless word.valid_encoding?
           invalid_count += 1
           next
@@ -219,7 +261,6 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
         subs.each do |sub_arr|
           new_word = word.gsub(sub_arr[0], sub_arr[1])
           file.puts new_word
-          puts "#{word} was changed to #{new_word}"
           write_count += 1
         end
       end
