@@ -40,11 +40,11 @@ class Caesar < Cryptography
           # checks for looping
           if char.ord + shift > 90
             cipher_char = char.ord + shift - 26
+            cipher_text << cipher_char.chr # rubocop:disable Style/IdenticalConditionalBranches
           else
             cipher_char = char.ord + shift
-            cipher_text << cipher_char.chr
+            cipher_text << cipher_char.chr # rubocop:disable Style/IdenticalConditionalBranches
           end
-          cipher_text << cipher_char.chr
         elsif char == char.downcase
           # checks for looping
           if char.ord + shift > 122
