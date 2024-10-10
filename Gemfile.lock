@@ -74,9 +74,18 @@ GEM
       tty-cursor (~> 0.7)
     tty-color (0.6.0)
     tty-cursor (0.7.1)
+    tty-prompt (0.23.1)
+      pastel (~> 0.8)
+      tty-reader (~> 0.8)
+    tty-reader (0.9.0)
+      tty-cursor (~> 0.7)
+      tty-screen (~> 0.8)
+      wisper (~> 2.0)
+    tty-screen (0.8.2)
     unicode-display_width (2.5.0)
     unicode_utils (1.4.0)
     uri (0.13.1)
+    wisper (2.0.1)
 
 PLATFORMS
   ruby
@@ -96,6 +105,7 @@ DEPENDENCIES
   rubocop (~> 1.66)
   telegraph (~> 1.0)
   tty-box (~> 0.7.0)
+  tty-prompt (~> 0.23.1)
 
 BUNDLED WITH
    2.5.18

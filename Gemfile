@@ -31,3 +31,5 @@ gem "mini_magick", "~> 5.0"
 
 
 gem "tty-box", "~> 0.7.0"
+
+gem "tty-prompt", "~> 0.23.1"
