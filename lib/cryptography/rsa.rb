@@ -36,8 +36,8 @@ class RSA < Cryptography
     puts "\nWhat is e?"
     e = gets.chomp.to_i
 
-    puts "\nWhat is the message? (please seperate by comma ex: 1,2,3)"
-    c = gets.chomp.split(',')
+    puts "\nWhat is the message? (please seperate by space ex: 1 2 3)"
+    c = gets.chomp.split(' ')
 
     print "\nYour result is: "
     phi = (p - 1) * (q - 1)
