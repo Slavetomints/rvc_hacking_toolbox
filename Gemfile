@@ -26,10 +26,8 @@ gem 'mp3info', '~> 0.8.5'
 
 gem 'pdf-reader', '~> 2.12'
 
+gem 'mini_magick', '~> 5.0'
 
-gem "mini_magick", "~> 5.0"
+gem 'tty-box', '~> 0.7.0'
 
-
-gem "tty-box", "~> 0.7.0"
-
-gem "tty-prompt", "~> 0.23.1"
+gem 'tty-prompt', '~> 0.23.1'
