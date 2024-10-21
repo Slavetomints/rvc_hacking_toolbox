@@ -53,7 +53,6 @@ This program uses a MIT License, that can be found [here](LICENSE)
     - Encode Output formatting
     - Decode Output Formatting
   - Check options and choose between Encrypt/Decrypt and Encode/Decode
-  - Change seperate to separate
 
 ### Completed
 

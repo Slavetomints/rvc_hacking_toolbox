@@ -36,7 +36,7 @@ class Binary < Cryptography
   end
 
   def binary_to_text
-    puts 'Please enter your string to be decoded, please seperate by spaces'
+    puts 'Please enter your string to be decoded, please separate by spaces'
 
     binary_input = gets.chomp.split(' ').map { |byte| byte.to_i(2).chr }.join
 

@@ -1,5 +1,8 @@
 ## Version History
 
+### 0.4.1 Patch
+- Changed seperate(d) to separate(d)
+
 ### 0.4.0 Update
 
 **New Features:**

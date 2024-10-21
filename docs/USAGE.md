@@ -465,7 +465,7 @@ Enter a binary message with each byte separated by spaces, and it will give back
 │/_____/_/_/ /_/\__,_/_/   \__, /   │
 │                         /____/    │
 └────────────────────────── version ┘
-Please enter your string to be decoded, please seperate by spaces
+Please enter your string to be decoded, please separate by spaces
 01001000 01100101 01101100 01101100 01101111 00100000 01010111 01101111 01110010 01101100 01100100 00100001
 
 Your result is: Hello World!
@@ -587,7 +587,7 @@ Enter a message with each number separated by spaces, and it will give back the 
 │ / /_/ /  __/ /__/ / / / / / / /_/ / /  │
 │/_____/\___/\___/_/_/ /_/ /_/\__,_/_/   │
 └─────────────────────────────── version ┘
-Please enter what you wish to decode seperated by spaces
+Please enter what you wish to decode separated by spaces
 72 101 108 108 111 32 87 111 114 108 100 33
 
 Your result is: Hello World!
@@ -658,7 +658,7 @@ Enter a message with each number separated by spaces, and it will give back the 
 │ / __  /  __/>  </ /_/ / /_/ /  __/ /__/ / / / / / / /_/ / /  │
 │/_/ /_/\___/_/|_|\__,_/\__,_/\___/\___/_/_/ /_/ /_/\__,_/_/   │
 └───────────────────────────────────────────────────── version ┘
-Please enter hexadecimal(Base16) digits seperated by spaces
+Please enter hexadecimal(Base16) digits separated by spaces
 48 65 6c 6c 6f 20 57 6f 72 6c 64 21
 
 Your result is: Hello World!
@@ -729,7 +729,7 @@ Enter a message with each 'letter' separated by spaces, and words separated by 7
 │ / /  / / /_/ / /  (__  )  __/   / /___/ /_/ / /_/ /  __/│
 │/_/  /_/\____/_/  /____/\___/    \____/\____/\__,_/\___/ │
 └──────────────────────────────────────────────── version ┘
-Please enter your message to be decoded, seperate letters by spaces and words by 7 spaces
+Please enter your message to be decoded, separate letters by spaces and words by 7 spaces
 .... . .-.. .-.. ---       .-- --- .-. .-.. -..
 
 Your result is: hello world
@@ -877,7 +877,7 @@ What is the second factor?
 What is e?
 43
 
-What is the message? (please seperate by space ex: 1 2 3)
+What is the message? (please separate by space ex: 1 2 3)
 996 894 379 631 894 82 379 852 631 677 677 194 893
 
 Your result is: SKY-KRYG-5530
@@ -1224,11 +1224,11 @@ When you are done, hit enter to make a new substitution, and once you are done m
 └──────────────────────────────────── version ┘
 Please select your mode Create John Substitution Rules
 
-Enter what you want to replace, then the value you want to replace it with seperated by a space. Ex 's $'
+Enter what you want to replace, then the value you want to replace it with separated by a space. Ex 's $'
 Enter 'qq' to stop entering values
 a @
 
-Enter what you want to replace, then the value you want to replace it with seperated by a space. Ex 's $'
+Enter what you want to replace, then the value you want to replace it with separated by a space. Ex 's $'
 Enter 'qq' to stop entering values
 qq
 
@@ -1262,23 +1262,23 @@ This follows the same syntax as the method above, while also allowing for you to
 └──────────────────────────────────── version ┘
 Please select your mode Creare John Substitution Rules with numbers after
 
-Enter what you want to replace, then the value you want to replace it with seperated by a space. Ex 's $'
+Enter what you want to replace, then the value you want to replace it with separated by a space. Ex 's $'
 Enter 'qq' to stop entering values
 a @
 
-Enter what you want to replace, then the value you want to replace it with seperated by a space. Ex 's $'
+Enter what you want to replace, then the value you want to replace it with separated by a space. Ex 's $'
 Enter 'qq' to stop entering values
 s $
 
-Enter what you want to replace, then the value you want to replace it with seperated by a space. Ex 's $'
+Enter what you want to replace, then the value you want to replace it with separated by a space. Ex 's $'
 Enter 'qq' to stop entering values
 A @
 
-Enter what you want to replace, then the value you want to replace it with seperated by a space. Ex 's $'
+Enter what you want to replace, then the value you want to replace it with separated by a space. Ex 's $'
 Enter 'qq' to stop entering values
 S $
 
-Enter what you want to replace, then the value you want to replace it with seperated by a space. Ex 's $'
+Enter what you want to replace, then the value you want to replace it with separated by a space. Ex 's $'
 Enter 'qq' to stop entering values
 qq
 Please select the amount of numbers to be appended
@@ -1359,7 +1359,7 @@ See [Create John substitution rules](#create-john-substitution-rules) as it is t
 
 #### Prepend numbers / Append numbers
 
-You will need to select a file, then you will need to specify the range of numbers, seperated by '-'. The program will load the file, and prompt you for a keypress. The program will begin to write the new password to a file with the same name with 'numbers_' prepended to it.
+You will need to select a file, then you will need to specify the range of numbers, separated by '-'. The program will load the file, and prompt you for a keypress. The program will begin to write the new password to a file with the same name with 'numbers_' prepended to it.
 
 &nbsp;
 

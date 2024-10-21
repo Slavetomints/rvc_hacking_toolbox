@@ -35,7 +35,7 @@ class Decimal < Cryptography
   end
 
   def decode_decimal
-    puts 'Please enter what you wish to decode seperated by spaces'
+    puts 'Please enter what you wish to decode separated by spaces'
 
     num_arr = gets.chomp.split(' ').map { |num| Integer(num).chr }
     print "\nYour result is: #{num_arr.join.colorize(:green)}"

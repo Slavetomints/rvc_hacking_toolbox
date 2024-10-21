@@ -25,7 +25,7 @@ class A1Z26 < Cryptography
   end
 
   def decode_a1z26
-    puts 'Please enter only numbers seperated by a comma'
+    puts 'Please enter only numbers separated by a comma'
 
     num_arr = gets.chomp.split(',').map { |number| number.to_i + 96 }
     decoded_chars = num_arr.map(&:chr)

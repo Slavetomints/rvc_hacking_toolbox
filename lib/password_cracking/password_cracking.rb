@@ -34,7 +34,7 @@ class PasswordCracking < Toolbox
   def set_substitutions
     subs = {}
     loop do
-      puts "\nEnter what you want to replace, then the value you want to replace it with seperated by a space. Ex 's $'"
+      puts "\nEnter what you want to replace, then the value you want to replace it with separated by a space. Ex 's $'"
       puts "Enter 'qq' to stop entering values".colorize(:red)
       sub_arr = gets.chomp
       return subs if sub_arr == 'qq'
