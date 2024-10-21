@@ -23,25 +23,29 @@ This is the in-depth guide for using this program, this is not meant to be a rea
 >    - [Vigenère](#vigenère)
 >  - [Enumeration and Exploitation](#enumeration-and-exploitation)
 >  - [Forensics](#forensics)
+>    - [File Metadata](#file-metadata)
 >  - [Log Analysis](#log-analysis)
 >  - [Network Traffic Analysis](#network-traffic-analysis)
 >  - [Open Source Intelligence](#open-source-intelligence)
 >  - [Password Cracking](#password-cracking)
+>    - [John Rules](#john)
+>    - [Wordlist Enhancer](#wordlist-enhancer)
 >  - [Scanning and Reconnaissance](#scanning-and-reconnaissance)
 >  - [Web Application Exploitation](#web-application-exploitation)
 >  - [Wireless Access Exploitation](#wireless-access-exploitation)
 
-## Toolbox/main.rb
+## Toolbox / main.rb
 These files are the base class for the project. 
 When you run the main file it creates a new Toolbox class, from there you can select the mode that you wish to enter
 
-#### Example
-Running
+**Example**
+
+If you run:
 ```sh
 rvc_hacking_toolbox$ ruby main.rb
 ```
 
-Gives you
+It gives you
 ```
 ┌ RVC Hacking Toolbox ──────────────────────────────────────────┐
 │                                                               │

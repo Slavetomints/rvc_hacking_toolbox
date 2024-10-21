@@ -48,6 +48,8 @@ This program uses a MIT License, that can be found [here](LICENSE)
 
 ### In Development
 
+- Open Source Intelligence
+- Documentation
 
 ### Completed
 
