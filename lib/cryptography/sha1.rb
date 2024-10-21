@@ -15,7 +15,7 @@ class SHA1 < Cryptography
     prompt = TTY::Prompt.new
 
     choices = [
-      { name: 'Encrypt string', value: -> { CryptographyAsciiArt.new('sha1') && encode_sha1 } },
+      { name: 'Encrypt string', value: -> { CryptographyAsciiArt.new('sha1') && encrypt_sha1 } },
       { name: 'Go to previous menu', value: -> { Cryptography.new } },
       { name: 'Go to Main Menu', value: -> { Toolbox.new } },
       { name: 'Quit Program', value: -> { clear_terminal && exit } }
@@ -24,9 +24,9 @@ class SHA1 < Cryptography
     prompt.select('Please select your mode', choices, per_page: 4, cycle: true)
   end
 
-  def encode_sha1
+  def encrypt_sha1
     sha1 = Digest::SHA1.new
-    puts 'Please enter your data to be encoded'
+    puts 'Please enter your data to be encrypted'
 
     data = gets.chomp
 

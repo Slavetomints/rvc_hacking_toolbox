@@ -48,11 +48,6 @@ This program uses a MIT License, that can be found [here](LICENSE)
 
 ### In Development
 
-- Cryptography
-  - A1Z26
-    - Encode Output formatting
-    - Decode Output Formatting
-  - Check options and choose between Encrypt/Decrypt and Encode/Decode
 
 ### Completed
 
