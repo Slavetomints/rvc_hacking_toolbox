@@ -41,6 +41,8 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
       { name: 'Prepend numbers', value: -> { add_numbers('front') } },
       { name: 'Append numbers', value: -> { add_numbers('end') } },
       { name: 'Enhanced leetspeak replacement', value: -> { make_leetspeak_wordlist } },
+      { name: 'Remove x number of characters in a row', value: -> { remove_x_characters_in_a_row } },
+      { name: 'Remove x number of characters in a word', value: -> { remove_x_characters } },
       { name: 'Go to previous menu', value: -> { PasswordCracking.new } },
       { name: 'Go to Main Menu', value: -> { Toolbox.new } },
       { name: 'Quit application', value: lambda {
@@ -49,7 +51,7 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
       } }
     ]
 
-    prompt.select('Please select your mode', options, cycle: true, per_page: 7)
+    prompt.select('Please select your mode', options, cycle: true, per_page: 9)
   end
 
   def select_file # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
@@ -81,6 +83,128 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
     print "\e[14K" # Clear the line
     puts "#{percentage}% completed, #{remaining} left to go!"
     print "\e[u" # Restore cursor position
+  end
+
+  def remove_x_characters
+    wordlist_file = select_file
+    wordlist_path = File.dirname(wordlist_file)
+    removed_chars_file = File.join(wordlist_path, "removed_#{File.basename(wordlist_file)}")
+
+    puts 'Loading File...'
+    total_lines = `wc -l "#{wordlist_file}"`.strip.split(' ').first.to_i
+    puts 'File Loaded!'.colorize(:green)
+
+    prompt = TTY::Prompt.new
+    prompt.keypress("#{total_lines} passwords loaded, press any key to continue")
+
+    clear_terminal
+    PasswordCrackingAsciiArt.new('remove_chars')
+
+    puts 'Enter the number of allowed character repetitions: '
+    allowed_repeats = gets.chomp.to_i
+
+    word_count = 0
+    write_count = 0
+
+    File.open(removed_chars_file, 'w') do |file|
+      File.foreach(wordlist_file) do |word|
+        word.chomp!
+        variations = [word]
+
+        # Create a hash to count the occurrences of each character
+        char_count = Hash.new(0)
+        word.each_char { |char| char_count[char] += 1 }
+
+        # Generate variations by removing characters that appear more than the allowed repeats
+        char_count.each do |char, count|
+          next unless count > allowed_repeats
+
+          (count - allowed_repeats).times do
+            new_word = word.sub(char, '')
+            variations << new_word unless variations.include?(new_word)
+            word = new_word
+          end
+        end
+
+        variations.uniq.each do |variant|
+          file.puts variant
+          write_count += 1
+        end
+
+        word_count += 1
+        update_progress(word_count, total_lines)
+      end
+    end
+
+    clear_terminal
+    PasswordCrackingAsciiArt.new('wordlist_enhancer')
+    puts "Processed #{word_count} words"
+    puts "Have written #{write_count} words"
+    puts "Number of words with excessive characters removed written to #{removed_chars_file}"
+  end
+
+  def remove_x_characters_in_a_row
+    wordlist_file = select_file
+    wordlist_path = File.dirname(wordlist_file)
+    removed_chars_file = File.join(wordlist_path, "x_in_a_row_#{File.basename(wordlist_file)}")
+
+    puts "How many chars in a row do you want to remove? Ex. -> 3 will turn 'aaanexample' into 'anexample'"
+    number_to_remove = gets.chomp.to_i
+
+    puts 'Loading File...'
+    total_lines = `wc -l "#{wordlist_file}"`.strip.split(' ').first.to_i
+    puts 'File Loaded!'.colorize(:green)
+
+    prompt = TTY::Prompt.new
+    prompt.keypress("#{total_lines} passwords loaded, press any key to continue")
+
+    clear_terminal
+    PasswordCrackingAsciiArt.new('remove_chars')
+
+    word_count = 0
+    write_count = 0
+
+    File.open(removed_chars_file, 'w') do |file|
+      File.foreach(wordlist_file) do |word|
+        word.chomp!
+
+        new_word = word.dup
+        new_word_reduced = word.dup
+        removed = true
+
+        while removed
+          removed = false
+          (0..new_word.length - number_to_remove).each do |i|
+            substr = new_word[i, number_to_remove]
+            next unless substr.chars.uniq.length == 1
+
+            new_word.slice!(i, number_to_remove)
+            new_word_reduced.slice!(i + 1, number_to_remove - 1)
+            removed = true
+            break
+          end
+        end
+
+        unless new_word.empty?
+          file.puts new_word
+          write_count += 1
+        end
+
+        unless new_word_reduced.empty?
+          file.puts new_word_reduced
+          write_count += 1
+        end
+
+        word_count += 1
+        update_progress(word_count, total_lines)
+      end
+    end
+
+    clear_terminal
+    PasswordCrackingAsciiArt.new('wordlist_enhancer')
+    puts "Processed #{word_count} words"
+    puts "Have written #{write_count} words"
+    puts "Number variations written to #{removed_chars_file}"
   end
 
   def add_numbers(position) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity

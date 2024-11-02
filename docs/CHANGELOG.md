@@ -39,7 +39,7 @@
 
 **Enhancements:**
 - Error Handling: Added more comprehensive error handling to improve stability and user experience.
-- [Comprehensive Scan](../lib/web_application_exploitation/comprehensive_scan/): Enhanced the scan file functionality, including improvements to display and output.
+- [Comprehensive Scan](/lib/web_application_exploitation/comprehensive_scan/): Enhanced the scan file functionality, including improvements to display and output.
 
 **Removals:**
 - SQL Injection Scan Capabilities: Removed SQL injection scan capabilities to streamline the tool.
