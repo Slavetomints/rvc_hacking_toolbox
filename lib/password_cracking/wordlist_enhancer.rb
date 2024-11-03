@@ -39,7 +39,9 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
     options = [
       { name: 'Replace characters/phrases', value: -> { replace_characters_and_phrases } },
       { name: 'Prepend numbers', value: -> { add_numbers('front') } },
+      { name: 'Prepend special characters', value: -> { add_special_characters('front') } },
       { name: 'Append numbers', value: -> { add_numbers('end') } },
+      { name: 'Append special characters', value: -> { add_special_characters('end') } },
       { name: 'Enhanced leetspeak replacement', value: -> { make_leetspeak_wordlist } },
       { name: 'Remove x number of characters in a row', value: -> { remove_x_characters_in_a_row } },
       { name: 'Remove x number of characters in a word', value: -> { remove_x_characters } },
@@ -207,7 +209,7 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
     word_count = 0
     write_count = 0
 
-    File.open(removed_chars_file, 'w') do |file|
+    File.open(reversed_chars_file, 'w') do |file|
       File.foreach(wordlist_file) do |word|
         word.chomp!
         word_count += 1
@@ -222,6 +224,57 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
     puts "Processed #{word_count} words"
     puts "Have written #{write_count} words"
     puts "Variations written to #{reversed_chars_file}"
+  end
+
+  def add_special_characters(position)
+    wordlist_file = select_file
+    wordlist_path = File.dirname(wordlist_file)
+    special_chars_file = File.join(wordlist_path, "special_#{File.basename(wordlist_file)}")
+
+    puts 'Loading File...'
+    total_lines = `wc -l "#{wordlist_file}"`.strip.split(' ').first.to_i
+    puts 'File Loaded!'.colorize(:green)
+
+    prompt = TTY::Prompt.new
+    prompt.keypress("#{total_lines} passwords loaded, press any key to continue")
+
+    clear_terminal
+    PasswordCrackingAsciiArt.new('reverse')
+
+    word_count = 0
+    write_count = 0
+    special_chars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '{', '}', '|', ':', '"', '<', '>',
+                     '?', '~', '`', '-', '=', '[', ']', ' ;', "'", ',', '.', '/']
+
+    File.open(special_chars_file, 'w') do |file|
+      if position == 'front'
+        File.foreach(wordlist_file) do |word|
+          word.chomp!
+          word_count += 1
+          special_chars.each do |char|
+            update_progress(word_count, total_lines)
+            file.puts "#{char}#{word}"
+            write_count += 1
+          end
+        end
+      elsif position == 'end'
+        File.foreach(wordlist_file) do |word|
+          word.chomp!
+          word_count += 1
+          special_chars.each do |char|
+            update_progress(word_count, total_lines)
+            file.puts "#{word}#{char}"
+            write_count += 1
+          end
+        end
+      end
+    end
+
+    clear_terminal
+    PasswordCrackingAsciiArt.new('wordlist_enhancer')
+    puts "Processed #{word_count} words"
+    puts "Have written #{write_count} words"
+    puts "Variations written to #{special_chars_file}"
   end
 
   def different_cases
@@ -242,7 +295,7 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
     word_count = 0
     write_count = 0
 
-    File.open(removed_chars_file, 'w') do |file|
+    File.open(cased_chars_file, 'w') do |file|
       File.foreach(wordlist_file) do |word|
         word.chomp!
         word_count += 1
