@@ -39,8 +39,14 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
     options = [
       { name: 'Replace characters/phrases', value: -> { replace_characters_and_phrases } },
       { name: 'Prepend numbers', value: -> { add_numbers('front') } },
+      { name: 'Prepend special characters', value: -> { add_special_characters('front') } },
       { name: 'Append numbers', value: -> { add_numbers('end') } },
+      { name: 'Append special characters', value: -> { add_special_characters('end') } },
       { name: 'Enhanced leetspeak replacement', value: -> { make_leetspeak_wordlist } },
+      { name: 'Remove x number of characters in a row', value: -> { remove_x_characters_in_a_row } },
+      { name: 'Remove x number of characters in a word', value: -> { remove_x_characters } },
+      { name: 'Reverse', value: -> { reverse } },
+      { name: 'Different cases', value: -> { different_cases } },
       { name: 'Go to previous menu', value: -> { PasswordCracking.new } },
       { name: 'Go to Main Menu', value: -> { Toolbox.new } },
       { name: 'Quit application', value: lambda {
@@ -49,7 +55,7 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
       } }
     ]
 
-    prompt.select('Please select your mode', options, cycle: true, per_page: 7)
+    prompt.select('Please select your mode', options, cycle: true, per_page: 9)
   end
 
   def select_file # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
@@ -81,6 +87,232 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
     print "\e[14K" # Clear the line
     puts "#{percentage}% completed, #{remaining} left to go!"
     print "\e[u" # Restore cursor position
+  end
+
+  def remove_x_characters
+    wordlist_file = select_file
+    wordlist_path = File.dirname(wordlist_file)
+    removed_chars_file = File.join(wordlist_path, "removed_#{File.basename(wordlist_file)}")
+
+    puts 'Loading File...'
+    total_lines = `wc -l "#{wordlist_file}"`.strip.split(' ').first.to_i
+    puts 'File Loaded!'.colorize(:green)
+
+    prompt = TTY::Prompt.new
+    prompt.keypress("#{total_lines} passwords loaded, press any key to continue")
+
+    clear_terminal
+    PasswordCrackingAsciiArt.new('remove_chars')
+
+    puts 'Enter the number of allowed character repetitions.'
+    puts 'Entering 2 will remove all words with 3 or more of the same characters '
+    allowed_repeats = gets.chomp.to_i
+    unallowed_repeats = allowed_repeats + 1
+
+    word_count = 0
+    write_count = 0
+
+    File.open(removed_chars_file, 'w') do |file|
+      File.foreach(wordlist_file) do |word|
+        word.chomp!
+        word_count += 1
+        update_progress(word_count, total_lines)
+
+        # Create a hash to count the occurrences of each character
+        char_count = Hash.new(0)
+        word.each_char { |char| char_count[char] += 1 }
+
+        # Generate variations by removing characters that appear more than the allowed repeats
+        bad_word = false
+        char_count.each_value do |count|
+          bad_word = true if count >= unallowed_repeats
+        end
+        next if bad_word == true
+
+        file.puts word
+        write_count += 1
+      end
+    end
+
+    clear_terminal
+    PasswordCrackingAsciiArt.new('wordlist_enhancer')
+    puts "Processed #{word_count} words"
+    puts "Have written #{write_count} words"
+    puts "Number of words with excessive characters removed written to #{removed_chars_file}"
+  end
+
+  def remove_x_characters_in_a_row
+    wordlist_file = select_file
+    wordlist_path = File.dirname(wordlist_file)
+    removed_chars_file = File.join(wordlist_path, "x_in_a_row_#{File.basename(wordlist_file)}")
+
+    puts 'Enter the number of allowed character repetitions.'
+    puts 'Entering 2 will remove all words with 3 or more of the same characters in a row'
+    allowed_repeats = gets.chomp.to_i
+    unallowed_repeats = allowed_repeats + 1
+
+    puts 'Loading File...'
+    total_lines = `wc -l "#{wordlist_file}"`.strip.split(' ').first.to_i
+    puts 'File Loaded!'.colorize(:green)
+
+    prompt = TTY::Prompt.new
+    prompt.keypress("#{total_lines} passwords loaded, press any key to continue")
+
+    clear_terminal
+    PasswordCrackingAsciiArt.new('remove_chars')
+
+    word_count = 0
+    write_count = 0
+
+    File.open(removed_chars_file, 'w') do |file|
+      File.foreach(wordlist_file) do |word|
+        word.chomp!
+        word_count += 1
+        update_progress(word_count, total_lines)
+
+        bad_word = false
+
+        word.chars.each_cons(unallowed_repeats) do |chars|
+          if chars.uniq.length == 1
+            bad_word = true
+            break
+          end
+        end
+
+        file.puts(word) unless bad_word
+        write_count += 1 unless bad_word
+      end
+    end
+
+    clear_terminal
+    PasswordCrackingAsciiArt.new('wordlist_enhancer')
+    puts "Processed #{word_count} words"
+    puts "Have written #{write_count} words"
+    puts "Variations written to #{removed_chars_file}"
+  end
+
+  def reverse
+    wordlist_file = select_file
+    wordlist_path = File.dirname(wordlist_file)
+    reversed_chars_file = File.join(wordlist_path, "reversed_#{File.basename(wordlist_file)}")
+
+    puts 'Loading File...'
+    total_lines = `wc -l "#{wordlist_file}"`.strip.split(' ').first.to_i
+    puts 'File Loaded!'.colorize(:green)
+
+    prompt = TTY::Prompt.new
+    prompt.keypress("#{total_lines} passwords loaded, press any key to continue")
+
+    clear_terminal
+    PasswordCrackingAsciiArt.new('reverse')
+
+    word_count = 0
+    write_count = 0
+
+    File.open(reversed_chars_file, 'w') do |file|
+      File.foreach(wordlist_file) do |word|
+        word.chomp!
+        word_count += 1
+        update_progress(word_count, total_lines)
+        file.puts word.reverse
+        write_count += 1
+      end
+    end
+
+    clear_terminal
+    PasswordCrackingAsciiArt.new('wordlist_enhancer')
+    puts "Processed #{word_count} words"
+    puts "Have written #{write_count} words"
+    puts "Variations written to #{reversed_chars_file}"
+  end
+
+  def add_special_characters(position)
+    wordlist_file = select_file
+    wordlist_path = File.dirname(wordlist_file)
+    special_chars_file = File.join(wordlist_path, "special_#{File.basename(wordlist_file)}")
+
+    puts 'Loading File...'
+    total_lines = `wc -l "#{wordlist_file}"`.strip.split(' ').first.to_i
+    puts 'File Loaded!'.colorize(:green)
+
+    prompt = TTY::Prompt.new
+    prompt.keypress("#{total_lines} passwords loaded, press any key to continue")
+
+    clear_terminal
+    PasswordCrackingAsciiArt.new('reverse')
+
+    word_count = 0
+    write_count = 0
+    special_chars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '{', '}', '|', ':', '"', '<', '>',
+                     '?', '~', '`', '-', '=', '[', ']', ' ;', "'", ',', '.', '/']
+
+    File.open(special_chars_file, 'w') do |file|
+      if position == 'front'
+        File.foreach(wordlist_file) do |word|
+          word.chomp!
+          word_count += 1
+          special_chars.each do |char|
+            update_progress(word_count, total_lines)
+            file.puts "#{char}#{word}"
+            write_count += 1
+          end
+        end
+      elsif position == 'end'
+        File.foreach(wordlist_file) do |word|
+          word.chomp!
+          word_count += 1
+          special_chars.each do |char|
+            update_progress(word_count, total_lines)
+            file.puts "#{word}#{char}"
+            write_count += 1
+          end
+        end
+      end
+    end
+
+    clear_terminal
+    PasswordCrackingAsciiArt.new('wordlist_enhancer')
+    puts "Processed #{word_count} words"
+    puts "Have written #{write_count} words"
+    puts "Variations written to #{special_chars_file}"
+  end
+
+  def different_cases
+    wordlist_file = select_file
+    wordlist_path = File.dirname(wordlist_file)
+    cased_chars_file = File.join(wordlist_path, "cases_#{File.basename(wordlist_file)}")
+
+    puts 'Loading File...'
+    total_lines = `wc -l "#{wordlist_file}"`.strip.split(' ').first.to_i
+    puts 'File Loaded!'.colorize(:green)
+
+    prompt = TTY::Prompt.new
+    prompt.keypress("#{total_lines} passwords loaded, press any key to continue")
+
+    clear_terminal
+    PasswordCrackingAsciiArt.new('cases')
+
+    word_count = 0
+    write_count = 0
+
+    File.open(cased_chars_file, 'w') do |file|
+      File.foreach(wordlist_file) do |word|
+        word.chomp!
+        word_count += 1
+        update_progress(word_count, total_lines)
+        file.puts word.upcase
+        file.puts word.downcase
+        file.puts word.capitalize
+        file.puts word.swapcase
+        write_count += 4
+      end
+    end
+
+    clear_terminal
+    PasswordCrackingAsciiArt.new('wordlist_enhancer')
+    puts "Processed #{word_count} words"
+    puts "Have written #{write_count} words"
+    puts "Variations written to #{cased_chars_file}"
   end
 
   def add_numbers(position) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity

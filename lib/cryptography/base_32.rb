@@ -15,8 +15,8 @@ class BASE32 < Cryptography
     prompt = TTY::Prompt.new
 
     choices = [
-      { name: 'Encrypt', value: -> { CryptographyAsciiArt.new('base32') && encode_base32 } },
-      { name: 'Decrypt', value: -> { CryptographyAsciiArt.new('base32') && decode_base32 } },
+      { name: 'Encrypt', value: -> { CryptographyAsciiArt.new('base32') && encrypt_base32 } },
+      { name: 'Decrypt', value: -> { CryptographyAsciiArt.new('base32') && decrypt_base32 } },
       { name: 'Go to previous menu', value: -> { Cryptography.new } },
       { name: 'Go to Main Menu', value: -> { Toolbox.new } },
       { name: 'Quit Program', value: -> { clear_terminal && exit } }
@@ -25,25 +25,25 @@ class BASE32 < Cryptography
     prompt.select('Please select your mode', choices, per_page: 5, cycle: true)
   end
 
-  def encode_base32
-    puts 'Please enter your data to be encoded'
+  def encrypt_base32
+    puts 'Please enter your data to be encrypted'
 
     data = gets.chomp
 
-    encoded = Base32.encode(data)
+    encrypted = Base32.encrypt(data)
 
-    print "\nYour result is: #{encoded.colorize(:green)}"
+    print "\nYour result is: #{encrypted.colorize(:green)}"
     quit_or_continue(BASE32)
   end
 
-  def decode_base32
-    puts 'Please enter your data to be encoded'
+  def decrypt_base32
+    puts 'Please enter your data to be decrypted'
 
     data = gets.chomp
 
-    decoded = Base32.decode(data)
+    decrypted = Base32.decode(data)
 
-    print "\nYour result is: #{decoded.colorize(:green)}"
+    print "\nYour result is: #{decrypted.colorize(:green)}"
     quit_or_continue(BASE32)
   end
 end

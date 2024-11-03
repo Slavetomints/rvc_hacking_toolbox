@@ -29,10 +29,10 @@ If applicable, add screenshots to help explain your problem.
  - Version [e.g. 22]
 
 **Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+ - Device: [ include model and manufacturer ]
+ - OS: [e.g. Ubuntu 24.02LTS]
+ - Terminal Emulator: [e.g. terminator]
+ - Version [e.g. 0.3.0]
 
 **Additional context**
 Add any other context about the problem here.

@@ -35,7 +35,7 @@ class Hexadecimal < Cryptography
   end
 
   def hex_to_string
-    puts 'Please enter hexadecimal(Base16) digits seperated by spaces'
+    puts 'Please enter hexadecimal(Base16) digits separated by spaces'
     hex_string = gets.chomp
 
     string = hex_string.split.map { |hex| hex.to_i(16).chr }.join

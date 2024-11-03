@@ -36,7 +36,7 @@ class RSA < Cryptography
     puts "\nWhat is e?"
     e = gets.chomp.to_i
 
-    puts "\nWhat is the message? (please seperate by space ex: 1 2 3)"
+    puts "\nWhat is the message? (please separate by space ex: 1 2 3)"
     c = gets.chomp.split(' ')
 
     print "\nYour result is: "

@@ -37,7 +37,7 @@ class MorseCode < Cryptography
   end
 
   def decode_morse_code
-    puts 'Please enter your message to be decoded, seperate letters by spaces and words by 7 spaces'
+    puts 'Please enter your message to be decoded, separate letters by spaces and words by 7 spaces'
 
     ciphertext = gets.chomp
 

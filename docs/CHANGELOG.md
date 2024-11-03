@@ -1,5 +1,14 @@
 ## Version History
 
+### 0.4.1 Patch
+
+- Changed seperate(d) to separate(d)
+- Worked on better documentation
+- Wordlist Enhancer
+  - Added mode to append or prepend special characters
+  - Added mode to reverse the words in a wordlist
+  - Added mode to remove words that have too many of the same character
+
 ### 0.4.0 Update
 
 **New Features:**
@@ -36,7 +45,7 @@
 
 **Enhancements:**
 - Error Handling: Added more comprehensive error handling to improve stability and user experience.
-- [Comprehensive Scan](../lib/web_application_exploitation/comprehensive_scan/): Enhanced the scan file functionality, including improvements to display and output.
+- [Comprehensive Scan](/lib/web_application_exploitation/comprehensive_scan/): Enhanced the scan file functionality, including improvements to display and output.
 
 **Removals:**
 - SQL Injection Scan Capabilities: Removed SQL injection scan capabilities to streamline the tool.
