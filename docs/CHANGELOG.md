@@ -1,7 +1,13 @@
 ## Version History
 
 ### 0.4.1 Patch
+
 - Changed seperate(d) to separate(d)
+- Worked on better documentation
+- Wordlist Enhancer
+  - Added mode to append or prepend special characters
+  - Added mode to reverse the words in a wordlist
+  - Added mode to remove words that have too many of the same character
 
 ### 0.4.0 Update
 
