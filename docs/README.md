@@ -1,6 +1,6 @@
 # RVC HACKING TOOLBOX
 
-[![CodeQL](https://github.com/Slavetomints/rvc_hacking_toolbox/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/Slavetomints/rvc_hacking_toolbox/actions/workflows/github-code-scanning/codeql) ![Static Badge](https://img.shields.io/badge/RELEASE-v0.4.0-blue) ![Static Badge](https://img.shields.io/badge/LICENSE-MIT-green) 
+[![CodeQL](https://github.com/Slavetomints/rvc_hacking_toolbox/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/Slavetomints/rvc_hacking_toolbox/actions/workflows/github-code-scanning/codeql) ![Static Badge](https://img.shields.io/badge/RELEASE-v0.4.1-blue) ![Static Badge](https://img.shields.io/badge/LICENSE-MIT-green) 
 
 
 ## Installation/Getting Started
