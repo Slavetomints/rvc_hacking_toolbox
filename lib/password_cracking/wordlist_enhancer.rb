@@ -100,8 +100,10 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
     clear_terminal
     PasswordCrackingAsciiArt.new('remove_chars')
 
-    puts 'Enter the number of allowed character repetitions: '
+    puts 'Enter the number of allowed character repetitions.'
+    puts 'Entering 2 will remove all words with 3 or more of the same characters '
     allowed_repeats = gets.chomp.to_i
+    unallowed_repeats = allowed_repeats + 1
 
     word_count = 0
     write_count = 0
@@ -109,30 +111,22 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
     File.open(removed_chars_file, 'w') do |file|
       File.foreach(wordlist_file) do |word|
         word.chomp!
-        variations = [word]
+        word_count += 1
+        update_progress(word_count, total_lines)
 
         # Create a hash to count the occurrences of each character
         char_count = Hash.new(0)
         word.each_char { |char| char_count[char] += 1 }
 
         # Generate variations by removing characters that appear more than the allowed repeats
-        char_count.each do |char, count|
-          next unless count > allowed_repeats
-
-          (count - allowed_repeats).times do
-            new_word = word.sub(char, '')
-            variations << new_word unless variations.include?(new_word)
-            word = new_word
-          end
+        bad_word = false
+        char_count.each_value do |count|
+          bad_word = true if count >= unallowed_repeats
         end
+        next if bad_word == true
 
-        variations.uniq.each do |variant|
-          file.puts variant
-          write_count += 1
-        end
-
-        word_count += 1
-        update_progress(word_count, total_lines)
+        file.puts word
+        write_count += 1
       end
     end
 
@@ -148,8 +142,10 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
     wordlist_path = File.dirname(wordlist_file)
     removed_chars_file = File.join(wordlist_path, "x_in_a_row_#{File.basename(wordlist_file)}")
 
-    puts "How many chars in a row do you want to remove? Ex. -> 3 will turn 'aaanexample' into 'anexample'"
-    number_to_remove = gets.chomp.to_i
+    puts 'Enter the number of allowed character repetitions.'
+    puts 'Entering 2 will remove all words with 3 or more of the same characters in a row'
+    allowed_repeats = gets.chomp.to_i
+    unallowed_repeats = allowed_repeats + 1
 
     puts 'Loading File...'
     total_lines = `wc -l "#{wordlist_file}"`.strip.split(' ').first.to_i
@@ -167,36 +163,20 @@ class WordlistEnhancer < PasswordCracking # rubocop:disable Metrics/ClassLength
     File.open(removed_chars_file, 'w') do |file|
       File.foreach(wordlist_file) do |word|
         word.chomp!
+        word_count += 1
+        update_progress(word_count, total_lines)
 
-        new_word = word.dup
-        new_word_reduced = word.dup
-        removed = true
+        bad_word = false
 
-        while removed
-          removed = false
-          (0..new_word.length - number_to_remove).each do |i|
-            substr = new_word[i, number_to_remove]
-            next unless substr.chars.uniq.length == 1
-
-            new_word.slice!(i, number_to_remove)
-            new_word_reduced.slice!(i + 1, number_to_remove - 1)
-            removed = true
+        word.chars.each_cons(unallowed_repeats) do |chars|
+          if chars.uniq.length == 1
+            bad_word = true
             break
           end
         end
 
-        unless new_word.empty?
-          file.puts new_word
-          write_count += 1
-        end
-
-        unless new_word_reduced.empty?
-          file.puts new_word_reduced
-          write_count += 1
-        end
-
-        word_count += 1
-        update_progress(word_count, total_lines)
+        file.puts(word) unless bad_word
+        write_count += 1 unless bad_word
       end
     end
 
